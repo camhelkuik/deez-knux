@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <LinkTo data-test-nav-home @route="index" class="navbar-Brand">DeezKnux</LinkTo>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <LinkTo data-test-nav-find-shop @route="find-shop" class="nav-link">Find a Shop</LinkTo>
+      </li>
+      <li class="nav-item">
+        <LinkTo data-test-nav-about @route="about" class="nav-link">About Us</LinkTo>
+      </li>
+    </ul>
+  </div>
+</nav>
