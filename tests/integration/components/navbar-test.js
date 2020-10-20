@@ -10,7 +10,7 @@ module('Integration | Component | navbar', function(hooks) {
     await render(hbs`<Navbar />`);
 
     assert.dom('[data-test-nav-about]').hasText('About Us');
-    assert.dom('[data-test-nav-home]').hasText('Home');
+    assert.dom('[data-test-nav-home]').hasText('DeezKnux');
 
   });
 });

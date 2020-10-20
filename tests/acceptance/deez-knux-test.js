@@ -9,7 +9,7 @@ module('Acceptance | deez knux', function(hooks) {
     await visit('/');
 
     assert.equal(currentURL(), '/');
-    assert.dom('h1').hasText('Hello, world!');
+    assert.dom('h1').hasText('Welcome to Deez Knux!');
 
     assert.dom('[data-test-nav-about]').hasText('About Us');
     await click('[data-test-nav-about]');
@@ -22,7 +22,7 @@ module('Acceptance | deez knux', function(hooks) {
     assert.equal(currentURL(), '/about');
     assert.dom('h2').hasText('About Deez Knux');
 
-    assert.dom('[data-test-nav-home]').hasText('Home');
+    assert.dom('[data-test-nav-home]').hasText('DeezKnux');
     await click('[data-test-nav-home]');
 
     assert.equal(currentURL(), '/');

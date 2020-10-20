@@ -1,6 +1,15 @@
-<div class="jumbotron">
-  <h2>Find a Shop</h2>
-  <p>
-    will have a map and search area
-  </p>
+<div class="container d-flex flex-column">
+  <div class="d-flex align-items-center flex-column">
+    <h2>Find a Shop</h2>
+    <p>Will have an address bar some day</p>
+  </div>
+  
+  <Map
+      @lat="37.7797"
+      @lng="-122.4184"
+      @zoom="10"
+      @width="300"
+      @height="300"
+      alt="A map of San Francisco"
+    />
 </div>
