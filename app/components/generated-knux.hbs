@@ -1,3 +1,8 @@
-<div class="mt-3 d-flex justify-content-center">
-    <h1> Generated Knux Component</h1>
+<div class="d-flex flex-column align-items-center">
+    <button type="button" class="btn btn-primary btn-lg mb-3" {{on "click" this.generateKnux}}>Deez Knux!</button>
+    <label class="btn btn-secondary active">
+        <input type="checkbox" {{on "click" this.toggleCaps}}> Show knux as all caps
+    </label>
+
+    <h1> {{this.knux}}</h1>
 </div>

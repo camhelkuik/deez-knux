@@ -7,6 +7,13 @@ module.exports = function(defaults) {
     'ember-bootstrap': {
       bootstrapVersion: 4,
       importBootstrapCSS: true
+    },
+    autoImport: {
+      webpack: {
+        node: {
+          fs: 'empty'
+        }
+      }
     }
   });
 
