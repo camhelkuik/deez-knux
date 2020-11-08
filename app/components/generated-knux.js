@@ -4,10 +4,20 @@ import { action } from '@ember/object';
 
 export default class GeneratedKnuxComponent extends Component {
     @tracked knux = "deez knux";
-    isCaps = false;
+    @tracked isCaps = false;
+    @tracked knuxColor = "green";
 
     @action toggleCaps() {
         this.isCaps = !this.isCaps;
+        if (this.isCaps === true){
+            this.knux = this.knux.toUpperCase();
+        } else {
+            this.knux = this.knux.toLowerCase();
+        }
+    }
+
+    @action colorChanged(color){
+        this.knuxColor = color;
     }
 
     @action

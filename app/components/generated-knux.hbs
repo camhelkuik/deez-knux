@@ -4,5 +4,12 @@
         <input type="checkbox" {{on "click" this.toggleCaps}}> Show knux as all caps
     </label>
 
-    <h1> {{this.knux}}</h1>
+    {{spectrum-color-picker
+        preferredFormat="hex"
+        color=knuxColor
+        onChange=(action "colorChanged")
+    }}
+    
+    <h1 style="color:{{this.knuxColor}}"> {{this.knux}}</h1>
+
 </div>
