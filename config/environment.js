@@ -4,7 +4,7 @@ module.exports = function(environment) {
   let ENV = {
     modulePrefix: 'deez-knux',
     environment,
-    rootURL: '/',
+    rootURL: '/deez-knux',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
@@ -24,6 +24,8 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
+    rootURL: '/'
+
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
