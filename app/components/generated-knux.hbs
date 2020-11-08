@@ -4,12 +4,42 @@
         <input type="checkbox" {{on "click" this.toggleCaps}}> Show knux as all caps
     </label>
 
+    <BsDropdown class="mb-3" as |dd|>
+        <dd.button>Select Font <span class="caret"></span></dd.button>
+        <dd.menu as |ddm|>
+            <ddm.item>
+            <button class="dropdown-item" style="font-family:default" {{action "changeFont" "Default"}}>Default</button>
+            </ddm.item>
+            <ddm.item>
+            <button class="dropdown-item" style="font-family:Walter Turncoat" {{action "changeFont" "Walter Turncoat"}}>Walter Turncoat</button>
+            </ddm.item>
+            <ddm.item>
+            <button class="dropdown-item" style="font-family:Bebas Neue" {{action "changeFont" "Bebas Neue"}}>Bebas Neue</button>
+            </ddm.item>
+            <ddm.item>
+            <button class="dropdown-item" style="font-family:Ewert" {{action "changeFont" "Ewert"}}>Ewert</button>
+            </ddm.item>
+            <ddm.item>
+            <button class="dropdown-item" style="font-family:Sancreek" {{action "changeFont" "Sancreek"}}>Sancreek</button>
+            </ddm.item>
+            <ddm.item>
+            <button class="dropdown-item" style="font-family:IM Fell Double Pica" {{action "changeFont" "IM Fell Double Pica"}}>IM Fell Double Pica</button>
+            </ddm.item>
+            <ddm.item>
+            <button class="dropdown-item" style="font-family:Quando" {{action "changeFont" "Quando"}}>Quando</button>
+            </ddm.item>
+        </dd.menu>
+    </BsDropdown>
+
+
     {{spectrum-color-picker
         preferredFormat="hex"
         color=knuxColor
         onChange=(action "colorChanged")
     }}
-    
-    <h1 style="color:{{this.knuxColor}}"> {{this.knux}}</h1>
+
+
+
+    <h1 style="color:{{this.knuxColor}}; font-family:{{this.knuxFont}};"> {{this.knux}}</h1>
 
 </div>
