@@ -1,0 +1,49 @@
+
+.knux-image{
+    width: 35rem;
+    padding: .5rem;
+}
+
+.all-knux{
+    font-size: 50px;
+}
+
+.knuxR1{
+    position: absolute;
+    right: 90rem;
+}
+
+.knuxR2{
+    position: absolute;
+    right: 84.5rem;
+}
+
+.knuxR3{
+    position: absolute;
+    right: 77rem;
+}
+
+.knuxR4{
+    position: absolute;
+    right: 69rem;
+}
+
+.knuxL1{
+    position: absolute;
+    right: 48.5rem;
+}
+
+.knuxL2{
+    position: absolute;
+    right: 40.5rem;
+}
+
+.knuxL3{
+    position: absolute;
+    right: 33rem;
+}
+
+.knuxL4{
+    position: absolute;
+    right: 27rem;
+}
