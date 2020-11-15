@@ -1,5 +1,8 @@
-<div class="d-flex flex-column align-items-center">
+<div class="d-flex flex-row align-items-center justify-content-around">
     <button type="button" class="btn btn-primary btn-lg mb-3" {{on "click" this.generateKnux}}>Deez Knux!</button>
+</div>
+
+<div class="d-flex flex-row align-items-center justify-content-around">
     <label class="btn btn-secondary active">
         <input type="checkbox" {{on "click" this.toggleCaps}}> Show knux as all caps
     </label>
@@ -8,38 +11,76 @@
         <dd.button>Select Font <span class="caret"></span></dd.button>
         <dd.menu as |ddm|>
             <ddm.item>
-            <button class="dropdown-item" style="font-family:default" {{action "changeFont" "Default"}}>Default</button>
+                <button class="dropdown-item" style="font-family:default"
+                    {{action "changeFont" "Default"}}>Default</button>
             </ddm.item>
             <ddm.item>
-            <button class="dropdown-item" style="font-family:Walter Turncoat" {{action "changeFont" "Walter Turncoat"}}>Walter Turncoat</button>
+                <button class="dropdown-item" style="font-family:Walter Turncoat"
+                    {{action "changeFont" "Walter Turncoat"}}>Walter Turncoat</button>
             </ddm.item>
             <ddm.item>
-            <button class="dropdown-item" style="font-family:Bebas Neue" {{action "changeFont" "Bebas Neue"}}>Bebas Neue</button>
+                <button class="dropdown-item" style="font-family:Bebas Neue" {{action "changeFont" "Bebas Neue"}}>Bebas
+                    Neue</button>
             </ddm.item>
             <ddm.item>
-            <button class="dropdown-item" style="font-family:Ewert" {{action "changeFont" "Ewert"}}>Ewert</button>
+                <button class="dropdown-item" style="font-family:Ewert" {{action "changeFont" "Ewert"}}>Ewert</button>
             </ddm.item>
             <ddm.item>
-            <button class="dropdown-item" style="font-family:Sancreek" {{action "changeFont" "Sancreek"}}>Sancreek</button>
+                <button class="dropdown-item" style="font-family:Sancreek"
+                    {{action "changeFont" "Sancreek"}}>Sancreek</button>
             </ddm.item>
             <ddm.item>
-            <button class="dropdown-item" style="font-family:IM Fell Double Pica" {{action "changeFont" "IM Fell Double Pica"}}>IM Fell Double Pica</button>
+                <button class="dropdown-item" style="font-family:IM Fell Double Pica"
+                    {{action "changeFont" "IM Fell Double Pica"}}>IM Fell Double Pica</button>
             </ddm.item>
             <ddm.item>
-            <button class="dropdown-item" style="font-family:Quando" {{action "changeFont" "Quando"}}>Quando</button>
+                <button class="dropdown-item" style="font-family:Quando"
+                    {{action "changeFont" "Quando"}}>Quando</button>
             </ddm.item>
         </dd.menu>
     </BsDropdown>
 
+</div>
 
-    {{spectrum-color-picker
+<div class="d-flex flex-row align-items-center justify-content-around mb-3">
+    <div>
+        <h3>Font Color Picker</h3>
+        {{spectrum-color-picker
         preferredFormat="hex"
-        color=knuxColor
-        onChange=(action "colorChanged")
+        color=knuxFontColor
+        onChange=(action "fontColorChanged")
     }}
 
+    </div>
+
+    <div>
+        <h3>Knux Color Picker</h3>
+        {{spectrum-color-picker
+        preferredFormat="hex"
+        color=knuxColor
+        onChange=(action "knuxColorChanged")
+    }}
+    </div>
+
+</div>
+
+<div class="d-flex flex-row align-items-center justify-content-around">
+
+    <KnuxImage style="background:{{this.knuxColor}}" src="/assets/images/knux-right.png"
+        alt="fist drawing of right hand">
+    </KnuxImage>
+    <h1 class="knuxR1 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxR1}}</h1>
+    <h1 class="knuxR2 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxR2}}</h1>
+    <h1 class="knuxR3 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxR3}}</h1>
+    <h1 class="knuxR4 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxR4}}</h1>
 
 
-    <h1 style="color:{{this.knuxColor}}; font-family:{{this.knuxFont}};"> {{this.knux}}</h1>
+    <KnuxImage style="background:{{this.knuxColor}}" src="/assets/images/knux-left.png" alt="fist drawing of left hand">
+    </KnuxImage>
+    <h1 class="knuxL1 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxL1}}</h1>
+    <h1 class="knuxL2 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxL2}}</h1>
+    <h1 class="knuxL3 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxL3}}</h1>
+    <h1 class="knuxL4 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxL4}}</h1>
+
 
 </div>
