@@ -2,12 +2,12 @@
     <button type="button" class="btn btn-primary btn-lg mb-3" {{on "click" this.generateKnux}}>Deez Knux!</button>
 </div>
 
-<div class="d-flex flex-row align-items-center justify-content-around">
-    <label class="btn btn-secondary active">
+<div class="d-flex flex-row align-items-center justify-content-center">
+    <label class="btn btn-secondary active mr-1">
         <input type="checkbox" {{on "click" this.toggleCaps}}> Show knux as all caps
     </label>
 
-    <BsDropdown class="mb-3" as |dd|>
+    <BsDropdown class="mb-1 ml-1" as |dd|>
         <dd.button>Select Font <span class="caret"></span></dd.button>
         <dd.menu as |ddm|>
             <ddm.item>
@@ -42,45 +42,57 @@
 
 </div>
 
-<div class="d-flex flex-row align-items-center justify-content-around mb-3">
-    <div>
+<div class="d-flex flex-row align-items-center justify-content-center mb-3">
+    <div class="mr-5">
         <h3>Font Color Picker</h3>
-        {{spectrum-color-picker
-        preferredFormat="hex"
-        color=knuxFontColor
-        onChange=(action "fontColorChanged")
-    }}
+        <div class="d-flex flex-row align-items-center justify-content-center">
+            {{spectrum-color-picker
+            preferredFormat="hex"
+            color=knuxFontColor
+            onChange=(action "fontColorChanged")
+            }}
+        </div>
 
     </div>
 
     <div>
         <h3>Knux Color Picker</h3>
-        {{spectrum-color-picker
-        preferredFormat="hex"
-        color=knuxColor
-        onChange=(action "knuxColorChanged")
-    }}
+        <div class="d-flex flex-row align-items-center justify-content-center">
+            {{spectrum-color-picker
+            preferredFormat="hex"
+            color=knuxColor
+            onChange=(action "knuxColorChanged")
+            }}
+        </div>
     </div>
 
 </div>
 
-<div class="d-flex flex-row align-items-center justify-content-around">
+<div class="d-flex flex-row align-items-center justify-content-center">
 
     <KnuxImage style="background:{{this.knuxColor}}" src="/assets/images/knux-right.png"
         alt="fist drawing of right hand">
     </KnuxImage>
-    <h1 class="knuxR1 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxR1}}</h1>
-    <h1 class="knuxR2 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxR2}}</h1>
-    <h1 class="knuxR3 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxR3}}</h1>
-    <h1 class="knuxR4 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxR4}}</h1>
+    <h1 class="knuxR1 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxR1}}
+    </h1>
+    <h1 class="knuxR2 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxR2}}
+    </h1>
+    <h1 class="knuxR3 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxR3}}
+    </h1>
+    <h1 class="knuxR4 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxR4}}
+    </h1>
 
 
     <KnuxImage style="background:{{this.knuxColor}}" src="/assets/images/knux-left.png" alt="fist drawing of left hand">
     </KnuxImage>
-    <h1 class="knuxL1 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxL1}}</h1>
-    <h1 class="knuxL2 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxL2}}</h1>
-    <h1 class="knuxL3 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxL3}}</h1>
-    <h1 class="knuxL4 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxL4}}</h1>
+    <h1 class="knuxL1 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxL1}}
+    </h1>
+    <h1 class="knuxL2 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxL2}}
+    </h1>
+    <h1 class="knuxL3 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxL3}}
+    </h1>
+    <h1 class="knuxL4 all-knux" style="color:{{this.knuxFontColor}}; font-family:{{this.knuxFont}};"> {{this.knuxL4}}
+    </h1>
 
 
 </div>

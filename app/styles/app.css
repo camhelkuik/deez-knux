@@ -1,6 +1,7 @@
 
 .knux-image{
     width: 35rem;
+    padding: .5rem;
 }
 
 .all-knux{
@@ -9,40 +10,40 @@
 
 .knuxR1{
     position: absolute;
-    right: 78rem;
+    right: 90rem;
 }
 
 .knuxR2{
     position: absolute;
-    right: 72rem;
+    right: 84.5rem;
 }
 
 .knuxR3{
     position: absolute;
-    right: 64rem;
+    right: 77rem;
 }
 
 .knuxR4{
     position: absolute;
-    right: 56rem;
+    right: 69rem;
 }
 
 .knuxL1{
     position: absolute;
-    right: 28.5rem;
+    right: 48.5rem;
 }
 
 .knuxL2{
     position: absolute;
-    right: 20rem;
+    right: 40.5rem;
 }
 
 .knuxL3{
     position: absolute;
-    right: 12.5rem;
+    right: 33rem;
 }
 
 .knuxL4{
     position: absolute;
-    right: 7rem;
+    right: 27rem;
 }

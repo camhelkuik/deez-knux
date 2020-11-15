@@ -3,9 +3,6 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 
 export default class GeneratedKnuxComponent extends Component {
-    @tracked knuxRight = "deez";
-    @tracked knuxLeft = "knux";
-
     @tracked knuxR1 = "d";
     @tracked knuxR2 = "e";
     @tracked knuxR3 = "e";
@@ -24,9 +21,6 @@ export default class GeneratedKnuxComponent extends Component {
     @action toggleCaps() {
         this.isCaps = !this.isCaps;
         if (this.isCaps === true) {
-            this.knuxRight = this.knuxRight.toUpperCase();
-            this.knuxLeft = this.knuxLeft.toUpperCase();
-
             this.knuxR1 = this.knuxR1.toUpperCase();
             this.knuxR2 = this.knuxR2.toUpperCase();
             this.knuxR3 = this.knuxR3.toUpperCase();
@@ -36,9 +30,6 @@ export default class GeneratedKnuxComponent extends Component {
             this.knuxL3 = this.knuxL3.toUpperCase();
             this.knuxL4 = this.knuxL4.toUpperCase();
         } else {
-            this.knuxRight = this.knuxRight.toLowerCase();
-            this.knuxleft = this.knuxLeft.toLowerCase();
-
             this.knuxR1 = this.knuxR1.toLowerCase();
             this.knuxR2 = this.knuxR2.toLowerCase();
             this.knuxR3 = this.knuxR3.toLowerCase();
@@ -205,35 +196,15 @@ export default class GeneratedKnuxComponent extends Component {
             combinedKnux += wordKnux[random];
             i++;
         }
-        if (this.isCaps === true) {
-            this.knuxR1 = combinedKnux.substring(0, 1).toUpperCase();
-            this.knuxR2 = combinedKnux.substring(1, 2).toUpperCase();
-            this.knuxR3 = combinedKnux.substring(2, 3).toUpperCase();
-            this.knuxR4 = combinedKnux.substring(3, 4).toUpperCase();
+            this.knuxR1 = combinedKnux.substring(0, 1);
+            this.knuxR2 = combinedKnux.substring(1, 2);
+            this.knuxR3 = combinedKnux.substring(2, 3);
+            this.knuxR4 = combinedKnux.substring(3, 4);
 
-            this.knuxL1 = combinedKnux.substring(4, 5).toUpperCase();
-            this.knuxL2 = combinedKnux.substring(5, 6).toUpperCase();
-            this.knuxL3 = combinedKnux.substring(6, 7).toUpperCase();
-            this.knuxL4 = combinedKnux.substring(7, 8).toUpperCase();
-
-            this.knuxRight = combinedKnux.substring(0, 4).toUpperCase();
-            this.knuxLeft = combinedKnux.substring(4, 8).toUpperCase();
-
-        } else {
-
-            this.knuxR1 = combinedKnux.substring(0, 1).toUpperCase();
-            this.knuxR2 = combinedKnux.substring(1, 2).toUpperCase();
-            this.knuxR3 = combinedKnux.substring(2, 3).toUpperCase();
-            this.knuxR4 = combinedKnux.substring(3, 4).toUpperCase();
-
-            this.knuxL1 = combinedKnux.substring(4, 5).toUpperCase();
-            this.knuxL2 = combinedKnux.substring(5, 6).toUpperCase();
-            this.knuxL3 = combinedKnux.substring(6, 7).toUpperCase();
-            this.knuxL4 = combinedKnux.substring(7, 8).toUpperCase();
-
-            this.knuxRight = combinedKnux.substring(0, 4);
-            this.knuxLeft = combinedKnux.substring(4, 8);
-        }
+            this.knuxL1 = combinedKnux.substring(4, 5);
+            this.knuxL2 = combinedKnux.substring(5, 6);
+            this.knuxL3 = combinedKnux.substring(6, 7);
+            this.knuxL4 = combinedKnux.substring(7, 8);
     }
 }
 
