@@ -1,49 +1,328 @@
 
+
 .knux-image{
-    width: 35rem;
-    padding: .5rem;
+    max-width: 100%;
+    height: auto;
+    position: absolute;
+    z-index: -1;
 }
 
 .all-knux{
-    font-size: 50px;
+    font-size: 105px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 19rem;
 }
 
 .knuxR1{
-    position: absolute;
-    right: 90rem;
 }
 
 .knuxR2{
-    position: absolute;
-    right: 84.5rem;
+    position: relative;
+    left: -96px;
 }
 
 .knuxR3{
-    position: absolute;
-    right: 77rem;
+    position: relative;
+    left: -135px;
 }
 
 .knuxR4{
-    position: absolute;
-    right: 69rem;
+    position: relative;
+    left: -157px;
 }
 
 .knuxL1{
-    position: absolute;
-    right: 48.5rem;
+    position: relative;
+    right: -154px;
 }
 
 .knuxL2{
-    position: absolute;
-    right: 40.5rem;
+    position: relative;
+    right: -134px;
 }
 
 .knuxL3{
-    position: absolute;
-    right: 33rem;
+    position: relative;
+    right: -86px;
 }
 
 .knuxL4{
-    position: absolute;
-    right: 27rem;
 }
+
+@media only screen and (max-width: 1678px) {
+    .all-knux{
+        margin-top: 16rem;
+    }
+
+    .knuxR2{
+        left: -85px;
+    }
+    
+    .knuxR3{
+        left: -121px;
+    }
+    
+    .knuxR4{
+        left: -136px;
+    }
+    
+    .knuxL1{
+        right: -134px;
+    }
+    
+    .knuxL2{
+        right: -115px;
+    }
+    
+    .knuxL3{
+        right: -73px;
+    }
+  }
+
+  @media only screen and (max-width: 1450px) {
+    .all-knux{
+        margin-top: 13rem;
+    }
+
+    .knuxR2{
+        left: -79px;
+    }
+    
+    .knuxR3{
+        left: -110px;
+    }
+    
+    .knuxR4{
+        left: -121px;
+    }
+    
+    .knuxL1{
+        right: -121px;
+    }
+    
+    .knuxL2{
+        right: -98px;
+    }
+    
+    .knuxL3{
+        right: -64px;
+    }
+  }
+
+  @media only screen and (max-width: 1285px) {
+    .all-knux{
+        margin-top: 10rem;
+        font-size: 94px;
+    }
+
+    .knuxR2{
+        left: -72px;
+    }
+    
+    .knuxR3{
+        left: -98px;
+    }
+    
+    .knuxR4{
+        left: -109px;
+    }
+    
+    .knuxL1{
+        right: -106px;
+    }
+    
+    .knuxL2{
+        right: -90px;
+    }
+    
+    .knuxL3{
+        right: -57px;
+    }
+  }
+
+  @media only screen and (max-width: 1045px) {
+    .all-knux{
+        margin-top: 8rem;
+        font-size: 84px;
+    }
+
+    .knuxR2{
+        left: -58px;
+    }
+    
+    .knuxR3{
+        left: -81px;
+    }
+    
+    .knuxR4{
+        left: -89px;
+    }
+    
+    .knuxL1{
+        right: -87px;
+    }
+    
+    .knuxL2{
+        right: -74px;
+    }
+    
+    .knuxL3{
+        right: -46px;
+    }
+  }
+
+  @media only screen and (max-width: 875px) {
+    .all-knux{
+        margin-top: 7rem;
+        font-size: 70px;
+    }
+
+    .knuxR2{
+        left: -46px;
+    }
+    
+    .knuxR3{
+        left: -68px;
+    }
+    
+    .knuxR4{
+        left: -74px;
+    }
+    
+    .knuxL1{
+        right: -73px;
+    }
+    
+    .knuxL2{
+        right: -61px;
+    }
+    
+    .knuxL3{
+        right: -39px;
+    }
+  }
+
+  @media only screen and (max-width: 690px) {
+    .all-knux{
+        margin-top: 5rem;
+        font-size: 58px;
+    }
+
+    .knuxR2{
+        left: -38px;
+    }
+    
+    .knuxR3{
+        left: -52px;
+    }
+    
+    .knuxR4{
+        left: -59px;
+    }
+    
+    .knuxL1{
+        right: -57px;
+    }
+    
+    .knuxL2{
+        right: -48px;
+    }
+    
+    .knuxL3{
+        right: -30px;
+    }
+  }
+
+  @media only screen and (max-width: 560px) {
+    .all-knux{
+        margin-top: 4rem;
+        font-size: 47px;
+    }
+
+    .knuxR2{
+        left: -31px;
+    }
+    
+    .knuxR3{
+        left: -44px;
+    }
+    
+    .knuxR4{
+        left: -48px;
+    }
+    
+    .knuxL1{
+        right: -46px;
+    }
+    
+    .knuxL2{
+        right: -39px;
+    }
+    
+    .knuxL3{
+        right: -25px;
+    }
+  }
+
+  @media only screen and (max-width: 445px) {
+    .all-knux{
+        margin-top: 3.5rem;
+        font-size: 40px;
+    }
+
+    .knuxR2{
+        left: -25px;
+    }
+    
+    .knuxR3{
+        left: -34px;
+    }
+    
+    .knuxR4{
+        left: -39px;
+    }
+    
+    .knuxL1{
+        right: -38px;
+    }
+    
+    .knuxL2{
+        right: -31px;
+    }
+    
+    .knuxL3{
+        right: -19px;
+    }
+  }
+
+  @media only screen and (max-width: 365px) {
+    .all-knux{
+        margin-top: 2.75rem;
+        font-size: 35px;
+    }
+
+    .knuxR2{
+        left: -21px;
+    }
+    
+    .knuxR3{
+        left: -28px;
+    }
+    
+    .knuxR4{
+        left: -32px;
+    }
+    
+    .knuxL1{
+        right: -32px;
+    }
+    
+    .knuxL2{
+        right: -26px;
+    }
+    
+    .knuxL3{
+        right: -15px;
+    }
+  }
