@@ -2,6 +2,14 @@
 
 module.exports = function(environment) {
   let ENV = {
+    'mapbox-gl': {
+      accessToken: 'pk.eyJ1IjoiY2FtaGVsa3VpayIsImEiOiJjazlkMnVzNTYwYWl1M2VvN25oZTl0MnpkIn0.b5N1oo7pk7KqZBgfMf8r-A',
+      map: {
+        style: 'mapbox://styles/mapbox/basic-v9',
+        zoom: 13,
+        center: [ -96.7969879, 32.7766642 ]
+      }
+    },
     modulePrefix: 'deez-knux',
     environment,
     rootURL: '/',
@@ -47,7 +55,7 @@ module.exports = function(environment) {
     // here you can enable a production-specific feature
   }
 
-  ENV.MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiY2FtaGVsa3VpayIsImEiOiJjazlkMnVzNTYwYWl1M2VvN25oZTl0MnpkIn0.b5N1oo7pk7KqZBgfMf8r-A';
+  // ENV.MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiY2FtaGVsa3VpayIsImEiOiJjazlkMnVzNTYwYWl1M2VvN25oZTl0MnpkIn0.b5N1oo7pk7KqZBgfMf8r-A';
 
   return ENV;
 };

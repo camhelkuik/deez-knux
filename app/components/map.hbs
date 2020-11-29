@@ -1,7 +1,23 @@
 <div class="d-flex justify-content-center ">
-  <img class="img-fluid"
+  {{!-- <img class="img-fluid"
     alt="Map image at coordinates {{@lat}},{{@lng}}"
     ...attributes
     src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/{{@lng}},{{@lat}},{{@zoom}}/{{@width}}x{{@height}}@2x?access_token={{this.token}}"
-  >
+  > --}}
+
+
+  {{!-- {{#mapbox-gl class='map-container' initOptions=(hash pitch=30) as |map|}}
+    {{map.on 'click' (action 'mapClicked')}}
+
+    {{#map.source options=(hash type='geojson' data=@marker) as |source|}}
+      {{source.layer layer=(hash
+          type='circle'
+          paint=(hash circle-color='#007cbf' circle-radius=10))}}
+    {{/map.source}}
+  {{/mapbox-gl}} --}}
+
+   {{#mapbox-gl class='map-container' as |map|}}
+    
+  {{/mapbox-gl}}
+
 </div>
