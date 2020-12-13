@@ -1,10 +1,63 @@
+:root {
+    /* This color should be eye-catching but not harsh. It can be liberally applied to your layout as its main identity. */
+    --main-brand-color: #FC8D1E;
+    /* Another accent color to consider. Not all colors have to be used - sometimes a simple color scheme works best. */
+    --dark-accent-color: #E74244;
+    /* Use as the text color for dark-on-light designs, or as the background for inverted designs. */
+    --dark-shades-color: #312B37;
+    /* Accent colors can be used to bring attention to design elements by contrasting with the rest of the palette. */
+    --ligh-accent-color: #52B497;
+    /* Use this color as the background for your dark-on-light designs, or the text color of an inverted design */
+    --light-shades-color: #F4F1EF; 
+  }
 
+body {
+    background-color: var(--dark-shades-color);
+    color: var(--light-shades-color);
+}
+
+.jumbotron-colors{
+    background-color: var(--light-shades-color);
+    color: var(--dark-shades-color);
+}
+
+.nav-colors{
+    background-color: var(--main-brand-color);
+}
+
+.nav-link-color {
+    color: var(--dark-shades-color);
+}
+
+nav a{
+    color: var(--dark-shades-color) !important;
+    text-decoration: none;
+}
+
+.primary-button {
+    background-color: var(--main-brand-color);
+}
+
+.secondary-actions{
+    background-color: var(--ligh-accent-color);
+    color: var(--light-shades-color);
+}
+
+.knux-actions{
+    background: var(--light-shades-color);
+    width: auto;
+    padding: 2rem;
+    margin: 3rem 22rem;
+    border-radius: 10px;
+    color: var(--dark-shades-color)
+}
 
 .knux-image{
     max-width: 100%;
     height: auto;
     position: absolute;
     z-index: -1;
+    border-radius: 10px;
 }
 
 .all-knux{
@@ -86,11 +139,11 @@
     }
 
     .knuxR2{
-        left: -79px;
+        left: -47px;
     }
     
     .knuxR3{
-        left: -110px;
+        left: -85px;
     }
     
     .knuxR4{
