@@ -1,14 +1,15 @@
+<div class="knux-actions">
 <div class="d-flex flex-row align-items-center justify-content-around">
-    <button type="button" class="btn btn-primary btn-lg mb-3" {{on "click" this.generateKnux}}>Deez Knux!</button>
+    <button type="button" class="btn primary-button btn-lg mb-3" {{on "click" this.generateKnux}}>Deez Knux!</button>
 </div>
 
 <div class="d-flex flex-row align-items-center justify-content-center">
-    <label class="btn btn-secondary active mr-1">
+    <label class="btn secondary-actions active mr-1">
         <input type="checkbox" {{on "click" this.toggleCaps}}> Show knux as all caps
     </label>
 
-    <BsDropdown class="mb-1 ml-1" as |dd|>
-        <dd.button>Select Font <span class="caret"></span></dd.button>
+    <BsDropdown class="mb-2 ml-1" as |dd|>
+        <dd.button class="secondary-actions">Select Font <span class="caret"></span></dd.button>
         <dd.menu as |ddm|>
             <ddm.item>
                 <button class="dropdown-item" style="font-family:default"
@@ -67,7 +68,8 @@
     </div>
 
 </div>
-<div>
+</div>
+<div class="">
   <img class="knux-image" style="background:{{this.knuxColor}}" src="/assets/images/full-knux.png"
         alt="drawing of two fists">
 </div>

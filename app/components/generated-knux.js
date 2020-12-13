@@ -14,9 +14,9 @@ export default class GeneratedKnuxComponent extends Component {
     @tracked knuxL4 = "x";
 
     @tracked isCaps = false;
-    @tracked knuxFontColor = "black";
-    @tracked knuxFont = "default";
-    @tracked knuxColor = "deeppink";
+    @tracked knuxFontColor = "#52B497";
+    @tracked knuxFont = "#default";
+    @tracked knuxColor = "#E74244";
 
     @action toggleCaps() {
         this.isCaps = !this.isCaps;
