@@ -1,0 +1,84 @@
+{{page-title "Home"}}
+
+<div class="d-flex flex-column align-items-center">
+    <h1 class="display-5 fw-bold">Welcome to Deez Knux!</h1>
+    <p class="fs-4">Hit the button below to generate your knux</p>
+
+    <button class="ms-5 me-5 btn btn-primary btn-lg primary-button" type="button" {{on "click" this.generateKnux}}>My
+        Knux</button>
+
+</div>
+
+<div class="all-knux">
+    {{!-- <img src="\assets\images\full-knux.png" style="background:{{this.knuxColor}}" class="img-fluid"
+        alt="knuckle image"> --}}
+
+    <div class="knux-letters d-flex flex-row justify-content-center mt-3" style="background:{{this.knuxColor}}">
+        {{#each this.knuxArray as |knux index|}}
+        <IndividualKnux @knuxClass={{index}} @knuxFontColor={{this.knuxFontColor}} @knuxFont={{this.knuxFont}}
+            @knuxValue={{knux}} />
+        {{/each}}
+    </div>
+</div>
+
+<div class="d-flex flex-row justify-content-center mt-3">
+    <label class="btn secondary-actions active me-3">
+        <input type="checkbox" {{on "click" this.toggleCaps}}> Show knux as all caps
+    </label>
+
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle secondary-actions" type="button" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Select Font
+        </button>
+        <ul class="dropdown-menu secondary-actions" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item secondary-actions" style="font-family:default" href="#" {{on "click" (fn
+                    this.changeFont "default" )}}>Default</a></li>
+            <li><a class="dropdown-item" style="font-family:Walter Turncoat" href="#" {{on "click" (fn
+                    this.changeFont "Walter Turncoat" )}}>Walter Turncoat</a></li>
+            <li><a class="dropdown-item" style="font-family:Bebas Neue" href="#" {{on "click" (fn
+                    this.changeFont "Bebas Neue" )}}>Bebas Neue</a></li>
+            <li><a class="dropdown-item" style="font-family:Ewert" href="#" {{on "click" (fn this.changeFont "Ewert"
+                    )}}>Ewert</a></li>
+            <li><a class="dropdown-item" style="font-family:Sancreek" href="#" {{on "click" (fn
+                    this.changeFont "Sancreek" )}}>Sancreek</a></li>
+            <li><a class="dropdown-item" style="font-family:IM Fell Double Pica" href="#" {{on "click" (fn
+                    this.changeFont "IM Fell Double Pica" )}}>IM Fell Double Pica</a></li>
+            <li><a class="dropdown-item" style="font-family:Quando" href="#" {{on "click" ( fn this.changeFont "Quando"
+                    )}}>Quando</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="d-flex flex-row justify-content-evenly mt-3">
+    <div>
+        <h3>Font Color Picker</h3>
+        <div class="d-flex flex-row align-items-center justify-content-center">
+            <SpectrumColorPicker
+                @preferredFormat="hex"
+                @color={{this.knuxFontColor}}
+                @onChange={{action this.fontColorChanged}}
+            />
+        </div>
+
+    </div>
+
+    <div>
+        <h3>Knux Color Picker</h3>
+        <div class="d-flex flex-row align-items-center justify-content-center">
+            <SpectrumColorPicker
+                @preferredFormat="hex"
+                @color={{this.knuxColor}}
+                @onChange={{action this.knuxColorChanged}}
+            />
+        </div>
+    </div>
+
+</div>
+
+{{!-- Add Save Knux --}}
+<div class="d-flex flex-column align-items-center">
+    <p class="fs-4 mt-4">Like the knux, but don't want it for yourself? Add it to the Top Rated board for others to use.
+    </p>
+    <button class="ms-5 me-5 btn btn-primary primary-button" type="button" {{on "click" this.addToTopRated}}>Add to Top Rated</button>
+</div>

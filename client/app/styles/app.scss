@@ -1,0 +1,37 @@
+@import './_index';
+
+:root {
+    /* This color should be eye-catching but not harsh. It can be liberally applied to your layout as its main identity. */
+    --main-brand-color: #FC8D1E;
+    /* Another accent color to consider. Not all colors have to be used - sometimes a simple color scheme works best. */
+    --dark-accent-color: #E74244;
+    /* Use as the text color for dark-on-light designs, or as the background for inverted designs. */
+    --dark-shades-color: #312B37;
+    /* Accent colors can be used to bring attention to design elements by contrasting with the rest of the palette. */
+    --light-accent-color: #52B497;
+    /* Use this color as the background for your dark-on-light designs, or the text color of an inverted design */
+    --light-shades-color: #F4F1EF; 
+  }
+
+body {
+    background-color: var(--dark-shades-color);
+}
+
+.nav-colors{
+    background-color: var(--main-brand-color);
+}
+
+.primary-button {
+    background-color: var(--main-brand-color);
+    &:focus{
+        background-color: var(--main-brand-color);
+    }
+    &:hover{
+        background-color: var(--dark-accent-color);
+    }
+}
+
+.secondary-actions{
+    background-color: var(--dark-accent-color);
+    color: var(--light-shades-color);
+}

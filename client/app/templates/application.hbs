@@ -1,0 +1,34 @@
+{{page-title "DeezKnux"}}
+<nav class="navbar navbar-expand-lg navbar-dark nav-colors">
+    <div class="container-md">
+        <a class="navbar-brand" href="#">Deez Knux</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <ul class="navbar-nav">
+                <LinkTo class="nav-link" @route="index">Home</LinkTo>
+                <LinkTo class="nav-link" @route="top-rated">Top Rated</LinkTo>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Account
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <LinkTo class="dropdown-item" @route="account">Account Info</LinkTo>
+                        <LinkTo class="dropdown-item" @route="saved-knux">Saved Knux</LinkTo>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="p-5 bg-light">
+        {{outlet}}
+    </div>
+</div>
+
+{{!-- need a logout button and then a signin/signup page --}}

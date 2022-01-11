@@ -1,0 +1,46 @@
+{{page-title "TopRated"}}
+
+
+<h1>Top Rated Knux</h1>
+<div class="table-responsive">
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Rank</th>
+                <th scope="col">Knux</th>
+                <th scope="col">Votes</th>
+                <th scope="col">Up Vote</th>
+            </tr>
+        </thead>
+        <tbody>
+           {{#each this.model as |item|}}
+               <KnuxTable
+                @rankData={{item.rank}}
+                @knuxData={{item.knux}}
+                @votesData={{item.votes}}
+               />
+           {{/each}}
+        </tbody>
+    </table>
+</div>
+
+{{!-- when up voting, the icon should turn to solid white --}}
+
+{{!--  <tr>
+                <th scope="row">1</th>
+                <td>Punk Bats</td>
+                <td>1234</td>
+                <td><i class="bi bi-hand-thumbs-up"></i></td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Funk Cats</td>
+                <td>123</td>
+                <td><i class="bi bi-hand-thumbs-up"></i></td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Cool Rats</td>
+                <td>12</td>
+                <td><i class="bi bi-hand-thumbs-up"></i></td>
+            </tr> --}}
