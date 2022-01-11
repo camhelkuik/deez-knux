@@ -1,0 +1,79 @@
+  [1m[35m (4.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (6.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (4.9ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateKnuxesTable (20220111194830)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "knuxes" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "knux" varchar)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20220111194830"]]
+  [1m[36mTRANSACTION (3.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2022-01-11 19:49:02.969456"], ["updated_at", "2022-01-11 19:49:02.969456"]]
+  [1m[36mTRANSACTION (4.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mKnux Create (0.8ms)[0m  [1m[32mINSERT INTO "knuxes" ("knux") VALUES (?)[0m  [["knux", nil]]
+  [1m[36mTRANSACTION (4.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mKnux Create (2.1ms)[0m  [1m[32mINSERT INTO "knuxes" ("knux") VALUES (?)[0m  [["knux", "punk cats"]]
+  [1m[36mTRANSACTION (4.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mKnux Create (0.7ms)[0m  [1m[32mINSERT INTO "knuxes" ("knux") VALUES (?)[0m  [["knux", "funk bats"]]
+  [1m[36mTRANSACTION (4.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mKnux Create (1.1ms)[0m  [1m[32mINSERT INTO "knuxes" ("knux") VALUES (?)[0m  [["knux", "cool rats"]]
+  [1m[36mTRANSACTION (4.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+Started GET "/knuxes" for ::1 at 2022-01-11 14:02:40 -0600
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 31ms (Views: 5.3ms | ActiveRecord: 0.7ms | Allocations: 18835)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:02:51 -0600
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.6ms | ActiveRecord: 0.1ms | Allocations: 908)
+
+
+Started GET "/favicon.ico" for ::1 at 2022-01-11 14:02:52 -0600
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+Started GET "/knuxes" for ::1 at 2022-01-11 14:08:07 -0600
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 19ms (Views: 5.2ms | ActiveRecord: 0.7ms | Allocations: 18142)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:10:32 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 3ms (Views: 2.1ms | ActiveRecord: 0.2ms | Allocations: 1033)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:10:42 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.8ms | ActiveRecord: 0.1ms | Allocations: 929)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:10:47 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.9ms | ActiveRecord: 0.2ms | Allocations: 929)
+
+

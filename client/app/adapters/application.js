@@ -1,3 +1,3 @@
-import FirebaseAdapter from 'emberfire/adapters/firebase';
+import ActiveModelAdapter from 'active-model-adapter';
 
-export default FirebaseAdapter.extend({});
+export default class ApplicationAdapter extends ActiveModelAdapter {}

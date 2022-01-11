@@ -16,18 +16,18 @@
   });
   0; //eaimeta@70e063a35619d71f0,"@ember-data/adapter/json-api"eaimeta@70e063a35619d71f
 });
-;define("deez-knux/adapters/application", ["exports", "emberfire/adapters/firebase"], function (_exports, _firebase) {
+;define("deez-knux/adapters/application", ["exports", "active-model-adapter"], function (_exports, _activeModelAdapter) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
     value: true
   });
   _exports.default = void 0;
-  0; //eaimeta@70e063a35619d71f0,"emberfire/adapters/firebase"eaimeta@70e063a35619d71f
+  0; //eaimeta@70e063a35619d71f0,"active-model-adapter"eaimeta@70e063a35619d71f
 
-  var _default = _firebase.default.extend({});
+  class ApplicationAdapter extends _activeModelAdapter.default {}
 
-  _exports.default = _default;
+  _exports.default = ApplicationAdapter;
 });
 ;define("deez-knux/app", ["exports", "@ember/application", "ember-resolver", "ember-load-initializers", "deez-knux/config/environment"], function (_exports, _application, _emberResolver, _emberLoadInitializers, _environment) {
   "use strict";
@@ -415,6 +415,26 @@
   var _default = _singularize.default;
   _exports.default = _default;
 });
+;define("deez-knux/initializers/active-model-adapter", ["exports", "active-model-adapter/initializers/active-model-adapter"], function (_exports, _activeModelAdapter) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(_exports, "default", {
+    enumerable: true,
+    get: function () {
+      return _activeModelAdapter.default;
+    }
+  });
+  Object.defineProperty(_exports, "initialize", {
+    enumerable: true,
+    get: function () {
+      return _activeModelAdapter.initialize;
+    }
+  });
+  0; //eaimeta@70e063a35619d71f0,"active-model-adapter/initializers/active-model-adapter"eaimeta@70e063a35619d71f
+});
 ;define("deez-knux/initializers/app-version", ["exports", "ember-cli-app-version/initializer-factory", "deez-knux/config/environment"], function (_exports, _initializerFactory, _environment) {
   "use strict";
 
@@ -570,7 +590,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _dec3, _class, _descriptor, _descriptor2, _descriptor3;
+  var _dec, _class, _descriptor;
 
   0; //eaimeta@70e063a35619d71f0,"@ember-data/model"eaimeta@70e063a35619d71f
 
@@ -582,30 +602,16 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let KnuxModel = (_dec = (0, _model.attr)('string'), _dec2 = (0, _model.hasMany)('user', {
-    inverse: null
-  }), _dec3 = (0, _model.hasMany)('user'), (_class = class KnuxModel extends _model.default {
+  let KnuxModel = (_dec = (0, _model.attr)('string'), (_class = class KnuxModel extends _model.default {
     constructor() {
       super(...arguments);
 
       _initializerDefineProperty(this, "knux", _descriptor, this);
+    } // @hasMany('user', { inverse: null }) upvoted;
+    // @hasMany('user') favorited;
 
-      _initializerDefineProperty(this, "upvoted", _descriptor2, this);
-
-      _initializerDefineProperty(this, "favorited", _descriptor3, this);
-    }
 
   }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "knux", [_dec], {
-    configurable: true,
-    enumerable: true,
-    writable: true,
-    initializer: null
-  }), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "upvoted", [_dec2], {
-    configurable: true,
-    enumerable: true,
-    writable: true,
-    initializer: null
-  }), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "favorited", [_dec3], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -757,9 +763,8 @@
       _initializerDefineProperty(this, "store", _descriptor, this);
     }
 
-    async model() {
-      const data = await this.store.findAll('knux');
-      return data;
+    model() {
+      return this.store.findAll('knux');
     }
 
   }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "store", [_service.inject], {
@@ -1023,7 +1028,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("deez-knux/app")["default"].create({"name":"deez-knux","version":"0.0.0+4e31079c"});
+            require("deez-knux/app")["default"].create({"name":"deez-knux","version":"0.0.0+f1eed856"});
           }
         
 //# sourceMappingURL=deez-knux.map

@@ -68,7 +68,7 @@ export default class IndexController extends Controller {
     let cominedTopRated = firstKnux + ' ' + secondKnux;
 
     this.store.createRecord('knux', {
-      knux: cominedTopRated
+      knux: cominedTopRated,
     });
   }
 
