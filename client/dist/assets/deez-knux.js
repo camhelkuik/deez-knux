@@ -230,18 +230,18 @@
       let rightKnux = combinedKnux[0];
       let leftKnux = combinedKnux[1];
       this.knuxArray = rightKnux.concat(leftKnux);
+    }
+
+    addToTopRated() {
       let firstKnux = this.knuxArray.splice(0, 4).join(''); //this edits the initial array so it now only has the last half
 
       let secondKnux = this.knuxArray.splice(0, 4).join(''); //thus why this uses the same 0,4
 
       let cominedTopRated = firstKnux + ' ' + secondKnux;
-      this.store.createRecord('knux', {
+      let newKnux = this.store.createRecord('knux', {
         knux: cominedTopRated
       });
-    }
-
-    addToTopRated() {
-      this.store.peekRecord('knux', 1).save();
+      newKnux.save();
     }
 
   }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "store", [_service.inject], {
@@ -1028,7 +1028,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("deez-knux/app")["default"].create({"name":"deez-knux","version":"0.0.0+f1eed856"});
+            require("deez-knux/app")["default"].create({"name":"deez-knux","version":"0.0.0+29f92464"});
           }
         
 //# sourceMappingURL=deez-knux.map

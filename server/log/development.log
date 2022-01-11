@@ -77,3 +77,1242 @@ Processing by KnuxesController#index as */*
 Completed 200 OK in 2ms (Views: 1.9ms | ActiveRecord: 0.2ms | Allocations: 929)
 
 
+Started POST "/knuxes" for ::1 at 2022-01-11 14:25:05 -0600
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCACHE ActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+You have 1 pending migration:
+
+20220111201756_add_upvoted_attribute.rb
+
+
+):
+  
+activerecord (7.0.1) lib/active_record/migration.rb:627:in `check_pending!'
+activerecord (7.0.1) lib/active_record/migration.rb:592:in `block (2 levels) in call'
+activesupport (7.0.1) lib/active_support/file_update_checker.rb:83:in `execute'
+activerecord (7.0.1) lib/active_record/migration.rb:597:in `block in call'
+activerecord (7.0.1) lib/active_record/migration.rb:589:in `synchronize'
+activerecord (7.0.1) lib/active_record/migration.rb:589:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.1) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/show_exceptions.rb:26:in `call'
+railties (7.0.1) lib/rails/rack/logger.rb:36:in `call_app'
+railties (7.0.1) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.1) lib/rails/rack/logger.rb:25:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/server_timing.rb:20:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.1) lib/rails/engine.rb:530:in `call'
+puma (5.5.2) lib/puma/configuration.rb:249:in `call'
+puma (5.5.2) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.5.2) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.5.2) lib/puma/request.rb:76:in `handle_request'
+puma (5.5.2) lib/puma/server.rb:447:in `process_client'
+puma (5.5.2) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started POST "/knuxes" for ::1 at 2022-01-11 14:28:43 -0600
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCACHE ActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+You have 1 pending migration:
+
+20220111201756_add_upvoted_attribute.rb
+
+
+):
+  
+activerecord (7.0.1) lib/active_record/migration.rb:627:in `check_pending!'
+activerecord (7.0.1) lib/active_record/migration.rb:592:in `block (2 levels) in call'
+activesupport (7.0.1) lib/active_support/file_update_checker.rb:83:in `execute'
+activerecord (7.0.1) lib/active_record/migration.rb:597:in `block in call'
+activerecord (7.0.1) lib/active_record/migration.rb:589:in `synchronize'
+activerecord (7.0.1) lib/active_record/migration.rb:589:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.1) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/show_exceptions.rb:26:in `call'
+railties (7.0.1) lib/rails/rack/logger.rb:36:in `call_app'
+railties (7.0.1) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.1) lib/rails/rack/logger.rb:25:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/server_timing.rb:20:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.1) lib/rails/engine.rb:530:in `call'
+puma (5.5.2) lib/puma/configuration.rb:249:in `call'
+puma (5.5.2) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.5.2) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.5.2) lib/puma/request.rb:76:in `handle_request'
+puma (5.5.2) lib/puma/server.rb:447:in `process_client'
+puma (5.5.2) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started POST "/knuxes" for ::1 at 2022-01-11 14:30:45 -0600
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCACHE ActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+You have 1 pending migration:
+
+20220111201756_add_upvoted_attribute.rb
+
+
+):
+  
+activerecord (7.0.1) lib/active_record/migration.rb:627:in `check_pending!'
+activerecord (7.0.1) lib/active_record/migration.rb:592:in `block (2 levels) in call'
+activesupport (7.0.1) lib/active_support/file_update_checker.rb:83:in `execute'
+activerecord (7.0.1) lib/active_record/migration.rb:597:in `block in call'
+activerecord (7.0.1) lib/active_record/migration.rb:589:in `synchronize'
+activerecord (7.0.1) lib/active_record/migration.rb:589:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.1) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/show_exceptions.rb:26:in `call'
+railties (7.0.1) lib/rails/rack/logger.rb:36:in `call_app'
+railties (7.0.1) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.1) lib/rails/rack/logger.rb:25:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/server_timing.rb:20:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.1) lib/rails/engine.rb:530:in `call'
+puma (5.5.2) lib/puma/configuration.rb:249:in `call'
+puma (5.5.2) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.5.2) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.5.2) lib/puma/request.rb:76:in `handle_request'
+puma (5.5.2) lib/puma/server.rb:447:in `process_client'
+puma (5.5.2) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started POST "/knuxes" for ::1 at 2022-01-11 14:39:45 -0600
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCACHE ActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+You have 1 pending migration:
+
+20220111201756_add_upvoted_attribute.rb
+
+
+):
+  
+activerecord (7.0.1) lib/active_record/migration.rb:627:in `check_pending!'
+activerecord (7.0.1) lib/active_record/migration.rb:592:in `block (2 levels) in call'
+activesupport (7.0.1) lib/active_support/file_update_checker.rb:83:in `execute'
+activerecord (7.0.1) lib/active_record/migration.rb:597:in `block in call'
+activerecord (7.0.1) lib/active_record/migration.rb:589:in `synchronize'
+activerecord (7.0.1) lib/active_record/migration.rb:589:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.1) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/show_exceptions.rb:26:in `call'
+railties (7.0.1) lib/rails/rack/logger.rb:36:in `call_app'
+railties (7.0.1) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.1) lib/rails/rack/logger.rb:25:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/server_timing.rb:20:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.1) lib/rails/engine.rb:530:in `call'
+puma (5.5.2) lib/puma/configuration.rb:249:in `call'
+puma (5.5.2) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.5.2) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.5.2) lib/puma/request.rb:76:in `handle_request'
+puma (5.5.2) lib/puma/server.rb:447:in `process_client'
+puma (5.5.2) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started GET "/knuxes" for ::1 at 2022-01-11 14:41:23 -0600
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCACHE ActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+You have 1 pending migration:
+
+20220111201756_add_upvoted_attribute.rb
+
+
+):
+  
+activerecord (7.0.1) lib/active_record/migration.rb:627:in `check_pending!'
+activerecord (7.0.1) lib/active_record/migration.rb:592:in `block (2 levels) in call'
+activesupport (7.0.1) lib/active_support/file_update_checker.rb:83:in `execute'
+activerecord (7.0.1) lib/active_record/migration.rb:597:in `block in call'
+activerecord (7.0.1) lib/active_record/migration.rb:589:in `synchronize'
+activerecord (7.0.1) lib/active_record/migration.rb:589:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.1) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/show_exceptions.rb:26:in `call'
+railties (7.0.1) lib/rails/rack/logger.rb:36:in `call_app'
+railties (7.0.1) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.1) lib/rails/rack/logger.rb:25:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/server_timing.rb:20:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.1) lib/rails/engine.rb:530:in `call'
+puma (5.5.2) lib/puma/configuration.rb:249:in `call'
+puma (5.5.2) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.5.2) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.5.2) lib/puma/request.rb:76:in `handle_request'
+puma (5.5.2) lib/puma/server.rb:447:in `process_client'
+puma (5.5.2) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started GET "/knuxes" for ::1 at 2022-01-11 14:41:57 -0600
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCACHE ActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+You have 1 pending migration:
+
+20220111201756_add_upvoted_attribute.rb
+
+
+):
+  
+activerecord (7.0.1) lib/active_record/migration.rb:627:in `check_pending!'
+activerecord (7.0.1) lib/active_record/migration.rb:592:in `block (2 levels) in call'
+activesupport (7.0.1) lib/active_support/file_update_checker.rb:83:in `execute'
+activerecord (7.0.1) lib/active_record/migration.rb:597:in `block in call'
+activerecord (7.0.1) lib/active_record/migration.rb:589:in `synchronize'
+activerecord (7.0.1) lib/active_record/migration.rb:589:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.1) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/show_exceptions.rb:26:in `call'
+railties (7.0.1) lib/rails/rack/logger.rb:36:in `call_app'
+railties (7.0.1) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.1) lib/rails/rack/logger.rb:25:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/server_timing.rb:20:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.1) lib/rails/engine.rb:530:in `call'
+puma (5.5.2) lib/puma/configuration.rb:249:in `call'
+puma (5.5.2) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.5.2) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.5.2) lib/puma/request.rb:76:in `handle_request'
+puma (5.5.2) lib/puma/server.rb:447:in `process_client'
+puma (5.5.2) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started GET "/knuxes" for ::1 at 2022-01-11 14:41:59 -0600
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCACHE ActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+You have 1 pending migration:
+
+20220111201756_add_upvoted_attribute.rb
+
+
+):
+  
+activerecord (7.0.1) lib/active_record/migration.rb:627:in `check_pending!'
+activerecord (7.0.1) lib/active_record/migration.rb:592:in `block (2 levels) in call'
+activesupport (7.0.1) lib/active_support/file_update_checker.rb:83:in `execute'
+activerecord (7.0.1) lib/active_record/migration.rb:597:in `block in call'
+activerecord (7.0.1) lib/active_record/migration.rb:589:in `synchronize'
+activerecord (7.0.1) lib/active_record/migration.rb:589:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.1) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/show_exceptions.rb:26:in `call'
+railties (7.0.1) lib/rails/rack/logger.rb:36:in `call_app'
+railties (7.0.1) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.1) lib/rails/rack/logger.rb:25:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/server_timing.rb:20:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.1) lib/rails/engine.rb:530:in `call'
+puma (5.5.2) lib/puma/configuration.rb:249:in `call'
+puma (5.5.2) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.5.2) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.5.2) lib/puma/request.rb:76:in `handle_request'
+puma (5.5.2) lib/puma/server.rb:447:in `process_client'
+puma (5.5.2) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started GET "/knuxes" for ::1 at 2022-01-11 14:42:58 -0600
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCACHE ActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+You have 1 pending migration:
+
+20220111201756_add_upvoted_attribute.rb
+
+
+):
+  
+activerecord (7.0.1) lib/active_record/migration.rb:627:in `check_pending!'
+activerecord (7.0.1) lib/active_record/migration.rb:592:in `block (2 levels) in call'
+activesupport (7.0.1) lib/active_support/file_update_checker.rb:83:in `execute'
+activerecord (7.0.1) lib/active_record/migration.rb:597:in `block in call'
+activerecord (7.0.1) lib/active_record/migration.rb:589:in `synchronize'
+activerecord (7.0.1) lib/active_record/migration.rb:589:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.1) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/show_exceptions.rb:26:in `call'
+railties (7.0.1) lib/rails/rack/logger.rb:36:in `call_app'
+railties (7.0.1) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.1) lib/rails/rack/logger.rb:25:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/server_timing.rb:20:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.1) lib/rails/engine.rb:530:in `call'
+puma (5.5.2) lib/puma/configuration.rb:249:in `call'
+puma (5.5.2) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.5.2) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.5.2) lib/puma/request.rb:76:in `handle_request'
+puma (5.5.2) lib/puma/server.rb:447:in `process_client'
+puma (5.5.2) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started GET "/knuxes" for ::1 at 2022-01-11 14:43:07 -0600
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCACHE ActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+You have 1 pending migration:
+
+20220111201756_add_upvoted_attribute.rb
+
+
+):
+  
+activerecord (7.0.1) lib/active_record/migration.rb:627:in `check_pending!'
+activerecord (7.0.1) lib/active_record/migration.rb:592:in `block (2 levels) in call'
+activesupport (7.0.1) lib/active_support/file_update_checker.rb:83:in `execute'
+activerecord (7.0.1) lib/active_record/migration.rb:597:in `block in call'
+activerecord (7.0.1) lib/active_record/migration.rb:589:in `synchronize'
+activerecord (7.0.1) lib/active_record/migration.rb:589:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.1) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/show_exceptions.rb:26:in `call'
+railties (7.0.1) lib/rails/rack/logger.rb:36:in `call_app'
+railties (7.0.1) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.1) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.1) lib/rails/rack/logger.rb:25:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/server_timing.rb:20:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.1) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.1) lib/rails/engine.rb:530:in `call'
+puma (5.5.2) lib/puma/configuration.rb:249:in `call'
+puma (5.5.2) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.5.2) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.5.2) lib/puma/request.rb:76:in `handle_request'
+puma (5.5.2) lib/puma/server.rb:447:in `process_client'
+puma (5.5.2) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddUpvotedAttribute (20220111201756)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20220111201756"]]
+  [1m[36mTRANSACTION (4.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/knuxes" for ::1 at 2022-01-11 14:44:42 -0600
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 22ms (Views: 8.9ms | ActiveRecord: 1.0ms | Allocations: 18479)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:44:48 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 3ms (Views: 2.7ms | ActiveRecord: 0.2ms | Allocations: 1037)
+
+
+Started POST "/knuxes" for ::1 at 2022-01-11 14:44:52 -0600
+Processing by KnuxesController#create as */*
+  Parameters: {"knux"=>{"knux"=>"deez knux"}}
+Completed 204 No Content in 0ms (ActiveRecord: 0.0ms | Allocations: 97)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:45:08 -0600
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.6ms | ActiveRecord: 0.1ms | Allocations: 919)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:45:10 -0600
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.9ms | ActiveRecord: 0.2ms | Allocations: 906)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:45:15 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.7ms | ActiveRecord: 0.1ms | Allocations: 917)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:45:24 -0600
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.7ms | ActiveRecord: 0.1ms | Allocations: 912)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:45:29 -0600
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 2.1ms | ActiveRecord: 0.1ms | Allocations: 918)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:45:32 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 3ms (Views: 2.2ms | ActiveRecord: 0.2ms | Allocations: 917)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:48:47 -0600
+Processing by KnuxesController#index as HTML
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 8ms (Views: 6.5ms | ActiveRecord: 1.1ms | Allocations: 3537)
+
+
+Started POST "/knuxes" for ::1 at 2022-01-11 14:48:50 -0600
+Processing by KnuxesController#create as */*
+  Parameters: {"knux"=>{"knux"=>"deez knux"}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/knuxes_controller.rb:9:in `create'
+  [1m[36mKnux Create (1.0ms)[0m  [1m[32mINSERT INTO "knuxes" ("knux") VALUES (?)[0m  [["knux", "{\"knux\"=>\"deez knux\"}"]]
+  ↳ app/controllers/knuxes_controller.rb:9:in `create'
+  [1m[36mTRANSACTION (4.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/knuxes_controller.rb:9:in `create'
+Completed 204 No Content in 9ms (ActiveRecord: 5.2ms | Allocations: 2206)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:49:13 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 2.1ms | ActiveRecord: 0.1ms | Allocations: 1019)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:49:18 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.9ms | ActiveRecord: 0.2ms | Allocations: 967)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:49:20 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 11ms (Views: 1.7ms | ActiveRecord: 0.2ms | Allocations: 968)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:49:21 -0600
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.8ms | ActiveRecord: 0.2ms | Allocations: 957)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:49:38 -0600
+Processing by KnuxesController#index as */*
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 9ms (Views: 7.3ms | ActiveRecord: 1.2ms | Allocations: 3602)
+
+
+Started POST "/knuxes" for ::1 at 2022-01-11 14:49:44 -0600
+Processing by KnuxesController#create as */*
+  Parameters: {"knux"=>{"knux"=>"deez knux"}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/knuxes_controller.rb:8:in `create'
+  [1m[36mKnux Create (1.3ms)[0m  [1m[32mINSERT INTO "knuxes" ("knux") VALUES (?)[0m  [["knux", nil]]
+  ↳ app/controllers/knuxes_controller.rb:8:in `create'
+  [1m[36mTRANSACTION (4.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/knuxes_controller.rb:8:in `create'
+Completed 204 No Content in 11ms (ActiveRecord: 5.8ms | Allocations: 1830)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:49:48 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.7ms | ActiveRecord: 0.1ms | Allocations: 1058)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:49:50 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 3ms (Views: 2.2ms | ActiveRecord: 0.2ms | Allocations: 1006)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:49:53 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.7ms | ActiveRecord: 0.2ms | Allocations: 1006)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:49:54 -0600
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.8ms | ActiveRecord: 0.2ms | Allocations: 996)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:50:28 -0600
+Processing by KnuxesController#index as HTML
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 8ms (Views: 6.4ms | ActiveRecord: 1.1ms | Allocations: 3607)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:50:31 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.7ms | ActiveRecord: 0.2ms | Allocations: 1106)
+
+
+Started POST "/knuxes" for ::1 at 2022-01-11 14:50:35 -0600
+Processing by KnuxesController#create as */*
+  Parameters: {"knux"=>{"knux"=>"deez knux"}}
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/knuxes_controller.rb:8:in `create'
+  [1m[36mKnux Create (1.2ms)[0m  [1m[32mINSERT INTO "knuxes" ("knux") VALUES (?)[0m  [["knux", nil]]
+  ↳ app/controllers/knuxes_controller.rb:8:in `create'
+  [1m[36mTRANSACTION (4.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/knuxes_controller.rb:8:in `create'
+Completed 200 OK in 10ms (Views: 0.3ms | ActiveRecord: 5.3ms | Allocations: 1890)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:50:41 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.8ms | ActiveRecord: 0.1ms | Allocations: 1045)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:50:43 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 4ms (Views: 3.1ms | ActiveRecord: 0.2ms | Allocations: 1045)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:50:44 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.7ms | ActiveRecord: 0.2ms | Allocations: 1045)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:50:46 -0600
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 3ms (Views: 2.3ms | ActiveRecord: 0.1ms | Allocations: 1035)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:51:27 -0600
+Processing by KnuxesController#index as */*
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+  [1m[36mKnux Load (0.3ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 8ms (Views: 7.0ms | ActiveRecord: 1.3ms | Allocations: 3657)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:51:28 -0600
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 3ms (Views: 2.3ms | ActiveRecord: 0.2ms | Allocations: 1135)
+
+
+Started POST "/knuxes" for ::1 at 2022-01-11 14:51:32 -0600
+Processing by KnuxesController#create as */*
+  Parameters: {"knux"=>{"knux"=>"deez knux"}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/knuxes_controller.rb:9:in `create'
+  [1m[36mKnux Create (0.9ms)[0m  [1m[32mINSERT INTO "knuxes" ("knux") VALUES (?)[0m  [["knux", "{\"knux\"=>\"deez knux\"}"]]
+  ↳ app/controllers/knuxes_controller.rb:9:in `create'
+  [1m[36mTRANSACTION (4.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/knuxes_controller.rb:9:in `create'
+Completed 200 OK in 11ms (Views: 0.3ms | ActiveRecord: 5.6ms | Allocations: 1927)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:51:34 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.6ms | ActiveRecord: 0.1ms | Allocations: 1095)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:51:37 -0600
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 3ms (Views: 2.5ms | ActiveRecord: 0.1ms | Allocations: 1084)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:52:14 -0600
+Processing by KnuxesController#index as */*
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 10ms (Views: 8.2ms | ActiveRecord: 1.5ms | Allocations: 3706)
+
+
+Started POST "/knuxes" for ::1 at 2022-01-11 14:52:18 -0600
+Processing by KnuxesController#create as */*
+  Parameters: {"knux"=>{"knux"=>"deez knux"}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/knuxes_controller.rb:9:in `create'
+  [1m[36mKnux Create (2.1ms)[0m  [1m[32mINSERT INTO "knuxes" ("knux") VALUES (?)[0m  [["knux", "{\"knux\"=>\"deez knux\"}"]]
+  ↳ app/controllers/knuxes_controller.rb:9:in `create'
+  [1m[36mTRANSACTION (4.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/knuxes_controller.rb:9:in `create'
+Completed 200 OK in 13ms (Views: 0.3ms | ActiveRecord: 7.1ms | Allocations: 1998)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:52:22 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.3ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 4ms (Views: 3.0ms | ActiveRecord: 0.3ms | Allocations: 1175)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:52:23 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 6ms (Views: 5.9ms | ActiveRecord: 0.1ms | Allocations: 1145)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:52:28 -0600
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 2.0ms | ActiveRecord: 0.1ms | Allocations: 1136)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:53:09 -0600
+Processing by KnuxesController#index as HTML
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 9ms (Views: 7.3ms | ActiveRecord: 1.2ms | Allocations: 3808)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:53:11 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 2.0ms | ActiveRecord: 0.1ms | Allocations: 1245)
+
+
+Started POST "/knuxes" for ::1 at 2022-01-11 14:53:13 -0600
+Processing by KnuxesController#create as */*
+  Parameters: {"knux"=>{"knux"=>"deez knux"}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/knuxes_controller.rb:9:in `create'
+  [1m[36mKnux Create (1.1ms)[0m  [1m[32mINSERT INTO "knuxes" ("knux") VALUES (?)[0m  [["knux", "{\"knux\"=>\"deez knux\"}"]]
+  ↳ app/controllers/knuxes_controller.rb:9:in `create'
+  [1m[36mTRANSACTION (4.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/knuxes_controller.rb:9:in `create'
+Completed 200 OK in 11ms (Views: 0.3ms | ActiveRecord: 6.1ms | Allocations: 1930)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:53:14 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.9ms | ActiveRecord: 0.1ms | Allocations: 1195)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:53:16 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.7ms | ActiveRecord: 0.2ms | Allocations: 1195)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:53:18 -0600
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 2.0ms | ActiveRecord: 0.1ms | Allocations: 1185)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:54:16 -0600
+Processing by KnuxesController#index as HTML
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 8ms (Views: 6.8ms | ActiveRecord: 1.0ms | Allocations: 3796)
+
+
+Started POST "/knuxes" for ::1 at 2022-01-11 14:54:19 -0600
+Processing by KnuxesController#create as */*
+  Parameters: {"knux"=>{"knux"=>"deez knux"}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/knuxes_controller.rb:7:in `create'
+  [1m[36mKnux Create (2.1ms)[0m  [1m[32mINSERT INTO "knuxes" ("knux") VALUES (?)[0m  [["knux", "{\"knux\"=>{\"knux\"=>\"deez knux\"}, \"controller\"=>\"knuxes\", \"action\"=>\"create\"}"]]
+  ↳ app/controllers/knuxes_controller.rb:7:in `create'
+  [1m[36mTRANSACTION (4.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/knuxes_controller.rb:7:in `create'
+Completed 200 OK in 14ms (Views: 0.4ms | ActiveRecord: 7.0ms | Allocations: 2033)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:54:20 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.8ms | ActiveRecord: 0.1ms | Allocations: 1282)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:54:25 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 2.1ms | ActiveRecord: 0.1ms | Allocations: 1252)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:54:27 -0600
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.8ms | ActiveRecord: 0.1ms | Allocations: 1242)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:55:12 -0600
+Processing by KnuxesController#index as HTML
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 9ms (Views: 8.0ms | ActiveRecord: 1.3ms | Allocations: 3852)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:55:15 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.8ms | ActiveRecord: 0.1ms | Allocations: 1352)
+
+
+Started POST "/knuxes" for ::1 at 2022-01-11 14:55:17 -0600
+Processing by KnuxesController#create as */*
+  Parameters: {"knux"=>{"knux"=>"deez knux"}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/knuxes_controller.rb:7:in `create'
+  [1m[36mKnux Create (1.7ms)[0m  [1m[32mINSERT INTO "knuxes" ("knux") VALUES (?)[0m  [["knux", "{\"knux\"=>\"deez knux\"}"]]
+  ↳ app/controllers/knuxes_controller.rb:7:in `create'
+  [1m[36mTRANSACTION (4.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/knuxes_controller.rb:7:in `create'
+Completed 200 OK in 11ms (Views: 0.4ms | ActiveRecord: 6.5ms | Allocations: 1954)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:55:19 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 3ms (Views: 2.5ms | ActiveRecord: 0.2ms | Allocations: 1302)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:55:21 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.3ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 4ms (Views: 3.7ms | ActiveRecord: 0.3ms | Allocations: 1302)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:55:23 -0600
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.9ms | ActiveRecord: 0.2ms | Allocations: 1292)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:58:04 -0600
+Processing by KnuxesController#index as HTML
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 14ms (Views: 12.2ms | ActiveRecord: 1.4ms | Allocations: 3926)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 14:58:07 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 3ms (Views: 2.4ms | ActiveRecord: 0.2ms | Allocations: 1402)
+
+
+Started POST "/knuxes" for ::1 at 2022-01-11 14:58:09 -0600
+Processing by KnuxesController#create as */*
+  Parameters: {"knux"=>{"knux"=>"deez knux"}}
+Completed 500 Internal Server Error in 0ms (ActiveRecord: 0.0ms | Allocations: 182)
+
+
+  
+ActiveModel::ForbiddenAttributesError (ActiveModel::ForbiddenAttributesError):
+  
+app/controllers/knuxes_controller.rb:7:in `create'
+Started POST "/knuxes" for ::1 at 2022-01-11 14:58:40 -0600
+Processing by KnuxesController#create as */*
+  Parameters: {"knux"=>{"knux"=>"deez knux"}}
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/knuxes_controller.rb:7:in `create'
+Completed 500 Internal Server Error in 4ms (ActiveRecord: 0.9ms | Allocations: 1703)
+
+
+  
+ActiveModel::ForbiddenAttributesError (ActiveModel::ForbiddenAttributesError):
+  
+app/controllers/knuxes_controller.rb:7:in `create'
+Started GET "/knuxes" for ::1 at 2022-01-11 14:59:57 -0600
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 20ms (Views: 6.9ms | ActiveRecord: 0.9ms | Allocations: 18825)
+
+
+Started POST "/knuxes" for ::1 at 2022-01-11 15:00:01 -0600
+Processing by KnuxesController#create as */*
+  Parameters: {"knux"=>{"knux"=>"deez knux"}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/knuxes_controller.rb:9:in `create'
+  [1m[36mKnux Create (2.2ms)[0m  [1m[32mINSERT INTO "knuxes" ("knux") VALUES (?)[0m  [["knux", "{\"knux\"=>\"deez knux\"}"]]
+  ↳ app/controllers/knuxes_controller.rb:9:in `create'
+  [1m[36mTRANSACTION (4.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/knuxes_controller.rb:9:in `create'
+Completed 200 OK in 12ms (Views: 0.4ms | ActiveRecord: 6.8ms | Allocations: 2405)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 15:00:04 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.7ms | ActiveRecord: 0.1ms | Allocations: 1394)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 15:00:05 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 3ms (Views: 2.5ms | ActiveRecord: 0.2ms | Allocations: 1364)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 15:00:08 -0600
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 2.0ms | ActiveRecord: 0.1ms | Allocations: 1354)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 15:00:28 -0600
+Processing by KnuxesController#index as HTML
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+  [1m[36mKnux Load (1.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 17ms (Views: 15.5ms | ActiveRecord: 3.4ms | Allocations: 3998)
+
+
+Started POST "/knuxes" for ::1 at 2022-01-11 15:00:33 -0600
+Processing by KnuxesController#create as */*
+  Parameters: {"knux"=>{"knux"=>"deez knux"}}
+Completed 500 Internal Server Error in 0ms (ActiveRecord: 0.0ms | Allocations: 203)
+
+
+  
+ActiveModel::ForbiddenAttributesError (ActiveModel::ForbiddenAttributesError):
+  
+app/controllers/knuxes_controller.rb:7:in `create'
+Started GET "/knuxes" for ::1 at 2022-01-11 15:01:57 -0600
+Processing by KnuxesController#index as HTML
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 8ms (Views: 6.6ms | ActiveRecord: 1.1ms | Allocations: 3954)
+
+
+Started POST "/knuxes" for ::1 at 2022-01-11 15:02:02 -0600
+Processing by KnuxesController#create as */*
+  Parameters: {"knux"=>{"knux"=>"best erne"}}
+Completed 500 Internal Server Error in 0ms (ActiveRecord: 0.0ms | Allocations: 180)
+
+
+  
+ActiveModel::ForbiddenAttributesError (ActiveModel::ForbiddenAttributesError):
+  
+app/controllers/knuxes_controller.rb:7:in `create'
+Started GET "/knuxes" for ::1 at 2022-01-11 15:03:05 -0600
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.4ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 20ms (Views: 6.1ms | ActiveRecord: 1.0ms | Allocations: 18877)
+
+
+Started POST "/knuxes" for ::1 at 2022-01-11 15:03:10 -0600
+Processing by KnuxesController#create as */*
+  Parameters: {"knux"=>{"knux"=>"deez knux"}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/knuxes_controller.rb:8:in `create'
+  [1m[36mKnux Create (2.0ms)[0m  [1m[32mINSERT INTO "knuxes" ("knux") VALUES (?)[0m  [["knux", "deez knux"]]
+  ↳ app/controllers/knuxes_controller.rb:8:in `create'
+  [1m[36mTRANSACTION (4.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/knuxes_controller.rb:8:in `create'
+Completed 200 OK in 12ms (Views: 0.4ms | ActiveRecord: 6.8ms | Allocations: 2478)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 15:03:12 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 2.0ms | ActiveRecord: 0.2ms | Allocations: 1439)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 15:03:13 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.7ms | ActiveRecord: 0.1ms | Allocations: 1409)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 15:03:16 -0600
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 2.0ms | ActiveRecord: 0.1ms | Allocations: 1399)
+
+
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/knuxes" for ::1 at 2022-01-11 15:13:13 -0600
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 22ms (Views: 7.8ms | ActiveRecord: 1.1ms | Allocations: 18922)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 15:13:14 -0600
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 3ms (Views: 2.2ms | ActiveRecord: 0.2ms | Allocations: 1505)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 15:13:15 -0600
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.9ms | ActiveRecord: 0.1ms | Allocations: 1398)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 15:13:15 -0600
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.9ms | ActiveRecord: 0.1ms | Allocations: 1398)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 15:13:15 -0600
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.9ms | ActiveRecord: 0.2ms | Allocations: 1386)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 15:13:18 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 3ms (Views: 2.4ms | ActiveRecord: 0.2ms | Allocations: 1411)
+
+
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Pluck (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (5.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "knuxes"[0m
+  [1m[35m (5.2ms)[0m  [1m[35mCREATE TABLE "knuxes" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "knux" varchar)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "54dee9f6da816e329d5ed2fdb41dcef38c73e014"], ["created_at", "2022-01-11 21:15:16.074255"], ["updated_at", "2022-01-11 21:15:16.074255"]]
+  [1m[36mTRANSACTION (4.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "knuxes"[0m
+  [1m[35m (6.7ms)[0m  [1m[35mCREATE TABLE "knuxes" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "knux" varchar)[0m
+  [1m[35m (4.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (5.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20220111201756)[0m
+  [1m[35m (4.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.8ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2022-01-11 21:15:16.110191"], ["updated_at", "2022-01-11 21:15:16.110191"]]
+  [1m[36mTRANSACTION (3.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Update (0.6ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = ?, "updated_at" = ? WHERE "ar_internal_metadata"."key" = ?[0m  [["value", "test"], ["updated_at", "2022-01-11 21:15:16.118434"], ["key", "environment"]]
+  [1m[36mTRANSACTION (3.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "54dee9f6da816e329d5ed2fdb41dcef38c73e014"], ["created_at", "2022-01-11 21:15:16.125260"], ["updated_at", "2022-01-11 21:15:16.125260"]]
+  [1m[36mTRANSACTION (3.8ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/knuxes" for ::1 at 2022-01-11 15:15:25 -0600
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 16ms (Views: 1.8ms | ActiveRecord: 0.2ms | Allocations: 14638)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 15:15:28 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.6ms | ActiveRecord: 0.2ms | Allocations: 766)
+
+
+Started POST "/knuxes" for ::1 at 2022-01-11 15:15:34 -0600
+Processing by KnuxesController#create as */*
+  Parameters: {"knux"=>{"knux"=>"deez knux"}}
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/knuxes_controller.rb:8:in `create'
+  [1m[36mKnux Create (1.7ms)[0m  [1m[32mINSERT INTO "knuxes" ("knux") VALUES (?)[0m  [["knux", "deez knux"]]
+  ↳ app/controllers/knuxes_controller.rb:8:in `create'
+  [1m[36mTRANSACTION (3.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/knuxes_controller.rb:8:in `create'
+Completed 200 OK in 15ms (Views: 1.2ms | ActiveRecord: 6.0ms | Allocations: 6108)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 15:15:38 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 3ms (Views: 2.1ms | ActiveRecord: 0.2ms | Allocations: 933)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 15:15:42 -0600
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 2.0ms | ActiveRecord: 0.2ms | Allocations: 789)
+
+
