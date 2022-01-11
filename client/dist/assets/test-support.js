@@ -7518,6 +7518,29 @@ define("ember-cli-test-loader/test-support/index", ["exports"], function (_expor
   _exports.default = TestLoader;
   ;
 });
+define("ember-cookies/clear-all-cookies", ["exports", "@ember/debug", "@ember/polyfills", "@ember/utils", "ember-cookies/utils/serialize-cookie"], function (_exports, _debug, _polyfills, _utils, _serializeCookie) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = _default;
+  const assign = Object.assign || _polyfills.assign || _polyfills.merge;
+
+  function _default() {
+    let options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    (true && !(!options.httpOnly) && (0, _debug.assert)('Cookies cannot be set to be HTTP-only from a browser!', !options.httpOnly));
+    (true && !((0, _utils.isEmpty)(options.expires) && (0, _utils.isEmpty)(options.maxAge) && (0, _utils.isEmpty)(options.raw)) && (0, _debug.assert)('Expires, Max-Age, and raw options cannot be set when clearing cookies', (0, _utils.isEmpty)(options.expires) && (0, _utils.isEmpty)(options.maxAge) && (0, _utils.isEmpty)(options.raw)));
+    options = assign({}, options, {
+      expires: new Date(0)
+    });
+    let cookies = document.cookie.split(';');
+    cookies.forEach(cookie => {
+      let cookieName = cookie.split('=')[0];
+      document.cookie = (0, _serializeCookie.serializeCookie)(cookieName, '', options);
+    });
+  }
+});
 define("ember-page-title/test-support/get-page-title", ["exports"], function (_exports) {
   "use strict";
 
@@ -8063,6 +8086,80 @@ define("ember-qunit/test-loader", ["exports", "qunit", "ember-cli-test-loader/te
 
   function loadTests() {
     new TestLoader().loadModules();
+  }
+});
+define("ember-simple-auth/test-support/index", ["exports", "@ember/object", "@ember/test-helpers", "rsvp", "ember-simple-auth/authenticators/test"], function (_exports, _object, _testHelpers, _rsvp, _test) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.authenticateSession = authenticateSession;
+  _exports.currentSession = currentSession;
+  _exports.invalidateSession = invalidateSession;
+  const SESSION_SERVICE_KEY = 'service:session';
+  const TEST_CONTAINER_KEY = 'authenticator:test';
+
+  function ensureAuthenticator(owner) {
+    const authenticator = owner.lookup(TEST_CONTAINER_KEY);
+
+    if (!authenticator) {
+      owner.register(TEST_CONTAINER_KEY, _test.default);
+    }
+  }
+  /**
+   * Authenticates the session.
+   *
+   * @param {Object} sessionData Optional argument used to mock an authenticator
+   * response (e.g. a token or user).
+   * @return {Promise}
+   * @public
+   */
+
+
+  function authenticateSession(sessionData) {
+    const {
+      owner
+    } = (0, _testHelpers.getContext)();
+    const session = owner.lookup(SESSION_SERVICE_KEY);
+    ensureAuthenticator(owner);
+    return session.authenticate(TEST_CONTAINER_KEY, sessionData).then(() => {
+      return (0, _testHelpers.settled)();
+    });
+  }
+  /**
+   * Returns the current session.
+   *
+   * @return {Object} a session service.
+   * @public
+   */
+
+
+  function currentSession() {
+    const {
+      owner
+    } = (0, _testHelpers.getContext)();
+    return owner.lookup(SESSION_SERVICE_KEY);
+  }
+  /**
+   * Invalidates the session.
+   *
+   * @return {Promise}
+   * @public
+   */
+
+
+  function invalidateSession() {
+    const {
+      owner
+    } = (0, _testHelpers.getContext)();
+    const session = owner.lookup(SESSION_SERVICE_KEY);
+    const isAuthenticated = (0, _object.get)(session, 'isAuthenticated');
+    return _rsvp.default.resolve().then(() => {
+      if (isAuthenticated) {
+        return session.invalidate();
+      }
+    }).then(() => (0, _testHelpers.settled)());
   }
 });
 define("ember-test-helpers/has-ember-version", ["exports", "@ember/test-helpers/has-ember-version"], function (_exports, _hasEmberVersion) {
