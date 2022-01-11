@@ -62,18 +62,17 @@ export default class IndexController extends Controller {
     let leftKnux = combinedKnux[1];
 
     this.knuxArray = rightKnux.concat(leftKnux);
-
-    let firstKnux = this.knuxArray.splice(0, 4).join(''); //this edits the initial array so it now only has the last half
-    let secondKnux = this.knuxArray.splice(0, 4).join(''); //thus why this uses the same 0,4
-    let cominedTopRated = firstKnux + ' ' + secondKnux;
-
-    this.store.createRecord('knux', {
-      knux: cominedTopRated
-    });
   }
 
   @action
   addToTopRated() {
-    this.store.peekRecord('knux', 1).save();
+    let firstKnux = this.knuxArray.splice(0, 4).join(''); //this edits the initial array so it now only has the last half
+    let secondKnux = this.knuxArray.splice(0, 4).join(''); //thus why this uses the same 0,4
+    let cominedTopRated = firstKnux + ' ' + secondKnux;
+
+    let newKnux = this.store.createRecord('knux', {
+      knux: cominedTopRated
+    });
+    newKnux.save();
   }
 }

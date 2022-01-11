@@ -103369,6 +103369,506 @@ require('@ember/-internals/bootstrap')
   var _default = GlimmerComponent;
   _exports.default = _default;
 });
+;define("active-model-adapter/active-model-adapter", ["exports", "@ember-data/adapter/rest", "@ember-data/adapter/error", "ember-inflector", "@ember/string"], function (_exports, _rest, _error, _emberInflector, _string) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+  /**
+    @module ember-data
+  */
+
+  /**
+   * The ActiveModelAdapter is a subclass of the RESTAdapter designed to integrate
+   * with a JSON API that uses an underscored naming convention instead of camelCasing.
+   * It has been designed to work out of the box with the
+   * [active\_model\_serializers](http://github.com/rails-api/active_model_serializers)
+   * Ruby gem. This Adapter expects specific settings using ActiveModel::Serializers,
+   * `embed :ids, embed_in_root: true` which sideloads the records.
+   *
+   * This adapter extends the DS.RESTAdapter by making consistent use of the camelization,
+   * decamelization and pluralization methods to normalize the serialized JSON into a
+   * format that is compatible with a conventional Rails backend and Ember Data.
+   *
+   * ## JSON Structure
+   *
+   * The ActiveModelAdapter expects the JSON returned from your server to follow
+   * the REST adapter conventions substituting underscored keys for camelcased ones.
+   *
+   * Unlike the DS.RESTAdapter, async relationship keys must be the singular form
+   * of the relationship name, followed by "_id" for DS.belongsTo relationships,
+   * or "_ids" for DS.hasMany relationships.
+   *
+   * ### Conventional Names
+   *
+   * Attribute names in your JSON payload should be the underscored versions of
+   * the attributes in your Ember.js models.
+   *
+   * For example, if you have a `Person` model:
+   *
+   * ```javascript
+   * export default class FamousPerson extends Model {
+   *   @attr() firstName;
+   *   @attr() lastName;
+   *   @attr() occupation;
+   * }
+   * ```
+   *
+   * The JSON returned should look like this:
+   *
+   * ```json
+   * {
+   *   "famous_person": {
+   *     "id": 1,
+   *     "first_name": "Barack",
+   *     "last_name": "Obama",
+   *     "occupation": "President"
+   *   }
+   * }
+   * ```
+   *
+   * Let's imagine that `Occupation` is just another model:
+   *
+   * ```javascript
+   * export default class Person extends Model {
+   *   @attr() firstName;
+   *   @attr() lastName;
+   *   @belongsTo('occupation') occupation;
+   * }
+   *
+   * export default class Occupation extends Model {
+   *   @attr() name;
+   *   @attr('number') salary;
+   *   @hasMany('person') people;
+   * }
+   * ```
+   *
+   * The JSON needed to avoid extra server calls, should look like this:
+   *
+   * ```json
+   * {
+   *   "people": [{
+   *     "id": 1,
+   *     "first_name": "Barack",
+   *     "last_name": "Obama",
+   *     "occupation_id": 1
+   *   }],
+   *
+   *   "occupations": [{
+   *     "id": 1,
+   *     "name": "President",
+   *     "salary": 100000,
+   *     "person_ids": [1]
+   *   }]
+   * }
+   * ```
+   *
+   * @class ActiveModelAdapter
+   * @constructor
+   * @namespace DS
+   * @extends DS.RESTAdapter
+   */
+  class ActiveModelAdapter extends _rest.default {
+    constructor() {
+      super(...arguments);
+
+      _defineProperty(this, "defaultSerializer", '-active-model');
+    }
+
+    /**
+     * The ActiveModelAdapter overrides the `pathForType` method to build
+     * underscored URLs by decamelizing and pluralizing the object type name.
+     *
+     * ```js
+     *   this.pathForType("famousPerson");
+     *   //=> "famous_people"
+     * ```
+     *
+     * @method pathForType
+     * @param {String} modelName
+     * @return String
+     */
+    pathForType(modelName) {
+      const decamelized = (0, _string.decamelize)(modelName);
+      const underscored = (0, _string.underscore)(decamelized);
+      return (0, _emberInflector.pluralize)(underscored);
+    }
+    /**
+     * The ActiveModelAdapter overrides the `handleResponse` method
+     * to format errors passed to a DS.InvalidError for all
+     * 422 Unprocessable Entity responses.
+     *
+     * A 422 HTTP response from the server generally implies that the request
+     * was well formed but the API was unable to process it because the
+     * content was not semantically correct or meaningful per the API.
+     *
+     * For more information on 422 HTTP Error code see 11.2 WebDAV RFC 4918
+     * https://tools.ietf.org/html/rfc4918#section-11.2
+     *
+     * @method handleResponse
+     * @param  {Number} status
+     * @param  {Object} headers
+     * @param  {Object} payload
+     * @return {Object | AdapterError} response
+     */
+
+
+    handleResponse(status, headers, payload, requestData) {
+      if (this.isInvalid(status, headers, payload)) {
+        const errors = (0, _error.errorsHashToArray)(payload.errors);
+        return new _error.InvalidError(errors);
+      } else {
+        return super.handleResponse(status, headers, payload, requestData);
+      }
+    }
+
+  }
+
+  _exports.default = ActiveModelAdapter;
+});
+;define("active-model-adapter/active-model-serializer", ["exports", "@ember-data/serializer/rest", "@ember-data/store", "ember-inflector", "@ember/string", "@ember/service", "@ember/utils"], function (_exports, _rest, _store, _emberInflector, _string, _service, _utils) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _class, _descriptor;
+
+  function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
+
+  function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+  function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object.keys(descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object.defineProperty(target, property, desc); desc = null; } return desc; }
+
+  function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
+
+  /**
+    The ActiveModelSerializer is a subclass of the RESTSerializer designed to integrate
+    with a JSON API that uses an underscored naming convention instead of camelCasing.
+    It has been designed to work out of the box with the
+    [active\_model\_serializers](http://github.com/rails-api/active_model_serializers)
+    Ruby gem. This Serializer expects specific settings using ActiveModel::Serializers,
+    `embed :ids, embed_in_root: true` which sideloads the records.
+  
+    This serializer extends the DS.RESTSerializer by making consistent
+    use of the camelization, decamelization and pluralization methods to
+    normalize the serialized JSON into a format that is compatible with
+    a conventional Rails backend and Ember Data.
+  
+    ## JSON Structure
+  
+    The ActiveModelSerializer expects the JSON returned from your server
+    to follow the REST adapter conventions substituting underscored keys
+    for camelcased ones.
+  
+    ### Conventional Names
+  
+    Attribute names in your JSON payload should be the underscored versions of
+    the attributes in your Ember.js models.
+  
+    For example, if you have a `Person` model:
+  
+    ```javascript
+    export default class Person extends Model {
+      @attr() firstName;
+      @attr() lastName;
+      @belongsTo('occupation') occupation;
+    }
+    ```
+  
+    The JSON returned should look like this:
+  
+    ```json
+    {
+      "famous_person": {
+        "id": 1,
+        "first_name": "Barack",
+        "last_name": "Obama",
+        "occupation": "President"
+      }
+    }
+    ```
+  
+    Let's imagine that `Occupation` is just another model:
+  
+    ```javascript
+    export default class Person extends Model {
+      @attr() firstName;
+      @attr() lastName;
+      @belongsTo('occupation') occupation;
+    }
+  
+    export default class Occupation extends Model {
+      @attr() name;
+      @attr('number') salary;
+      @hasMany('person') people;
+    }
+    ```
+  
+    The JSON needed to avoid extra server calls, should look like this:
+  
+    ```json
+    {
+      "people": [{
+        "id": 1,
+        "first_name": "Barack",
+        "last_name": "Obama",
+        "occupation_id": 1
+      }],
+  
+      "occupations": [{
+        "id": 1,
+        "name": "President",
+        "salary": 100000,
+        "person_ids": [1]
+      }]
+    }
+    ```
+  */
+  let ActiveModelSerializer = (_class = class ActiveModelSerializer extends _rest.default {
+    constructor() {
+      super(...arguments);
+
+      _initializerDefineProperty(this, "store", _descriptor, this);
+    }
+
+    // SERIALIZE
+
+    /**
+      Converts camelCased attributes to underscored when serializing.
+    */
+    keyForAttribute(attr) {
+      return (0, _string.decamelize)(attr);
+    }
+    /**
+      Underscores relationship names and appends "_id" or "_ids" when serializing
+      relationship keys.
+    */
+
+
+    keyForRelationship(relationshipModelName, kind) {
+      const key = (0, _string.decamelize)(relationshipModelName);
+
+      if (kind === 'belongsTo') {
+        return key + '_id';
+      } else if (kind === 'hasMany') {
+        return (0, _emberInflector.singularize)(key) + '_ids';
+      } else {
+        return key;
+      }
+    }
+    /**
+     `keyForLink` can be used to define a custom key when deserializing link
+     properties. The `ActiveModelSerializer` camelizes link keys by default.
+     */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+
+    keyForLink(key, _relationshipKind) {
+      return (0, _string.camelize)(key);
+    }
+    /*
+      Does not serialize hasMany relationships by default.
+    */
+    // eslint-disable-next-line
+
+
+    serializeHasMany() {}
+    /**
+     Underscores the JSON root keys when serializing.
+    */
+
+
+    payloadKeyFromModelName(modelName) {
+      return (0, _string.underscore)((0, _string.decamelize)(modelName));
+    }
+    /**
+      Serializes a polymorphic type as a fully capitalized model name.
+    */
+
+
+    serializePolymorphicType(snapshot, json, relationship) {
+      const key = relationship.key;
+      const belongsTo = snapshot.belongsTo(key);
+      const jsonKey = (0, _string.underscore)(key + '_type');
+
+      if ((0, _utils.isNone)(belongsTo)) {
+        json[jsonKey] = null;
+      } else {
+        json[jsonKey] = (0, _string.classify)(belongsTo.modelName).replace('/', '::');
+      }
+    }
+    /**
+      Add extra step to `DS.RESTSerializer.normalize` so links are normalized.
+       If your payload looks like:
+       ```json
+      {
+        "post": {
+          "id": 1,
+          "title": "Rails is omakase",
+          "links": { "flagged_comments": "api/comments/flagged" }
+        }
+      }
+      ```
+       The normalized version would look like this
+       ```json
+      {
+        "post": {
+          "id": 1,
+          "title": "Rails is omakase",
+          "links": { "flaggedComments": "api/comments/flagged" }
+        }
+      }
+      ```
+    */
+
+
+    normalize(typeClass, hash, prop) {
+      this.normalizeLinks(hash);
+      return super.normalize(typeClass, hash, prop);
+    }
+    /**
+      Convert `snake_cased` links  to `camelCase`
+    */
+    // eslint-disable-next-line
+
+
+    normalizeLinks(data) {
+      if (data.links) {
+        const links = data.links;
+
+        for (const link in links) {
+          const camelizedLink = (0, _string.camelize)(link);
+
+          if (camelizedLink !== link) {
+            links[camelizedLink] = links[link];
+            delete links[link];
+          }
+        }
+      }
+    }
+    /**
+     * @private
+     */
+
+
+    _keyForIDLessRelationship(key, relationshipType) {
+      if (relationshipType === 'hasMany') {
+        return (0, _string.underscore)((0, _emberInflector.pluralize)(key));
+      } else {
+        return (0, _string.underscore)((0, _emberInflector.singularize)(key));
+      }
+    }
+
+    extractRelationships(modelClass, resourceHash) {
+      modelClass.eachRelationship( // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (key, relationshipMeta) => {
+        const relationshipKey = this.keyForRelationship(key, relationshipMeta.kind);
+
+        const idLessKey = this._keyForIDLessRelationship(key, relationshipMeta.kind); // converts post to post_id, posts to post_ids
+
+
+        if (resourceHash[idLessKey] && typeof relationshipMeta[relationshipKey] === 'undefined') {
+          resourceHash[relationshipKey] = resourceHash[idLessKey];
+        } // prefer the format the AMS gem expects, e.g.:
+        // relationship: {id: id, type: type}
+
+
+        if (relationshipMeta.options.polymorphic) {
+          extractPolymorphicRelationships(key, relationshipMeta, resourceHash, relationshipKey);
+        } // If the preferred format is not found, use {relationship_name_id, relationship_name_type}
+
+
+        if (Object.prototype.hasOwnProperty.call(resourceHash, relationshipKey) && typeof resourceHash[relationshipKey] !== 'object') {
+          const polymorphicTypeKey = this.keyForRelationship(key) + '_type';
+
+          if (resourceHash[polymorphicTypeKey] && relationshipMeta.options.polymorphic) {
+            const id = resourceHash[relationshipKey];
+            const type = resourceHash[polymorphicTypeKey];
+            delete resourceHash[polymorphicTypeKey];
+            delete resourceHash[relationshipKey];
+            resourceHash[relationshipKey] = {
+              id: id,
+              type: type
+            };
+          }
+        }
+      }, this);
+      return super.extractRelationships(modelClass, resourceHash);
+    }
+
+    modelNameFromPayloadKey(key) {
+      const convertedFromRubyModule = (0, _emberInflector.singularize)(key.replace('::', '/'));
+      return (0, _store.normalizeModelName)(convertedFromRubyModule);
+    }
+
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "store", [_service.inject], {
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    initializer: null
+  })), _class);
+  _exports.default = ActiveModelSerializer;
+
+  function extractPolymorphicRelationships(key, // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  _relationshipMeta, // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  resourceHash, relationshipKey) {
+    const polymorphicKey = (0, _string.decamelize)(key);
+    const hash = resourceHash[polymorphicKey];
+
+    if (hash !== null && typeof hash === 'object') {
+      resourceHash[relationshipKey] = hash;
+    }
+  }
+});
+;define("active-model-adapter/index", ["exports", "active-model-adapter/active-model-adapter", "active-model-adapter/active-model-serializer"], function (_exports, _activeModelAdapter, _activeModelSerializer) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(_exports, "ActiveModelAdapter", {
+    enumerable: true,
+    get: function () {
+      return _activeModelAdapter.default;
+    }
+  });
+  Object.defineProperty(_exports, "ActiveModelSerializer", {
+    enumerable: true,
+    get: function () {
+      return _activeModelSerializer.default;
+    }
+  });
+  _exports.default = void 0;
+  var _default = _activeModelAdapter.default;
+  _exports.default = _default;
+});
+;define("active-model-adapter/initializers/active-model-adapter", ["exports", "active-model-adapter", "active-model-adapter/active-model-serializer"], function (_exports, _activeModelAdapter, _activeModelSerializer) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+  _exports.initialize = initialize;
+
+  function initialize(application) {
+    application.register('adapter:-active-model', _activeModelAdapter.default);
+    application.register('serializer:-active-model', _activeModelSerializer.default);
+  }
+
+  var _default = {
+    initialize
+  };
+  _exports.default = _default;
+});
 ;define("ember-cached-decorator-polyfill/index", ["exports", "@glimmer/tracking/primitives/cache", "@ember/debug"], function (_exports, _cache, _debug) {
   "use strict";
 
