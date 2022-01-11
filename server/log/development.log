@@ -1468,3 +1468,21 @@ Processing by KnuxesController#index as */*
 Completed 200 OK in 2ms (Views: 1.9ms | ActiveRecord: 0.1ms | Allocations: 787)
 
 
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+Started GET "/knuxes" for ::1 at 2022-01-11 16:32:47 -0600
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by KnuxesController#index as HTML
+  [1m[36mKnux Load (0.2ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 22ms (Views: 6.7ms | ActiveRecord: 0.9ms | Allocations: 18311)
+
+
+Started GET "/knuxes" for ::1 at 2022-01-11 16:33:12 -0600
+Processing by KnuxesController#index as */*
+  [1m[36mKnux Load (0.1ms)[0m  [1m[34mSELECT "knuxes".* FROM "knuxes"[0m
+  ↳ app/controllers/knuxes_controller.rb:3:in `index'
+Completed 200 OK in 2ms (Views: 1.7ms | ActiveRecord: 0.1ms | Allocations: 908)
+
+

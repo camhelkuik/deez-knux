@@ -10,23 +10,78 @@ var __ember_auto_import__;
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "../../../../CAMER_~1/AppData/Local/Temp/broccoli-62376ZHzdAXnjSFp4/cache-325-webpack_bundler_ember_auto_import_webpack/l.js":
-/*!***********************************************************************************************************************************!*\
-  !*** ../../../../CAMER_~1/AppData/Local/Temp/broccoli-62376ZHzdAXnjSFp4/cache-325-webpack_bundler_ember_auto_import_webpack/l.js ***!
-  \***********************************************************************************************************************************/
-/***/ (function(module, exports) {
+/***/ "../../../../CAMER_~1/AppData/Local/Temp/broccoli-21244tv7N4yU9yIFl/cache-325-webpack_bundler_ember_auto_import_webpack/app.js":
+/*!*************************************************************************************************************************************!*\
+  !*** ../../../../CAMER_~1/AppData/Local/Temp/broccoli-21244tv7N4yU9yIFl/cache-325-webpack_bundler_ember_auto_import_webpack/app.js ***!
+  \*************************************************************************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("\nwindow._eai_r = require;\nwindow._eai_d = define;\n\n\n//# sourceURL=webpack://__ember_auto_import__/../../../../CAMER_~1/AppData/Local/Temp/broccoli-62376ZHzdAXnjSFp4/cache-325-webpack_bundler_ember_auto_import_webpack/l.js?");
+eval("\nmodule.exports = (function(){\n  var d = _eai_d;\n  var r = _eai_r;\n  window.emberAutoImportDynamic = function(specifier) {\n    if (arguments.length === 1) {\n      return r('_eai_dyn_' + specifier);\n    } else {\n      return r('_eai_dynt_' + specifier)(Array.prototype.slice.call(arguments, 1))\n    }\n  };\n  window.emberAutoImportSync = function(specifier) {\n    return r('_eai_sync_' + specifier)(Array.prototype.slice.call(arguments, 1))\n  };\n    d('ember-welcome-page/components/welcome-page.js', [], function() { return __webpack_require__(/*! ember-welcome-page/components/welcome-page.js */ \"./node_modules/ember-welcome-page/dist/components/welcome-page.js\"); });\n})();\n\n\n//# sourceURL=webpack://__ember_auto_import__/../../../../CAMER_~1/AppData/Local/Temp/broccoli-21244tv7N4yU9yIFl/cache-325-webpack_bundler_ember_auto_import_webpack/app.js?");
 
 /***/ }),
 
-/***/ "../../../../CAMER_~1/AppData/Local/Temp/broccoli-62376ZHzdAXnjSFp4/cache-325-webpack_bundler_ember_auto_import_webpack/tests.js":
-/*!***************************************************************************************************************************************!*\
-  !*** ../../../../CAMER_~1/AppData/Local/Temp/broccoli-62376ZHzdAXnjSFp4/cache-325-webpack_bundler_ember_auto_import_webpack/tests.js ***!
-  \***************************************************************************************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ "../../../../CAMER_~1/AppData/Local/Temp/broccoli-21244tv7N4yU9yIFl/cache-325-webpack_bundler_ember_auto_import_webpack/l.js":
+/*!***********************************************************************************************************************************!*\
+  !*** ../../../../CAMER_~1/AppData/Local/Temp/broccoli-21244tv7N4yU9yIFl/cache-325-webpack_bundler_ember_auto_import_webpack/l.js ***!
+  \***********************************************************************************************************************************/
+/***/ (function(module, exports) {
 
-eval("\nmodule.exports = (function(){\n  var d = _eai_d;\n  var r = _eai_r;\n  window.emberAutoImportDynamic = function(specifier) {\n    if (arguments.length === 1) {\n      return r('_eai_dyn_' + specifier);\n    } else {\n      return r('_eai_dynt_' + specifier)(Array.prototype.slice.call(arguments, 1))\n    }\n  };\n  window.emberAutoImportSync = function(specifier) {\n    return r('_eai_sync_' + specifier)(Array.prototype.slice.call(arguments, 1))\n  };\n    d('qunit', [], function() { return __webpack_require__(/*! qunit */ \"./node_modules/qunit/qunit/qunit.js\"); });\n})();\n\n\n//# sourceURL=webpack://__ember_auto_import__/../../../../CAMER_~1/AppData/Local/Temp/broccoli-62376ZHzdAXnjSFp4/cache-325-webpack_bundler_ember_auto_import_webpack/tests.js?");
+eval("\nwindow._eai_r = require;\nwindow._eai_d = define;\n\n\n//# sourceURL=webpack://__ember_auto_import__/../../../../CAMER_~1/AppData/Local/Temp/broccoli-21244tv7N4yU9yIFl/cache-325-webpack_bundler_ember_auto_import_webpack/l.js?");
+
+/***/ }),
+
+/***/ "@ember/application":
+/*!*************************************!*\
+  !*** external "@ember/application" ***!
+  \*************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("@ember/application");
+
+/***/ }),
+
+/***/ "@ember/component":
+/*!***********************************!*\
+  !*** external "@ember/component" ***!
+  \***********************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("@ember/component");
+
+/***/ }),
+
+/***/ "@ember/template-factory":
+/*!******************************************!*\
+  !*** external "@ember/template-factory" ***!
+  \******************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("@ember/template-factory");
+
+/***/ }),
+
+/***/ "@ember/version":
+/*!*********************************!*\
+  !*** external "@ember/version" ***!
+  \*********************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("@ember/version");
+
+/***/ }),
+
+/***/ "@glimmer/component":
+/*!*************************************!*\
+  !*** external "@glimmer/component" ***!
+  \*************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("@glimmer/component");
 
 /***/ })
 
@@ -45,15 +100,12 @@ eval("\nmodule.exports = (function(){\n  var d = _eai_d;\n  var r = _eai_r;\n  w
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			id: moduleId,
-/******/ 			loaded: false,
+/******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
 /******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Flag the module as loaded
-/******/ 		module.loaded = true;
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -95,17 +147,43 @@ eval("\nmodule.exports = (function(){\n  var d = _eai_d;\n  var r = _eai_r;\n  w
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/node module decorator */
+/******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
-/******/ 		__webpack_require__.nmd = (module) => {
-/******/ 			module.paths = [];
-/******/ 			if (!module.children) module.children = [];
-/******/ 			return module;
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
 /******/ 	})();
 /******/ 	
@@ -117,7 +195,7 @@ eval("\nmodule.exports = (function(){\n  var d = _eai_d;\n  var r = _eai_r;\n  w
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
-/******/ 			"tests": 0
+/******/ 			"app": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -167,8 +245,8 @@ eval("\nmodule.exports = (function(){\n  var d = _eai_d;\n  var r = _eai_r;\n  w
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["vendors-node_modules_qunit_qunit_qunit_js"], () => (__webpack_require__("../../../../CAMER_~1/AppData/Local/Temp/broccoli-62376ZHzdAXnjSFp4/cache-325-webpack_bundler_ember_auto_import_webpack/l.js")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["vendors-node_modules_qunit_qunit_qunit_js"], () => (__webpack_require__("../../../../CAMER_~1/AppData/Local/Temp/broccoli-62376ZHzdAXnjSFp4/cache-325-webpack_bundler_ember_auto_import_webpack/tests.js")))
+/******/ 	__webpack_require__.O(undefined, ["vendors-node_modules_ember-welcome-page_dist_components_welcome-page_js"], () => (__webpack_require__("../../../../CAMER_~1/AppData/Local/Temp/broccoli-21244tv7N4yU9yIFl/cache-325-webpack_bundler_ember_auto_import_webpack/l.js")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["vendors-node_modules_ember-welcome-page_dist_components_welcome-page_js"], () => (__webpack_require__("../../../../CAMER_~1/AppData/Local/Temp/broccoli-21244tv7N4yU9yIFl/cache-325-webpack_bundler_ember_auto_import_webpack/app.js")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	__ember_auto_import__ = __webpack_exports__;
 /******/ 	
