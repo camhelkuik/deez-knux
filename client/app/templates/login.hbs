@@ -1,0 +1,11 @@
+<form {{on "submit" this.login}}>
+    <label for="email">Username</label>
+    <input type="text" name="email" {{on "change" (fn this.update "email")}}>
+    <label for="password">Password</label>
+    <input type="password" name="password" {{on "change" (fn this.update "password")}}>
+    <input type="submit" value="Login">
+</form>
+
+{{#if this.error}}
+    <p><strong>{{this.error}}</strong></p>
+{{/if}}

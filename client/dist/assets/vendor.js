@@ -73016,6 +73016,172 @@ require('@ember/-internals/bootstrap')
   });
 })(typeof window !== 'undefined' && window || typeof globalThis !== 'undefined' && globalThis || typeof self !== 'undefined' && self || typeof global !== 'undefined' && global);
     }
+;/*! http://mths.be/base64 v0.1.0 by @mathias | MIT license */
+;(function(root) {
+
+	// Detect free variables `exports`.
+	var freeExports = typeof exports == 'object' && exports;
+
+	// Detect free variable `module`.
+	var freeModule = typeof module == 'object' && module &&
+		module.exports == freeExports && module;
+
+	// Detect free variable `global`, from Node.js or Browserified code, and use
+	// it as `root`.
+	var freeGlobal = typeof global == 'object' && global;
+	if (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal) {
+		root = freeGlobal;
+	}
+
+	/*--------------------------------------------------------------------------*/
+
+	var InvalidCharacterError = function(message) {
+		this.message = message;
+	};
+	InvalidCharacterError.prototype = new Error;
+	InvalidCharacterError.prototype.name = 'InvalidCharacterError';
+
+	var error = function(message) {
+		// Note: the error messages used throughout this file match those used by
+		// the native `atob`/`btoa` implementation in Chromium.
+		throw new InvalidCharacterError(message);
+	};
+
+	var TABLE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+	// http://whatwg.org/html/common-microsyntaxes.html#space-character
+	var REGEX_SPACE_CHARACTERS = /[\t\n\f\r ]/g;
+
+	// `decode` is designed to be fully compatible with `atob` as described in the
+	// HTML Standard. http://whatwg.org/html/webappapis.html#dom-windowbase64-atob
+	// The optimized base64-decoding algorithm used is based on @atk’s excellent
+	// implementation. https://gist.github.com/atk/1020396
+	var decode = function(input) {
+		input = String(input)
+			.replace(REGEX_SPACE_CHARACTERS, '');
+		var length = input.length;
+		if (length % 4 == 0) {
+			input = input.replace(/==?$/, '');
+			length = input.length;
+		}
+		if (
+			length % 4 == 1 ||
+			// http://whatwg.org/C#alphanumeric-ascii-characters
+			/[^+a-zA-Z0-9/]/.test(input)
+		) {
+			error(
+				'Invalid character: the string to be decoded is not correctly encoded.'
+			);
+		}
+		var bitCounter = 0;
+		var bitStorage;
+		var buffer;
+		var output = '';
+		var position = -1;
+		while (++position < length) {
+			buffer = TABLE.indexOf(input.charAt(position));
+			bitStorage = bitCounter % 4 ? bitStorage * 64 + buffer : buffer;
+			// Unless this is the first of a group of 4 characters…
+			if (bitCounter++ % 4) {
+				// …convert the first 8 bits to a single ASCII character.
+				output += String.fromCharCode(
+					0xFF & bitStorage >> (-2 * bitCounter & 6)
+				);
+			}
+		}
+		return output;
+	};
+
+	// `encode` is designed to be fully compatible with `btoa` as described in the
+	// HTML Standard: http://whatwg.org/html/webappapis.html#dom-windowbase64-btoa
+	var encode = function(input) {
+		input = String(input);
+		if (/[^\0-\xFF]/.test(input)) {
+			// Note: no need to special-case astral symbols here, as surrogates are
+			// matched, and the input is supposed to only contain ASCII anyway.
+			error(
+				'The string to be encoded contains characters outside of the ' +
+				'Latin1 range.'
+			);
+		}
+		var padding = input.length % 3;
+		var output = '';
+		var position = -1;
+		var a;
+		var b;
+		var c;
+		var d;
+		var buffer;
+		// Make sure any padding is handled outside of the loop.
+		var length = input.length - padding;
+
+		while (++position < length) {
+			// Read three bytes, i.e. 24 bits.
+			a = input.charCodeAt(position) << 16;
+			b = input.charCodeAt(++position) << 8;
+			c = input.charCodeAt(++position);
+			buffer = a + b + c;
+			// Turn the 24 bits into four chunks of 6 bits each, and append the
+			// matching character for each of them to the output.
+			output += (
+				TABLE.charAt(buffer >> 18 & 0x3F) +
+				TABLE.charAt(buffer >> 12 & 0x3F) +
+				TABLE.charAt(buffer >> 6 & 0x3F) +
+				TABLE.charAt(buffer & 0x3F)
+			);
+		}
+
+		if (padding == 2) {
+			a = input.charCodeAt(position) << 8;
+			b = input.charCodeAt(++position);
+			buffer = a + b;
+			output += (
+				TABLE.charAt(buffer >> 10) +
+				TABLE.charAt((buffer >> 4) & 0x3F) +
+				TABLE.charAt((buffer << 2) & 0x3F) +
+				'='
+			);
+		} else if (padding == 1) {
+			buffer = input.charCodeAt(position);
+			output += (
+				TABLE.charAt(buffer >> 2) +
+				TABLE.charAt((buffer << 4) & 0x3F) +
+				'=='
+			);
+		}
+
+		return output;
+	};
+
+	var base64 = {
+		'encode': encode,
+		'decode': decode,
+		'version': '0.1.0'
+	};
+
+	// Some AMD build optimizers, like r.js, check for specific condition patterns
+	// like the following:
+	if (
+		typeof define == 'function' &&
+		typeof define.amd == 'object' &&
+		define.amd
+	) {
+		define(function() {
+			return base64;
+		});
+	}	else if (freeExports && !freeExports.nodeType) {
+		if (freeModule) { // in Node.js or RingoJS v0.8.0+
+			freeModule.exports = base64;
+		} else { // in Narwhal or RingoJS v0.7.0-
+			for (var key in base64) {
+				base64.hasOwnProperty(key) && (freeExports[key] = base64[key]);
+			}
+		}
+	} else { // in Rhino or a web browser
+		root.base64 = base64;
+	}
+
+}(this));
+
 ;if (typeof FastBoot === 'undefined') { // Spectrum Colorpicker v1.8.1
 // https://github.com/bgrins/spectrum
 // Author: Brian Grinstead
@@ -103935,6 +104101,327 @@ require('@ember/-internals/bootstrap')
 
   _exports.shaRegExp = shaRegExp;
 });
+;define("ember-cookies/services/cookies", ["exports", "@ember/utils", "@ember/object", "@ember/debug", "@ember/application", "@ember/service", "@ember/polyfills", "ember-cookies/utils/serialize-cookie"], function (_exports, _utils, _object, _debug, _application, _service, _polyfills, _serializeCookie) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+  const {
+    keys
+  } = Object;
+  const assign = Object.assign || _polyfills.assign || _polyfills.merge;
+  const DEFAULTS = {
+    raw: false
+  };
+  const MAX_COOKIE_BYTE_LENGTH = 4096;
+
+  var _default = _service.default.extend({
+    init() {
+      this._super(...arguments);
+
+      this._document = this._document || window.document;
+
+      if (typeof this._fastBoot === 'undefined') {
+        let owner = (0, _application.getOwner)(this);
+        this._fastBoot = owner.lookup('service:fastboot');
+      }
+    },
+
+    _getDocumentCookies() {
+      let all = this._document.cookie.split(';');
+
+      let filtered = this._filterDocumentCookies(all);
+
+      return filtered.reduce((acc, cookie) => {
+        if (!(0, _utils.isEmpty)(cookie)) {
+          let [key, value] = cookie;
+          acc[key.trim()] = (value || '').trim();
+        }
+
+        return acc;
+      }, {});
+    },
+
+    _getFastBootCookies() {
+      let fastBootCookies = (0, _object.get)(this._fastBoot, 'request.cookies');
+      fastBootCookies = keys(fastBootCookies).reduce((acc, name) => {
+        let value = fastBootCookies[name];
+        acc[name] = {
+          value
+        };
+        return acc;
+      }, {});
+      let fastBootCookiesCache = this._fastBootCookiesCache || {};
+      fastBootCookies = assign({}, fastBootCookies, fastBootCookiesCache);
+      this._fastBootCookiesCache = fastBootCookies;
+      return this._filterCachedFastBootCookies(fastBootCookies);
+    },
+
+    read(name) {
+      let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      options = assign({}, DEFAULTS, options || {});
+      (true && !((0, _utils.isEmpty)(options.domain) && (0, _utils.isEmpty)(options.expires) && (0, _utils.isEmpty)(options.maxAge) && (0, _utils.isEmpty)(options.path)) && (0, _debug.assert)('Domain, Expires, Max-Age, and Path options cannot be set when reading cookies', (0, _utils.isEmpty)(options.domain) && (0, _utils.isEmpty)(options.expires) && (0, _utils.isEmpty)(options.maxAge) && (0, _utils.isEmpty)(options.path)));
+      let all;
+
+      if (this._isFastBoot()) {
+        all = this._getFastBootCookies();
+      } else {
+        all = this._getDocumentCookies();
+      }
+
+      if (name) {
+        return this._decodeValue(all[name], options.raw);
+      } else {
+        keys(all).forEach(name => all[name] = this._decodeValue(all[name], options.raw));
+        return all;
+      }
+    },
+
+    write(name, value) {
+      let options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      options = assign({}, DEFAULTS, options || {});
+      (true && !(!options.signed) && (0, _debug.assert)("Cookies cannot be set as signed as signed cookies would not be modifyable in the browser as it has no knowledge of the express server's signing key!", !options.signed));
+      (true && !((0, _utils.isEmpty)(options.expires) || (0, _utils.isEmpty)(options.maxAge)) && (0, _debug.assert)('Cookies cannot be set with both maxAge and an explicit expiration time!', (0, _utils.isEmpty)(options.expires) || (0, _utils.isEmpty)(options.maxAge)));
+      value = this._encodeValue(value, options.raw);
+      (true && !(this._isCookieSizeAcceptable(value)) && (0, _debug.assert)(`Cookies larger than ${MAX_COOKIE_BYTE_LENGTH} bytes are not supported by most browsers!`, this._isCookieSizeAcceptable(value)));
+
+      if (this._isFastBoot()) {
+        this._writeFastBootCookie(name, value, options);
+      } else {
+        (true && !(!options.httpOnly) && (0, _debug.assert)('Cookies cannot be set to be HTTP-only from a browser!', !options.httpOnly));
+        options.path = options.path || this._normalizedDefaultPath();
+
+        this._writeDocumentCookie(name, value, options);
+      }
+    },
+
+    clear(name) {
+      let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      options = assign({}, options || {});
+      (true && !((0, _utils.isEmpty)(options.expires) && (0, _utils.isEmpty)(options.maxAge) && (0, _utils.isEmpty)(options.raw)) && (0, _debug.assert)('Expires, Max-Age, and raw options cannot be set when clearing cookies', (0, _utils.isEmpty)(options.expires) && (0, _utils.isEmpty)(options.maxAge) && (0, _utils.isEmpty)(options.raw)));
+      options.expires = new Date('1970-01-01');
+      options.path = options.path || this._normalizedDefaultPath();
+      this.write(name, null, options);
+    },
+
+    exists(name) {
+      let all;
+
+      if (this._isFastBoot()) {
+        all = this._getFastBootCookies();
+      } else {
+        all = this._getDocumentCookies();
+      }
+
+      return all.hasOwnProperty(name);
+    },
+
+    _writeDocumentCookie(name, value) {
+      let options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+      let serializedCookie = this._serializeCookie(name, value, options);
+
+      this._document.cookie = serializedCookie;
+    },
+
+    _writeFastBootCookie(name, value) {
+      let options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      let responseHeaders = (0, _object.get)(this._fastBoot, 'response.headers');
+
+      let serializedCookie = this._serializeCookie(...arguments);
+
+      if (!(0, _utils.isEmpty)(options.maxAge)) {
+        options.maxAge *= 1000;
+      }
+
+      this._cacheFastBootCookie(...arguments);
+
+      let replaced = false;
+      let existing = responseHeaders.getAll('set-cookie');
+
+      for (let i = 0; i < existing.length; i++) {
+        if (existing[i].startsWith(`${name}=`)) {
+          existing[i] = serializedCookie;
+          replaced = true;
+          break;
+        }
+      }
+
+      if (!replaced) {
+        responseHeaders.append('set-cookie', serializedCookie);
+      }
+    },
+
+    _cacheFastBootCookie(name, value) {
+      let options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      let fastBootCache = this._fastBootCookiesCache || {};
+      let cachedOptions = assign({}, options);
+
+      if (cachedOptions.maxAge) {
+        let expires = new Date();
+        expires.setSeconds(expires.getSeconds() + options.maxAge);
+        cachedOptions.expires = expires;
+        delete cachedOptions.maxAge;
+      }
+
+      fastBootCache[name] = {
+        value,
+        options: cachedOptions
+      };
+      this._fastBootCookiesCache = fastBootCache;
+    },
+
+    _filterCachedFastBootCookies(fastBootCookies) {
+      let {
+        path: requestPath,
+        protocol
+      } = (0, _object.get)(this._fastBoot, 'request'); // cannot use deconstruct here
+
+      let host = (0, _object.get)(this._fastBoot, 'request.host');
+      return keys(fastBootCookies).reduce((acc, name) => {
+        let {
+          value,
+          options
+        } = fastBootCookies[name];
+        options = options || {};
+        let {
+          path: optionsPath,
+          domain,
+          expires,
+          secure
+        } = options;
+
+        if (optionsPath && requestPath.indexOf(optionsPath) !== 0) {
+          return acc;
+        }
+
+        if (domain && host.indexOf(domain) + domain.length !== host.length) {
+          return acc;
+        }
+
+        if (expires && expires < new Date()) {
+          return acc;
+        }
+
+        if (secure && !(protocol || '').match(/^https/)) {
+          return acc;
+        }
+
+        acc[name] = value;
+        return acc;
+      }, {});
+    },
+
+    _encodeValue(value, raw) {
+      if ((0, _utils.isNone)(value)) {
+        return '';
+      } else if (raw) {
+        return value;
+      } else {
+        return encodeURIComponent(value);
+      }
+    },
+
+    _decodeValue(value, raw) {
+      if ((0, _utils.isNone)(value) || raw) {
+        return value;
+      } else {
+        return decodeURIComponent(value);
+      }
+    },
+
+    _filterDocumentCookies(unfilteredCookies) {
+      return unfilteredCookies.map(c => {
+        let separatorIndex = c.indexOf('=');
+        return [c.substring(0, separatorIndex), c.substring(separatorIndex + 1)];
+      }).filter(c => c.length === 2 && (0, _utils.isPresent)(c[0]));
+    },
+
+    _serializeCookie(name, value) {
+      let options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      return (0, _serializeCookie.serializeCookie)(name, value, options);
+    },
+
+    _isCookieSizeAcceptable(value) {
+      // Counting bytes varies Pre-ES6 and in ES6
+      // This snippet counts the bytes in the value
+      // about to be stored as the cookie:
+      // See https://stackoverflow.com/a/25994411/6657064
+      let _byteCount = 0;
+      let i = 0;
+      let c;
+
+      while (c = value.charCodeAt(i++)) {
+        /* eslint-disable no-bitwise */
+        _byteCount += c >> 11 ? 3 : c >> 7 ? 2 : 1;
+        /* eslint-enable no-bitwise */
+      }
+
+      return _byteCount < MAX_COOKIE_BYTE_LENGTH;
+    },
+
+    _normalizedDefaultPath() {
+      if (!this._isFastBoot()) {
+        let pathname = window.location.pathname;
+        return pathname.substring(0, pathname.lastIndexOf('/'));
+      }
+    },
+
+    _isFastBoot() {
+      return this._fastBoot && this._fastBoot.isFastBoot;
+    }
+
+  });
+
+  _exports.default = _default;
+});
+;define("ember-cookies/utils/serialize-cookie", ["exports", "@ember/utils"], function (_exports, _utils) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.serializeCookie = void 0;
+
+  const serializeCookie = function (name, value) {
+    let options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    let cookie = `${name}=${value}`;
+
+    if (!(0, _utils.isEmpty)(options.domain)) {
+      cookie = `${cookie}; domain=${options.domain}`;
+    }
+
+    if ((0, _utils.typeOf)(options.expires) === 'date') {
+      cookie = `${cookie}; expires=${options.expires.toUTCString()}`;
+    }
+
+    if (!(0, _utils.isEmpty)(options.maxAge)) {
+      cookie = `${cookie}; max-age=${options.maxAge}`;
+    }
+
+    if (options.secure) {
+      cookie = `${cookie}; secure`;
+    }
+
+    if (options.httpOnly) {
+      cookie = `${cookie}; httpOnly`;
+    }
+
+    if (!(0, _utils.isEmpty)(options.path)) {
+      cookie = `${cookie}; path=${options.path}`;
+    }
+
+    if (!(0, _utils.isEmpty)(options.sameSite)) {
+      cookie = `${cookie}; SameSite=${options.sameSite}`;
+    }
+
+    return cookie;
+  };
+
+  _exports.serializeCookie = serializeCookie;
+});
 ;define('ember-data/-private', ['exports', '@ember-data/store', '@ember/application/namespace', 'ember', 'ember-data/version', '@ember-data/model/-private', '@ember-data/store/-private', '@ember-data/record-data/-private'], (function (exports, store, Namespace, Ember, VERSION, Private, Private$1, Private$2) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -106289,6 +106776,3358 @@ define("ember-resolver/features", [], function () {
       }
 
     };
+  }
+});
+;define("ember-simple-auth/-internals/routing", ["exports", "ember", "ember-simple-auth/utils/is-fastboot", "ember-simple-auth/utils/location"], function (_exports, _ember, _isFastboot, _location) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.handleSessionAuthenticated = handleSessionAuthenticated;
+  _exports.handleSessionInvalidated = handleSessionInvalidated;
+  _exports.prohibitAuthentication = prohibitAuthentication;
+  _exports.requireAuthentication = requireAuthentication;
+  _exports.triggerAuthentication = triggerAuthentication;
+
+  function requireAuthentication(owner, transition) {
+    let sessionService = owner.lookup('service:session');
+    let isAuthenticated = sessionService.get('isAuthenticated');
+
+    if (!isAuthenticated) {
+      if (transition && (0, _isFastboot.default)(owner)) {
+        const fastbootService = owner.lookup('service:fastboot');
+        const cookiesService = owner.lookup('service:cookies');
+        cookiesService.write('ember_simple_auth-redirectTarget', transition.intent.url, {
+          path: '/',
+          secure: fastbootService.get('request.protocol') === 'https'
+        });
+      } else if (transition) {
+        sessionService.set('attemptedTransition', transition);
+      }
+    }
+
+    return isAuthenticated;
+  }
+
+  function triggerAuthentication(owner, authenticationRoute) {
+    let authRouter = owner.lookup('service:router') || owner.lookup('router:main');
+    authRouter.transitionTo(authenticationRoute);
+  }
+
+  function prohibitAuthentication(owner, routeIfAlreadyAuthenticated) {
+    let authRouter = owner.lookup('service:router') || owner.lookup('router:main');
+    authRouter.transitionTo(routeIfAlreadyAuthenticated);
+  }
+
+  function handleSessionAuthenticated(owner, routeAfterAuthentication) {
+    let sessionService = owner.lookup('service:session');
+    let attemptedTransition = sessionService.get('attemptedTransition');
+    let cookiesService = owner.lookup('service:cookies');
+    const redirectTarget = cookiesService.read('ember_simple_auth-redirectTarget');
+    let routerService = owner.lookup('service:router');
+
+    if (attemptedTransition) {
+      attemptedTransition.retry();
+      sessionService.set('attemptedTransition', null);
+    } else if (redirectTarget) {
+      routerService.transitionTo(redirectTarget);
+      cookiesService.clear('ember_simple_auth-redirectTarget');
+    } else {
+      routerService.transitionTo(routeAfterAuthentication);
+    }
+  }
+
+  function handleSessionInvalidated(owner, routeAfterInvalidation) {
+    if ((0, _isFastboot.default)(owner)) {
+      let routerService = owner.lookup('service:router');
+      routerService.transitionTo(routeAfterInvalidation);
+    } else {
+      if (!_ember.default.testing) {
+        (0, _location.default)().replace(routeAfterInvalidation);
+      }
+    }
+  }
+});
+;define("ember-simple-auth/authenticators/base", ["exports", "rsvp", "@ember/object/evented", "@ember/object"], function (_exports, _rsvp, _evented, _object) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  /**
+    The base class for all authenticators. __This serves as a starting point for
+    implementing custom authenticators and must not be used directly.__
+  
+    The authenticator authenticates the session. The actual mechanism used to do
+    this might, e.g., post a set of credentials to a server and in exchange
+    retrieve an access token, initiating authentication against an external
+    provider like Facebook, etc. The details depend on the specific authenticator.
+    Upon successful authentication, any data that the authenticator receives and
+    resolves via the promise returned from the
+    {{#crossLink "BaseAuthenticator/authenticate:method"}}{{/crossLink}}
+    method is stored in the session and can be accessed via the session service
+    to be used by the authorizer (see
+    {{#crossLink "BaseAuthorizer/authorize:method"}}{{/crossLink}}) to e.g.,
+    authorize outgoing requests.
+  
+    The authenticator also decides whether a set of data that was restored from
+    the session store (see
+    {{#crossLink "BaseStore/restore:method"}}{{/crossLink}}) makes up an
+    authenticated session or not.
+  
+    __Authenticators for an application are defined in the `app/authenticators`
+    directory__, e.g.:
+  
+    ```js
+    // app/authenticators/oauth2.js
+    import OAuth2PasswordGrantAuthenticator from 'ember-simple-auth/authenticators/oauth2-password-grant';
+  
+    export default class OAuth2Authenticator extends OAuth2PasswordGrantAuthenticator {
+      ...
+    }
+    ```
+  
+    and can then be used via the name Ember CLI automatically registers for them
+    within the Ember container.
+  
+    ```js
+    // app/components/login-form.js
+    import Component from '@ember/component';
+    import { inject as service } from '@ember/service';
+    import { action } from '@ember/object';
+  
+    export default class LoginFormComponent extends Component {
+      @service session;
+  
+      @action
+      authenticate() {
+        this.session.authenticate('authenticator:oauth2');
+      }
+    }
+    ```
+  
+    @class BaseAuthenticator
+    @module ember-simple-auth/authenticators/base
+    @extends Ember.Object
+    @uses Ember.Evented
+    @public
+  */
+  var _default = _object.default.extend(_evented.default, {
+    /**
+      __Triggered when the authentication data is updated by the authenticator
+      due to an external or scheduled event__. This might happen, e.g., if the
+      authenticator refreshes an expired token or an event is triggered from an
+      external authentication provider that the authenticator uses. The session
+      handles that event, passes the updated data back to the authenticator's
+      {{#crossLink "BaseAuthenticator/restore:method"}}{{/crossLink}}
+      method and handles the result of that invocation accordingly.
+       @event sessionDataUpdated
+      @param {Object} data The updated session data
+      @public
+    */
+
+    /**
+      __Triggered when the authentication data is invalidated by the authenticator
+      due to an external or scheduled event__. This might happen, e.g., if a token
+      expires or an event is triggered from an external authentication provider
+      that the authenticator uses. The session handles the event and will
+      invalidate itself when it is triggered.
+       @event sessionDataInvalidated
+      @public
+    */
+
+    /**
+      Restores the session from a session data object. __This method is invoked
+      by the session either on application startup if session data is restored
+      from the session store__ or when properties in the store change due to
+      external events (e.g. in another tab) and the new session data needs to be
+      validated for whether it constitutes an authenticated session.
+       __This method returns a promise. A resolving promise results in the session
+      becoming or remaining authenticated.__ Any data the promise resolves with
+      will be saved in and accessible via the session service's
+      `data.authenticated` property (see
+      {{#crossLink "SessionService/data:property"}}{{/crossLink}}). A rejecting
+      promise indicates that `data` does not constitute a valid session and will
+      result in the session being invalidated or remaining unauthenticated.
+       The `BaseAuthenticator`'s implementation always returns a rejecting
+      promise. __This method must be overridden in subclasses.__
+       @method restore
+      @param {Object} data The data to restore the session from
+      @return {Ember.RSVP.Promise} A promise that when it resolves results in the session becoming or remaining authenticated
+      @public
+    */
+    restore() {
+      return _rsvp.default.reject();
+    },
+
+    /**
+      Authenticates the session with the specified `args`. These options vary
+      depending on the actual authentication mechanism the authenticator
+      implements (e.g. a set of credentials or a Facebook account id etc.). __The
+      session will invoke this method in order to authenticate itself__ (see
+      {{#crossLink "SessionService/authenticate:method"}}{{/crossLink}}).
+       __This method returns a promise. A resolving promise will result in the
+      session becoming authenticated.__ Any data the promise resolves with will
+      be saved in and accessible via the session service's `data.authenticated`
+      property (see {{#crossLink "SessionService/data:property"}}{{/crossLink}}).
+      A rejecting promise indicates that authentication failed and will result in
+      the session remaining unauthenticated.
+       The `BaseAuthenticator`'s implementation always returns a rejecting promise
+      and thus never authenticates the session. __This method must be overridden
+      in subclasses__.
+       @method authenticate
+      @param {Any} [...args] The arguments that the authenticator requires to authenticate the session
+      @return {Ember.RSVP.Promise} A promise that when it resolves results in the session becoming authenticated
+      @public
+    */
+    authenticate() {
+      return _rsvp.default.reject();
+    },
+
+    /**
+      This method is invoked as a callback when the session is invalidated. While
+      the session will invalidate itself and clear all authenticated session data,
+      it might be necessary for some authenticators to perform additional tasks
+      (e.g. invalidating an access token on the server side).
+       __This method returns a promise. A resolving promise will result in the
+      session becoming unauthenticated.__ A rejecting promise will result in
+      invalidation being intercepted and the session remaining authenticated.
+       The `BaseAuthenticator`'s implementation always returns a resolving promise
+      and thus never intercepts session invalidation. __This method doesn't have
+      to be overridden in custom authenticators__ if no actions need to be
+      performed on session invalidation.
+       @method invalidate
+      @param {Object} data The current authenticated session data
+      @param {Array} ...args additional arguments as required by the authenticator
+      @return {Ember.RSVP.Promise} A promise that when it resolves results in the session being invalidated
+      @public
+    */
+    invalidate() {
+      return _rsvp.default.resolve();
+    }
+
+  });
+
+  _exports.default = _default;
+});
+;define("ember-simple-auth/authenticators/devise", ["exports", "rsvp", "@ember/utils", "@ember/runloop", "@ember/polyfills", "ember-simple-auth/authenticators/base", "fetch"], function (_exports, _rsvp, _utils, _runloop, _polyfills, _base, _fetch) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+  const assign = _polyfills.assign || _polyfills.merge;
+  const JSON_CONTENT_TYPE = 'application/json';
+  /**
+    Authenticator that works with the Ruby gem
+    [devise](https://github.com/plataformatec/devise).
+  
+    __As token authentication is not actually part of devise anymore, the server
+    needs to implement some customizations__ to work with this authenticator -
+    see [this gist](https://gist.github.com/josevalim/fb706b1e933ef01e4fb6).
+  
+    @class DeviseAuthenticator
+    @module ember-simple-auth/authenticators/devise
+    @extends BaseAuthenticator
+    @public
+  */
+
+  var _default = _base.default.extend({
+    /**
+      The endpoint on the server that the authentication request is sent to.
+       @property serverTokenEndpoint
+      @type String
+      @default '/users/sign_in'
+      @public
+    */
+    serverTokenEndpoint: '/users/sign_in',
+
+    /**
+      The devise resource name. __This will be used in the request and also be
+      expected in the server's response.__
+       @property resourceName
+      @type String
+      @default 'user'
+      @public
+    */
+    resourceName: 'user',
+
+    /**
+      The token attribute name. __This will be used in the request and also be
+      expected in the server's response.__
+       @property tokenAttributeName
+      @type String
+      @default 'token'
+      @public
+    */
+    tokenAttributeName: 'token',
+
+    /**
+      The identification attribute name. __This will be used in the request and
+      also be expected in the server's response.__
+       @property identificationAttributeName
+      @type String
+      @default 'email'
+      @public
+    */
+    identificationAttributeName: 'email',
+
+    /**
+      Restores the session from a session data object; __returns a resolving
+      promise when there are non-empty
+      {{#crossLink "DeviseAuthenticator/tokenAttributeName:property"}}token{{/crossLink}}
+      and
+      {{#crossLink "DeviseAuthenticator/identificationAttributeName:property"}}identification{{/crossLink}}
+      values in `data`__ and a rejecting promise otherwise.
+       @method restore
+      @param {Object} data The data to restore the session from
+      @return {Ember.RSVP.Promise} A promise that when it resolves results in the session becoming or remaining authenticated
+      @public
+    */
+    restore(data) {
+      // eslint-disable-next-line prefer-promise-reject-errors
+      return this._validate(data) ? _rsvp.Promise.resolve(data) : _rsvp.Promise.reject();
+    },
+
+    /**
+      Authenticates the session with the specified `identification` and
+      `password`; the credentials are `POST`ed to the
+      {{#crossLink "DeviseAuthenticator/serverTokenEndpoint:property"}}server{{/crossLink}}.
+      If the credentials are valid the server will responds with a
+      {{#crossLink "DeviseAuthenticator/tokenAttributeName:property"}}token{{/crossLink}}
+      and
+      {{#crossLink "DeviseAuthenticator/identificationAttributeName:property"}}identification{{/crossLink}}.
+      __If the credentials are valid and authentication succeeds, a promise that
+      resolves with the server's response is returned__, otherwise a promise that
+      rejects with the server error is returned.
+       @method authenticate
+      @param {String} identification The user's identification
+      @param {String} password The user's password
+      @return {Ember.RSVP.Promise} A promise that when it resolves results in the session becoming authenticated. If authentication fails, the promise will reject with the server response; however, the authenticator reads that response already so if you need to read it again you need to clone the response object first
+      @public
+    */
+    authenticate(identification, password) {
+      return new _rsvp.Promise((resolve, reject) => {
+        const {
+          resourceName,
+          identificationAttributeName,
+          tokenAttributeName
+        } = this.getProperties('resourceName', 'identificationAttributeName', 'tokenAttributeName');
+        const data = {};
+        data[resourceName] = {
+          password
+        };
+        data[resourceName][identificationAttributeName] = identification;
+        this.makeRequest(data).then(response => {
+          if (response.ok) {
+            response.json().then(json => {
+              if (this._validate(json)) {
+                const resourceName = this.get('resourceName');
+
+                const _json = json[resourceName] ? json[resourceName] : json;
+
+                (0, _runloop.run)(null, resolve, _json);
+              } else {
+                (0, _runloop.run)(null, reject, `Check that server response includes ${tokenAttributeName} and ${identificationAttributeName}`);
+              }
+            });
+          } else {
+            (0, _runloop.run)(null, reject, response);
+          }
+        }).catch(error => (0, _runloop.run)(null, reject, error));
+      });
+    },
+
+    /**
+      Does nothing
+       @method invalidate
+      @return {Ember.RSVP.Promise} A resolving promise
+      @public
+    */
+    invalidate() {
+      return _rsvp.Promise.resolve();
+    },
+
+    /**
+      Makes a request to the Devise server using
+      [ember-fetch](https://github.com/stefanpenner/ember-fetch).
+       @method makeRequest
+      @param {Object} data The request data
+      @param {Object} options request options that are passed to `fetch`
+      @return {Promise} The promise returned by `fetch`
+      @protected
+    */
+    makeRequest(data) {
+      let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      let url = options.url || this.get('serverTokenEndpoint');
+      let requestOptions = {};
+      let body = JSON.stringify(data);
+      assign(requestOptions, {
+        body,
+        method: 'POST',
+        headers: {
+          'accept': JSON_CONTENT_TYPE,
+          'content-type': JSON_CONTENT_TYPE
+        }
+      });
+      assign(requestOptions, options || {});
+      return (0, _fetch.default)(url, requestOptions);
+    },
+
+    _validate(data) {
+      const tokenAttributeName = this.get('tokenAttributeName');
+      const identificationAttributeName = this.get('identificationAttributeName');
+      const resourceName = this.get('resourceName');
+
+      const _data = data[resourceName] ? data[resourceName] : data;
+
+      return !(0, _utils.isEmpty)(_data[tokenAttributeName]) && !(0, _utils.isEmpty)(_data[identificationAttributeName]);
+    }
+
+  });
+
+  _exports.default = _default;
+});
+;define("ember-simple-auth/authenticators/oauth2-implicit-grant", ["exports", "rsvp", "@ember/utils", "ember-simple-auth/authenticators/base"], function (_exports, _rsvp, _utils, _base) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+  _exports.parseResponse = parseResponse;
+
+  /**
+    Parses the location hash (as received from `window.location.hash`) into an
+    object, e.g.:
+  
+    ```js
+    parseResponse('/routepath#access_token=secret-token&scope=something'); // => { access_token: 'secret-token', scope: 'something' }
+    ```
+  
+    @function parseResponse
+    @param {String} locationHash The location hash (as received from `window.location.hash`)
+    @return {Object} An obect with individual properties and values for the data parsed from the location hash
+  */
+  function parseResponse(locationHash) {
+    let params = {};
+    const query = locationHash.substring(locationHash.indexOf('?'));
+    const regex = /([^#?&=]+)=([^&]*)/g;
+    let match; // decode all parameter pairs
+
+    while ((match = regex.exec(query)) !== null) {
+      params[decodeURIComponent(match[1])] = decodeURIComponent(match[2]);
+    }
+
+    return params;
+  }
+  /**
+   Authenticator that conforms to OAuth 2
+   ([RFC 6749](http://tools.ietf.org/html/rfc6749)), specifically the _"Implicit
+   Grant Type"_.
+  
+   Use {{#crossLink "OAuth2ImplicitGrantCallbackMixin"}}{{/crossLink}} in your
+   OAuth 2.0 redirect route to parse authentication parameters from location
+   hash string into an object.
+  
+   @class OAuth2ImplicitGrantAuthenticator
+   @module ember-simple-auth/authenticators/oauth2-implicit-grant
+   @extends BaseAuthenticator
+   @public
+   */
+
+
+  var _default = _base.default.extend({
+    /**
+     Restores the session from a session data object; __will return a resolving
+     promise when there is a non-empty `access_token` in the session data__ and
+     a rejecting promise otherwise.
+      @method restore
+     @param {Object} data The data to restore the session from
+     @return {Ember.RSVP.Promise} A promise that when it resolves results in the session becoming or remaining authenticated
+     @public
+     */
+    restore(data) {
+      return new _rsvp.default.Promise((resolve, reject) => {
+        if (!this._validateData(data)) {
+          return reject('Could not restore session - "access_token" missing.');
+        }
+
+        return resolve(data);
+      });
+    },
+
+    /**
+     Authenticates the session using the specified location `hash`
+     (see https://tools.ietf.org/html/rfc6749#section-4.2.2).
+      __If the access token is valid and thus authentication succeeds, a promise that
+     resolves with the access token is returned__, otherwise a promise that rejects
+     with the error code as returned by the server is returned
+     (see https://tools.ietf.org/html/rfc6749#section-4.2.2.1).
+      @method authenticate
+     @param {Object} hash The location hash
+     @return {Ember.RSVP.Promise} A promise that when it resolves results in the session becoming authenticated
+     @public
+     */
+    authenticate(hash) {
+      return new _rsvp.default.Promise((resolve, reject) => {
+        if (hash.error) {
+          reject(hash.error);
+        } else if (!this._validateData(hash)) {
+          reject('Invalid auth params - "access_token" missing.');
+        } else {
+          resolve(hash);
+        }
+      });
+    },
+
+    /**
+     This method simply returns a resolving promise.
+      @method invalidate
+     @return {Ember.RSVP.Promise} A promise that when it resolves results in the session being invalidated
+     @public
+     */
+    invalidate() {
+      return _rsvp.default.Promise.resolve();
+    },
+
+    _validateData(data) {
+      // see https://tools.ietf.org/html/rfc6749#section-4.2.2
+      return !(0, _utils.isEmpty)(data) && !(0, _utils.isEmpty)(data.access_token);
+    }
+
+  });
+
+  _exports.default = _default;
+});
+;define("ember-simple-auth/authenticators/oauth2-password-grant", ["exports", "rsvp", "@ember/utils", "@ember/runloop", "@ember/array", "@ember/debug", "@ember/application", "@ember/polyfills", "ember", "ember-simple-auth/authenticators/base", "fetch", "ember-simple-auth/utils/is-fastboot"], function (_exports, _rsvp, _utils, _runloop, _array, _debug, _application, _polyfills, _ember, _base, _fetch, _isFastboot) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+  const assign = _polyfills.assign || _polyfills.merge;
+  const keys = Object.keys || _polyfills.keys; // Ember.keys deprecated in 1.13
+
+  /**
+    Authenticator that conforms to OAuth 2
+    ([RFC 6749](http://tools.ietf.org/html/rfc6749)), specifically the _"Resource
+    Owner Password Credentials Grant Type"_.
+  
+    This authenticator also automatically refreshes access tokens (see
+    [RFC 6749, section 6](http://tools.ietf.org/html/rfc6749#section-6)) if the
+    server supports it.
+  
+    @class OAuth2PasswordGrantAuthenticator
+    @module ember-simple-auth/authenticators/oauth2-password-grant
+    @extends BaseAuthenticator
+    @public
+  */
+
+  var _default = _base.default.extend({
+    /**
+      Triggered when the authenticator refreshed the access token (see
+      [RFC 6749, section 6](http://tools.ietf.org/html/rfc6749#section-6)).
+       @event sessionDataUpdated
+      @param {Object} data The updated session data
+      @public
+    */
+
+    /**
+      The client_id to be sent to the authentication server (see
+      https://tools.ietf.org/html/rfc6749#appendix-A.1). __This should only be
+      used for statistics or logging etc. as it cannot actually be trusted since
+      it could have been manipulated on the client!__
+       @property clientId
+      @type String
+      @default null
+      @public
+    */
+    clientId: null,
+
+    /**
+      The endpoint on the server that authentication and token refresh requests
+      are sent to.
+       @property serverTokenEndpoint
+      @type String
+      @default '/token'
+      @public
+    */
+    serverTokenEndpoint: '/token',
+
+    /**
+      The endpoint on the server that token revocation requests are sent to. Only
+      set this if the server actually supports token revocation. If this is
+      `null`, the authenticator will not revoke tokens on session invalidation.
+       __If token revocation is enabled but fails, session invalidation will be
+      intercepted and the session will remain authenticated (see
+      {{#crossLink "OAuth2PasswordGrantAuthenticator/invalidate:method"}}{{/crossLink}}).__
+       @property serverTokenRevocationEndpoint
+      @type String
+      @default null
+      @public
+    */
+    serverTokenRevocationEndpoint: null,
+
+    /**
+      Sets whether the authenticator automatically refreshes access tokens if the
+      server supports it.
+       @property refreshAccessTokens
+      @type Boolean
+      @default true
+      @public
+    */
+    refreshAccessTokens: true,
+
+    /**
+      The offset time in milliseconds to refresh the access token. This must
+      return a random number. This randomization is needed because in case of
+      multiple tabs, we need to prevent the tabs from sending refresh token
+      request at the same exact moment.
+       __When overriding this property, make sure to mark the overridden property
+      as volatile so it will actually have a different value each time it is
+      accessed.__
+       @property tokenRefreshOffset
+      @type Integer
+      @default a random number between 5 and 10
+      @public
+    */
+    get tokenRefreshOffset() {
+      const min = 5;
+      const max = 10;
+      return (Math.floor(Math.random() * (max - min)) + min) * 1000;
+    },
+
+    _refreshTokenTimeout: null,
+
+    /**
+      Restores the session from a session data object; __will return a resolving
+      promise when there is a non-empty `access_token` in the session data__ and
+      a rejecting promise otherwise.
+       If the server issues
+      [expiring access tokens](https://tools.ietf.org/html/rfc6749#section-5.1)
+      and there is an expired access token in the session data along with a
+      refresh token, the authenticator will try to refresh the access token and
+      return a promise that resolves with the new access token if the refresh was
+      successful. If there is no refresh token or the token refresh is not
+      successful, a rejecting promise will be returned.
+       @method restore
+      @param {Object} data The data to restore the session from
+      @return {Ember.RSVP.Promise} A promise that when it resolves results in the session becoming or remaining authenticated. If restoration fails, the promise will reject with the server response (in case the access token had expired and was refreshed using a refresh token); however, the authenticator reads that response already so if you need to read it again you need to clone the response object first
+      @public
+    */
+    restore(data) {
+      return new _rsvp.default.Promise((resolve, reject) => {
+        const now = new Date().getTime();
+        const refreshAccessTokens = this.get('refreshAccessTokens');
+
+        if (!(0, _utils.isEmpty)(data['expires_at']) && data['expires_at'] < now) {
+          if (refreshAccessTokens) {
+            this._refreshAccessToken(data['expires_in'], data['refresh_token']).then(resolve, reject);
+          } else {
+            reject();
+          }
+        } else {
+          if (!this._validate(data)) {
+            reject();
+          } else {
+            this._scheduleAccessTokenRefresh(data['expires_in'], data['expires_at'], data['refresh_token']);
+
+            resolve(data);
+          }
+        }
+      });
+    },
+
+    /**
+      Authenticates the session with the specified `identification`, `password`
+      and optional `scope`; issues a `POST` request to the
+      {{#crossLink "OAuth2PasswordGrantAuthenticator/serverTokenEndpoint:property"}}{{/crossLink}}
+      and receives the access token in response (see
+      http://tools.ietf.org/html/rfc6749#section-4.3).
+       __If the credentials are valid (and the optionally requested scope is
+      granted) and thus authentication succeeds, a promise that resolves with the
+      server's response is returned__, otherwise a promise that rejects with the
+      error as returned by the server is returned.
+       __If the
+      [server supports it](https://tools.ietf.org/html/rfc6749#section-5.1), this
+      method also schedules refresh requests for the access token before it
+      expires.__
+       The server responses are expected to look as defined in the spec (see
+      http://tools.ietf.org/html/rfc6749#section-5). The response to a successful
+      authentication request should be:
+       ```json
+      HTTP/1.1 200 OK
+      Content-Type: application/json;charset=UTF-8
+       {
+        "access_token":"2YotnFZFEjr1zCsicMWpAA",
+        "token_type":"bearer",
+        "expires_in":3600, // optional
+        "refresh_token":"tGzv3JOkF0XG5Qx2TlKWIA" // optional
+      }
+      ```
+       The response for a failing authentication request should be:
+       ```json
+      HTTP/1.1 400 Bad Request
+      Content-Type: application/json;charset=UTF-8
+       {
+        "error":"invalid_grant"
+      }
+      ```
+       A full list of error codes can be found
+      [here](https://tools.ietf.org/html/rfc6749#section-5.2).
+       @method authenticate
+      @param {String} identification The resource owner username
+      @param {String} password The resource owner password
+      @param {String|Array} scope The scope of the access request (see [RFC 6749, section 3.3](http://tools.ietf.org/html/rfc6749#section-3.3))
+      @param {Object} headers Optional headers that particular backends may require (for example sending 2FA challenge responses)
+      @return {Ember.RSVP.Promise} A promise that when it resolves results in the session becoming authenticated. If authentication fails, the promise will reject with the server response; however, the authenticator reads that response already so if you need to read it again you need to clone the response object first
+      @public
+    */
+    authenticate(identification, password) {
+      let scope = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+      let headers = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+      return new _rsvp.default.Promise((resolve, reject) => {
+        const data = {
+          'grant_type': 'password',
+          username: identification,
+          password
+        };
+        const serverTokenEndpoint = this.get('serverTokenEndpoint');
+        const scopesString = (0, _array.makeArray)(scope).join(' ');
+
+        if (!(0, _utils.isEmpty)(scopesString)) {
+          data.scope = scopesString;
+        }
+
+        this.makeRequest(serverTokenEndpoint, data, headers).then(response => {
+          (0, _runloop.run)(() => {
+            if (!this._validate(response)) {
+              reject('access_token is missing in server response');
+            }
+
+            const expiresAt = this._absolutizeExpirationTime(response['expires_in']);
+
+            this._scheduleAccessTokenRefresh(response['expires_in'], expiresAt, response['refresh_token']);
+
+            if (!(0, _utils.isEmpty)(expiresAt)) {
+              response = assign(response, {
+                'expires_at': expiresAt
+              });
+            }
+
+            resolve(response);
+          });
+        }, response => {
+          (0, _runloop.run)(null, reject, response);
+        });
+      });
+    },
+
+    /**
+      If token revocation is enabled, this will revoke the access token (and the
+      refresh token if present). If token revocation succeeds, this method
+      returns a resolving promise, otherwise it will return a rejecting promise,
+      thus intercepting session invalidation.
+       If token revocation is not enabled this method simply returns a resolving
+      promise.
+       @method invalidate
+      @param {Object} data The current authenticated session data
+      @return {Ember.RSVP.Promise} A promise that when it resolves results in the session being invalidated. If invalidation fails, the promise will reject with the server response (in case token revocation is used); however, the authenticator reads that response already so if you need to read it again you need to clone the response object first
+      @public
+    */
+    invalidate(data) {
+      const serverTokenRevocationEndpoint = this.get('serverTokenRevocationEndpoint');
+
+      function success(resolve) {
+        (0, _runloop.cancel)(this._refreshTokenTimeout);
+        delete this._refreshTokenTimeout;
+        resolve();
+      }
+
+      return new _rsvp.default.Promise(resolve => {
+        if ((0, _utils.isEmpty)(serverTokenRevocationEndpoint)) {
+          success.apply(this, [resolve]);
+        } else {
+          const requests = [];
+          (0, _array.A)(['access_token', 'refresh_token']).forEach(tokenType => {
+            const token = data[tokenType];
+
+            if (!(0, _utils.isEmpty)(token)) {
+              requests.push(this.makeRequest(serverTokenRevocationEndpoint, {
+                'token_type_hint': tokenType,
+                token
+              }));
+            }
+          });
+
+          const succeed = () => {
+            success.apply(this, [resolve]);
+          };
+
+          _rsvp.default.all(requests).then(succeed, succeed);
+        }
+      });
+    },
+
+    /**
+      Makes a request to the OAuth 2.0 server.
+       @method makeRequest
+      @param {String} url The request URL
+      @param {Object} data The request data
+      @param {Object} headers Additional headers to send in request
+      @return {Promise} A promise that resolves with the response object
+      @protected
+    */
+    makeRequest(url, data) {
+      let headers = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      headers['Content-Type'] = 'application/x-www-form-urlencoded';
+      const clientId = this.get('clientId');
+
+      if (!(0, _utils.isEmpty)(clientId)) {
+        data['client_id'] = this.get('clientId');
+      }
+
+      const body = keys(data).map(key => {
+        return `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`;
+      }).join('&');
+      const options = {
+        body,
+        headers,
+        method: 'POST'
+      };
+      return new _rsvp.default.Promise((resolve, reject) => {
+        (0, _fetch.default)(url, options).then(response => {
+          response.text().then(text => {
+            try {
+              let json = JSON.parse(text);
+
+              if (!response.ok) {
+                response.responseJSON = json;
+                reject(response);
+              } else {
+                resolve(json);
+              }
+            } catch (SyntaxError) {
+              response.responseText = text;
+              reject(response);
+            }
+          });
+        }).catch(reject);
+      });
+    },
+
+    _scheduleAccessTokenRefresh(expiresIn, expiresAt, refreshToken) {
+      const refreshAccessTokens = this.get('refreshAccessTokens') && !(0, _isFastboot.default)((0, _application.getOwner)(this));
+
+      if (refreshAccessTokens) {
+        const now = new Date().getTime();
+
+        if ((0, _utils.isEmpty)(expiresAt) && !(0, _utils.isEmpty)(expiresIn)) {
+          expiresAt = new Date(now + expiresIn * 1000).getTime();
+        }
+
+        const offset = this.get('tokenRefreshOffset');
+
+        if (!(0, _utils.isEmpty)(refreshToken) && !(0, _utils.isEmpty)(expiresAt) && expiresAt > now - offset) {
+          (0, _runloop.cancel)(this._refreshTokenTimeout);
+          delete this._refreshTokenTimeout;
+
+          if (!_ember.default.testing) {
+            this._refreshTokenTimeout = (0, _runloop.later)(this, this._refreshAccessToken, expiresIn, refreshToken, expiresAt - now - offset);
+          }
+        }
+      }
+    },
+
+    _refreshAccessToken(expiresIn, refreshToken) {
+      const data = {
+        'grant_type': 'refresh_token',
+        'refresh_token': refreshToken
+      };
+      const serverTokenEndpoint = this.get('serverTokenEndpoint');
+      return new _rsvp.default.Promise((resolve, reject) => {
+        this.makeRequest(serverTokenEndpoint, data).then(response => {
+          (0, _runloop.run)(() => {
+            expiresIn = response['expires_in'] || expiresIn;
+            refreshToken = response['refresh_token'] || refreshToken;
+
+            const expiresAt = this._absolutizeExpirationTime(expiresIn);
+
+            const data = assign(response, {
+              'expires_in': expiresIn,
+              'expires_at': expiresAt,
+              'refresh_token': refreshToken
+            });
+
+            this._scheduleAccessTokenRefresh(expiresIn, null, refreshToken);
+
+            this.trigger('sessionDataUpdated', data);
+            resolve(data);
+          });
+        }, response => {
+          (true && (0, _debug.warn)(`Access token could not be refreshed - server responded with ${response.responseJSON}.`, false, {
+            id: 'ember-simple-auth.failedOAuth2TokenRefresh'
+          }));
+          reject();
+        });
+      });
+    },
+
+    _absolutizeExpirationTime(expiresIn) {
+      if (!(0, _utils.isEmpty)(expiresIn)) {
+        return new Date(new Date().getTime() + expiresIn * 1000).getTime();
+      }
+    },
+
+    _validate(data) {
+      return !(0, _utils.isEmpty)(data['access_token']);
+    }
+
+  });
+
+  _exports.default = _default;
+});
+;define("ember-simple-auth/authenticators/test", ["exports", "rsvp", "ember-simple-auth/authenticators/base"], function (_exports, _rsvp, _base) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _default = _base.default.extend({
+    restore(data) {
+      return _rsvp.default.resolve(data);
+    },
+
+    authenticate(data) {
+      return _rsvp.default.resolve(data);
+    },
+
+    invalidate() {
+      return _rsvp.default.resolve();
+    }
+
+  });
+
+  _exports.default = _default;
+});
+;define("ember-simple-auth/authenticators/torii", ["exports", "rsvp", "@ember/debug", "@ember/utils", "@ember/polyfills", "ember-simple-auth/authenticators/base"], function (_exports, _rsvp, _debug, _utils, _polyfills, _base) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  /**
+    Authenticator that wraps the
+    [Torii library](https://github.com/Vestorly/torii) and thus allows to connect
+    any external authentication provider that torii defines a provider for.
+  
+    In order to use this authenticator, __the application needs to have the
+    [torii addon](https://github.com/Vestorly/torii) installed and must inject
+    the torii service into the authenticator__:
+  
+    ```js
+    // app/authenticators/torii.js
+    import Torii from 'ember-simple-auth/authenticators/torii';
+    import { inject as service } from '@ember/service';
+  
+    export default class ToriiAuthenticator extends Torii {
+      @service torii;
+    }
+    ```
+  
+    @class ToriiAuthenticator
+    @module ember-simple-auth/authenticators/torii
+    @extends BaseAuthenticator
+    @public
+  */
+  var _default = _base.default.extend({
+    _provider: null,
+
+    /**
+      Restores the session by calling the torii provider's `fetch` method.
+       __Many torii providers do not implement the `fetch` method__. If the
+      provider in use does not implement the method simply add it as follows:
+       ```js
+      // app/torii-providers/facebook.js
+      import FacebookOauth2Provider from 'torii/providers/facebook-oauth2';
+       export default class FacebookToriiProvider extends FacebookOauth2Provider {
+        fetch(data) {
+          return data;
+        }
+      }
+      ```
+       @method restore
+      @param {Object} data The data to restore the session from
+      @return {Ember.RSVP.Promise} A promise that when it resolves results in the session becoming or remaining authenticated
+      @public
+    */
+    restore(data) {
+      this._assertToriiIsPresent();
+
+      data = data || {};
+
+      if (!(0, _utils.isEmpty)(data.provider)) {
+        const {
+          provider
+        } = data;
+        return this.get('torii').fetch(data.provider, data).then(fetchedData => {
+          this._authenticateWithProvider(provider, fetchedData);
+
+          return (0, _polyfills.assign)(data, fetchedData);
+        }, err => {
+          delete this._provider;
+          throw err;
+        });
+      } else {
+        delete this._provider;
+        return _rsvp.default.reject();
+      }
+    },
+
+    /**
+      Authenticates the session by opening the specified torii provider. For more
+      documentation on torii and its providers abstraction, see the
+      [project's README](https://github.com/Vestorly/torii#readme), specifically
+      the
+      [section on providers](https://github.com/Vestorly/torii#configuring-a-torii-provider).
+       @method authenticate
+      @param {String} provider The torii provider to authenticate the session with
+      @param {Object} options The options to pass to the torii provider
+      @return {Ember.RSVP.Promise} A promise that when it resolves results in the session becoming authenticated
+      @public
+    */
+    authenticate(provider, options) {
+      this._assertToriiIsPresent();
+
+      return this.get('torii').open(provider, options || {}).then(data => {
+        this._authenticateWithProvider(provider, data);
+
+        return data;
+      });
+    },
+
+    /**
+      Closes the torii provider. If the provider is successfully closed, this
+      method returns a resolving promise, otherwise it will return a rejecting
+      promise, thus intercepting session invalidation.
+       @method invalidate
+      @return {Ember.RSVP.Promise} A promise that when it resolves results in the session being invalidated
+      @public
+    */
+    invalidate(data) {
+      return this.get('torii').close(this._provider, data).then(() => {
+        delete this._provider;
+      });
+    },
+
+    _authenticateWithProvider(provider, data) {
+      data.provider = provider;
+      this._provider = data.provider;
+    },
+
+    _assertToriiIsPresent() {
+      const torii = this.get('torii');
+      (true && !((0, _utils.isPresent)(torii)) && (0, _debug.assert)('You are trying to use the torii authenticator but torii is not available. Inject torii into the authenticator with "torii: Ember.inject.service()".', (0, _utils.isPresent)(torii)));
+    }
+
+  });
+
+  _exports.default = _default;
+});
+;define("ember-simple-auth/configuration", ["exports", "ember-simple-auth/use-session-setup-method"], function (_exports, _useSessionSetupMethod) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+  const DEFAULTS = {
+    rootURL: '',
+    routeAfterAuthentication: 'index'
+  };
+  /**
+    Ember Simple Auth's configuration object.
+  
+    @class Configuration
+    @extends Object
+    @module ember-simple-auth/configuration
+    @public
+  */
+
+  var _default = {
+    /**
+      The root URL of the application as configured in `config/environment.js`.
+       @property rootURL
+      @readOnly
+      @static
+      @type String
+      @default ''
+      @public
+    */
+    rootURL: DEFAULTS.rootURL,
+
+    /**
+      The route to transition to after successful authentication.
+       @property routeAfterAuthentication
+      @readOnly
+      @static
+      @type String
+      @default 'index'
+      @public
+    */
+    routeAfterAuthentication: DEFAULTS.routeAfterAuthentication,
+
+    /**
+      Flag used to determine whether users have decided to setup session service themselves.
+      This lets us to return early from initializer which would setup the service automatically.
+       This will be the default behavior in the future.
+       @property useSessionSetupMethod
+      @default false
+      @private
+    */
+    useSessionSetupMethod: _useSessionSetupMethod.default,
+
+    load(config) {
+      this.rootURL = config.rootURL !== undefined ? config.rootURL : DEFAULTS.rootURL;
+      this.routeAfterAuthentication = config.routeAfterAuthentication !== undefined ? config.routeAfterAuthentication : DEFAULTS.routeAfterAuthentication;
+    }
+
+  };
+  _exports.default = _default;
+});
+;define("ember-simple-auth/initializers/setup-session-restoration", ["exports", "@ember/application", "ember-simple-auth/configuration", "@ember/debug"], function (_exports, _application, _configuration, _debug) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = setupSessionRestoration;
+
+  function setupSessionRestoration(registry) {
+    if (_configuration.default.useSessionSetupMethod) {
+      // return early in case users chose to opt out of initializer behavior.
+      return;
+    }
+
+    (true && !(false) && (0, _debug.deprecate)('Ember Simple Auth: The automatic session initialization is deprecated. Please inject session service in your application route and call the setup method manually.', false, {
+      id: 'ember-simple-auth.initializer.setup-session-restoration',
+      until: '5.0.0',
+      for: 'ember-simple-auth',
+      since: {
+        enabled: '4.1.0'
+      }
+    }));
+    const ApplicationRoute = registry.resolveRegistration ? registry.resolveRegistration('route:application') : registry.resolve('route:application');
+    ApplicationRoute.reopen({
+      init() {
+        this._super(...arguments);
+
+        const originalBeforeModel = this.beforeModel;
+
+        this.beforeModel = function () {
+          if (!this.__usesApplicationRouteMixn__) {
+            const sessionService = (0, _application.getOwner)(this).lookup('service:session');
+
+            sessionService._setupHandlers();
+          }
+
+          const session = (0, _application.getOwner)(this).lookup('session:main');
+          return session.restore().then(() => originalBeforeModel.apply(this, arguments), () => originalBeforeModel.apply(this, arguments));
+        };
+      }
+
+    });
+  }
+});
+;define("ember-simple-auth/initializers/setup-session", ["exports", "ember", "ember-simple-auth/internal-session", "ember-simple-auth/session-stores/ephemeral"], function (_exports, _ember, _internalSession, _ephemeral) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = setupSession;
+
+  function setupSession(registry) {
+    registry.register('session:main', _internalSession.default);
+
+    if (_ember.default.testing) {
+      registry.register('session-store:test', _ephemeral.default);
+    }
+  }
+});
+;define("ember-simple-auth/internal-session", ["exports", "ember", "rsvp", "@ember/utils", "@ember/object/proxy", "@ember/object/evented", "@ember/polyfills", "@ember/object", "@ember/debug", "@ember/application"], function (_exports, _ember, _rsvp, _utils, _proxy, _evented, _polyfills, _object, _debug, _application) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+  const assign = _polyfills.assign || _polyfills.merge;
+
+  var _default = _proxy.default.extend(_evented.default, {
+    authenticator: null,
+    store: null,
+    isAuthenticated: false,
+    attemptedTransition: null,
+
+    init() {
+      this._super(...arguments);
+
+      this.set('content', {
+        authenticated: {}
+      });
+      let storeFactory = 'session-store:application';
+
+      if (_ember.default.testing) {
+        storeFactory = 'session-store:test';
+      }
+
+      this.set('store', (0, _application.getOwner)(this).lookup(storeFactory));
+      this._busy = false;
+
+      this._bindToStoreEvents();
+    },
+
+    authenticate(authenticatorFactory) {
+      this._busy = true;
+      (true && !(!(0, _utils.isEmpty)(authenticatorFactory)) && (0, _debug.assert)(`Session#authenticate requires the authenticator to be specified, was "${authenticatorFactory}"!`, !(0, _utils.isEmpty)(authenticatorFactory)));
+
+      const authenticator = this._lookupAuthenticator(authenticatorFactory);
+
+      (true && !(!(0, _utils.isNone)(authenticator)) && (0, _debug.assert)(`No authenticator for factory "${authenticatorFactory}" could be found!`, !(0, _utils.isNone)(authenticator)));
+
+      for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        args[_key - 1] = arguments[_key];
+      }
+
+      return authenticator.authenticate(...args).then(content => {
+        this._busy = false;
+        return this._setup(authenticatorFactory, content, true);
+      }, error => {
+        const rejectWithError = () => _rsvp.default.Promise.reject(error);
+
+        this._busy = false;
+        return this._clear().then(rejectWithError, rejectWithError);
+      });
+    },
+
+    invalidate() {
+      this._busy = true;
+      this.set('attemptedTransition', null);
+
+      if (!this.get('isAuthenticated')) {
+        this._busy = false;
+        return _rsvp.default.Promise.resolve();
+      }
+
+      let authenticator = this._lookupAuthenticator(this.authenticator);
+
+      return authenticator.invalidate(this.content.authenticated, ...arguments).then(() => {
+        authenticator.off('sessionDataUpdated', this, this._onSessionDataUpdated);
+        this._busy = false;
+        return this._clear(true);
+      }, error => {
+        this.trigger('sessionInvalidationFailed', error);
+        this._busy = false;
+        return _rsvp.default.Promise.reject(error);
+      });
+    },
+
+    restore() {
+      this._busy = true;
+
+      const reject = () => _rsvp.default.Promise.reject();
+
+      return this.store.restore().then(restoredContent => {
+        let {
+          authenticator: authenticatorFactory
+        } = restoredContent.authenticated || {};
+
+        if (authenticatorFactory) {
+          delete restoredContent.authenticated.authenticator;
+
+          const authenticator = this._lookupAuthenticator(authenticatorFactory);
+
+          return authenticator.restore(restoredContent.authenticated).then(content => {
+            this.set('content', restoredContent);
+            this._busy = false;
+            return this._setup(authenticatorFactory, content);
+          }, err => {
+            (0, _debug.debug)(`The authenticator "${authenticatorFactory}" rejected to restore the session - invalidating…`);
+
+            if (err) {
+              (0, _debug.debug)(err);
+            }
+
+            this._busy = false;
+            return this._clearWithContent(restoredContent).then(reject, reject);
+          });
+        } else {
+          delete (restoredContent || {}).authenticated;
+          this._busy = false;
+          return this._clearWithContent(restoredContent).then(reject, reject);
+        }
+      }, () => {
+        this._busy = false;
+        return this._clear().then(reject, reject);
+      });
+    },
+
+    _setup(authenticator, authenticatedContent, trigger) {
+      trigger = Boolean(trigger) && !this.get('isAuthenticated');
+      this.setProperties({
+        isAuthenticated: true,
+        authenticator,
+        'content.authenticated': authenticatedContent
+      });
+
+      this._bindToAuthenticatorEvents();
+
+      return this._updateStore().then(() => {
+        if (trigger) {
+          this.trigger('authenticationSucceeded');
+        }
+      }, () => {
+        this.setProperties({
+          isAuthenticated: false,
+          authenticator: null,
+          'content.authenticated': {}
+        });
+      });
+    },
+
+    _clear(trigger) {
+      trigger = Boolean(trigger) && this.get('isAuthenticated');
+      this.setProperties({
+        isAuthenticated: false,
+        authenticator: null,
+        'content.authenticated': {}
+      });
+      return this._updateStore().then(() => {
+        if (trigger) {
+          this.trigger('invalidationSucceeded');
+        }
+      });
+    },
+
+    _clearWithContent(content, trigger) {
+      this.set('content', content);
+      return this._clear(trigger);
+    },
+
+    setUnknownProperty(key, value) {
+      (true && !(key !== 'authenticated') && (0, _debug.assert)('"authenticated" is a reserved key used by Ember Simple Auth!', key !== 'authenticated'));
+
+      let result = this._super(key, value);
+
+      if (!/^_/.test(key)) {
+        this._updateStore();
+      }
+
+      return result;
+    },
+
+    _updateStore() {
+      let data = this.content;
+
+      if (!(0, _utils.isEmpty)(this.authenticator)) {
+        (0, _object.set)(data, 'authenticated', assign({
+          authenticator: this.authenticator
+        }, data.authenticated || {}));
+      }
+
+      return this.store.persist(data);
+    },
+
+    _bindToAuthenticatorEvents() {
+      const authenticator = this._lookupAuthenticator(this.authenticator);
+
+      authenticator.on('sessionDataUpdated', this, this._onSessionDataUpdated);
+      authenticator.on('sessionDataInvalidated', this, this._onSessionDataInvalidated);
+    },
+
+    _onSessionDataUpdated(content) {
+      this._setup(this.authenticator, content);
+    },
+
+    _onSessionDataInvalidated() {
+      this._clear(true);
+    },
+
+    _bindToStoreEvents() {
+      this.store.on('sessionDataUpdated', content => {
+        if (!this._busy) {
+          this._busy = true;
+          let {
+            authenticator: authenticatorFactory
+          } = content.authenticated || {};
+
+          if (authenticatorFactory) {
+            delete content.authenticated.authenticator;
+
+            const authenticator = this._lookupAuthenticator(authenticatorFactory);
+
+            authenticator.restore(content.authenticated).then(authenticatedContent => {
+              this.set('content', content);
+              this._busy = false;
+
+              this._setup(authenticatorFactory, authenticatedContent, true);
+            }, err => {
+              (0, _debug.debug)(`The authenticator "${authenticatorFactory}" rejected to restore the session - invalidating…`);
+
+              if (err) {
+                (0, _debug.debug)(err);
+              }
+
+              this._busy = false;
+
+              this._clearWithContent(content, true);
+            });
+          } else {
+            this._busy = false;
+
+            this._clearWithContent(content, true);
+          }
+        }
+      });
+    },
+
+    _lookupAuthenticator(authenticatorName) {
+      let owner = (0, _application.getOwner)(this);
+      let authenticator = owner.lookup(authenticatorName);
+      (0, _application.setOwner)(authenticator, owner);
+      return authenticator;
+    }
+
+  });
+
+  _exports.default = _default;
+});
+;define("ember-simple-auth/mixins/application-route-mixin", ["exports", "@ember/object/mixin", "@ember/array", "@ember/application", "@ember/service", "ember", "@ember/debug", "ember-simple-auth/configuration", "ember-simple-auth/utils/is-fastboot"], function (_exports, _mixin, _array, _application, _service, _ember, _debug, _configuration, _isFastboot) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  /* eslint-disable ember/no-new-mixins */
+  (true && !(false) && (0, _debug.deprecate)('Ember Simple Auth: The ApplicationRouteMixin is now deprecated; it can be safely removed.', false, {
+    id: 'ember-simple-auth.mixins.application-route-mixin',
+    until: '4.0.0',
+    for: 'ember-simple-auth',
+    since: {
+      enabled: '3.1.0'
+    }
+  }));
+  /**
+    The mixin for the application route, __defining methods that are called when
+    the session is successfully authenticated (see
+    {{#crossLink "SessionService/authenticationSucceeded:event"}}{{/crossLink}})
+    or invalidated__ (see
+    {{#crossLink "SessionService/invalidationSucceeded:event"}}{{/crossLink}}).
+  
+    __Using this mixin is optional.__ The session events can also be handled
+    manually, e.g. in an instance initializer:
+  
+    ```js
+    // app/instance-initializers/session-events.js
+    export function initialize(instance) {
+      const applicationRoute = instance.lookup('route:application');
+      const session          = instance.lookup('service:session');
+      session.on('authenticationSucceeded', function() {
+        applicationRoute.transitionTo('index');
+      });
+      session.on('invalidationSucceeded', function() {
+        applicationRoute.transitionTo('bye');
+      });
+    };
+  
+    export default {
+      initialize,
+      name:  'session-events',
+      after: 'ember-simple-auth'
+    };
+    ```
+  
+    __When using the `ApplicationRouteMixin` you need to specify
+    `needs: ['service:session']` in the application route's unit test.__
+  
+    @class ApplicationRouteMixin
+    @deprecated Call the session service's setup method in the application route's constructor instead
+    @module ember-simple-auth/mixins/application-route-mixin
+    @extends Ember.Mixin
+    @public
+  */
+
+  var _default = _mixin.default.create({
+    /**
+      The session service.
+       @property session
+      @readOnly
+      @type SessionService
+      @public
+    */
+    session: (0, _service.inject)('session'),
+
+    /**
+      The route to transition to after successful authentication.
+       @property routeAfterAuthentication
+      @type String
+      @default 'index'
+      @public
+    */
+    routeAfterAuthentication: 'index',
+
+    init() {
+      this._super(...arguments);
+
+      this.__usesApplicationRouteMixn__ = true;
+      this._isFastBoot = this.hasOwnProperty('_isFastBoot') ? this._isFastBoot : (0, _isFastboot.default)((0, _application.getOwner)(this));
+
+      this._subscribeToSessionEvents();
+    },
+
+    _subscribeToSessionEvents() {
+      var _this = this;
+
+      (0, _array.A)([['authenticationSucceeded', 'sessionAuthenticated'], ['invalidationSucceeded', 'sessionInvalidated']]).forEach(_ref => {
+        let [event, method] = _ref;
+        this.get('session').on(event, function () {
+          return _this[method](...arguments);
+        });
+      });
+    },
+
+    /**
+      This method handles the session's
+      {{#crossLink "SessionService/authenticationSucceeded:event"}}{{/crossLink}}
+      event. If there is a transition that was previously intercepted by the
+      {{#crossLink "AuthenticatedRouteMixin/beforeModel:method"}}
+      AuthenticatedRouteMixin's `beforeModel` method{{/crossLink}} it will retry
+      it. If there is no such transition, the `ember_simple_auth-redirectTarget`
+      cookie will be checked for a url that represents an attemptedTransition
+      that was aborted in Fastboot mode, otherwise this action transitions to the
+      {{#crossLink "AuthenticatedRouteMixin/routeAfterAuthentication:property"}}{{/crossLink}}.
+        @method sessionAuthenticated
+      @public
+    */
+    sessionAuthenticated() {
+      this.get('session').handleAuthentication(this.get('routeAfterAuthentication'));
+    },
+
+    /**
+      This method handles the session's
+      {{#crossLink "SessionService/invalidationSucceeded:event"}}{{/crossLink}}
+      event. __It reloads the Ember.js application__ by redirecting the browser
+      to the application's root URL so that all in-memory data (such as Ember
+      Data stores etc.) gets cleared.
+       If the Ember.js application will be used in an environment where the users
+      don't have direct access to any data stored on the client (e.g.
+      [cordova](http://cordova.apache.org)) this action can be overridden to e.g.
+      simply transition to the index route.
+       @method sessionInvalidated
+      @public
+    */
+    sessionInvalidated() {
+      if (!_ember.default.testing) {
+        this.get('session').handleInvalidation(_configuration.default.rootURL);
+      }
+    }
+
+  });
+
+  _exports.default = _default;
+});
+;define("ember-simple-auth/mixins/authenticated-route-mixin", ["exports", "@ember/service", "@ember/object/mixin", "@ember/debug", "@ember/application", "ember-simple-auth/-internals/routing"], function (_exports, _service, _mixin, _debug, _application, _routing) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  /* eslint-disable ember/no-new-mixins */
+  (true && !(false) && (0, _debug.deprecate)("Ember Simple Auth: The AuthenticatedRouteMixin is now deprecated; call the session service's requireAuthentication method in the respective route's beforeModel method instead.", false, {
+    id: 'ember-simple-auth.mixins.authenticated-route-mixin',
+    until: '4.0.0',
+    for: 'ember-simple-auth',
+    since: {
+      enabled: '3.1.0'
+    }
+  }));
+  /**
+    __This mixin is used to make routes accessible only if the session is
+    authenticated.__ It defines a `beforeModel` method that aborts the current
+    transition and instead transitions to the
+    {{#crossLink "AuthenticatedRouteMixin/authenticationRoute:property"}}{{/crossLink}} if
+    the session is not authenticated.
+  
+    ```js
+    // app/routes/protected.js
+    import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+  
+    export default class ProtectedRoute extends Route.extend(AuthenticatedRouteMixin) {}
+    ```
+  
+    @class AuthenticatedRouteMixin
+    @deprecated Call the session service's requireAuthentication method in the respective route's beforeModel method instead
+    @module ember-simple-auth/mixins/authenticated-route-mixin
+    @extends Ember.Mixin
+    @public
+  */
+
+  var _default = _mixin.default.create({
+    /**
+      The session service.
+       @property session
+      @readOnly
+      @type SessionService
+      @public
+    */
+    session: (0, _service.inject)('session'),
+
+    /**
+      The route to transition to for authentication. The
+      {{#crossLink "AuthenticatedRouteMixin"}}{{/crossLink}} will transition to
+      this route when a route that implements the mixin is accessed when the
+      route is not authenticated.
+       @property authenticationRoute
+      @type String
+      @default 'login'
+      @public
+    */
+    authenticationRoute: 'login',
+
+    /**
+      Checks whether the session is authenticated and if it is not aborts the
+      current transition and instead transitions to the
+      {{#crossLink "AuthenticatedRouteMixin/authenticationRoute:property"}}{{/crossLink}}.
+      If the current transition is aborted, this method will save it in the
+      session service's
+      {{#crossLink "SessionService/attemptedTransition:property"}}{{/crossLink}}
+      property so that  it can be retried after the session is authenticated
+      (see
+      {{#crossLink "ApplicationRouteMixin/sessionAuthenticated:method"}}{{/crossLink}}).
+      If the transition is aborted in Fastboot mode, the transition's target
+      URL will be saved in a `ember_simple_auth-redirectTarget` cookie for use by
+      the browser after authentication is complete.
+       __If `beforeModel` is overridden in a route that uses this mixin, the route's
+     implementation must call `super.beforeModel(...arguments)`__ so that the mixin's
+     `beforeModel` method is actually executed.
+       @method beforeModel
+      @param {Transition} transition The transition that lead to this route
+      @public
+    */
+    beforeModel(transition) {
+      let isAuthenticated = (0, _routing.requireAuthentication)((0, _application.getOwner)(this), transition);
+
+      if (!isAuthenticated) {
+        this.triggerAuthentication();
+      } else {
+        return this._super(...arguments);
+      }
+    },
+
+    /**
+      Triggers authentication; by default this method transitions to the
+      `authenticationRoute`. In case the application uses an authentication
+      mechanism that does not use an authentication route, this method can be
+      overridden.
+       @method triggerAuthentication
+      @protected
+    */
+    triggerAuthentication() {
+      let authenticationRoute = this.get('authenticationRoute');
+      (true && !(this.get('routeName') !== authenticationRoute) && (0, _debug.assert)('The route configured as AuthenticatedRouteMixin.authenticationRoute cannot implement the AuthenticatedRouteMixin mixin as that leads to an infinite transitioning loop!', this.get('routeName') !== authenticationRoute));
+      (0, _routing.triggerAuthentication)((0, _application.getOwner)(this), authenticationRoute);
+    }
+
+  });
+
+  _exports.default = _default;
+});
+;define("ember-simple-auth/mixins/data-adapter-mixin", ["exports", "@ember/service", "@ember/object/mixin", "@ember/debug"], function (_exports, _service, _mixin, _debug) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  /* eslint-disable ember/no-new-mixins */
+  (true && !(false) && (0, _debug.deprecate)("Ember Simple Auth: The DataAdapterMixin is now deprecated; call the session service's invalidate method in the adapter's handleResponse method instead in case of a 401 response.", false, {
+    id: 'ember-simple-auth.mixins.data-adapter-mixin',
+    until: '4.0.0',
+    for: 'ember-simple-auth',
+    since: {
+      enabled: '3.1.0'
+    }
+  }));
+  /**
+    __This mixin can be used to make Ember Data adapters authorize all outgoing
+    API requests by injecting a header.__ The adapter's `headers` property can be
+    set using data read from the `session` service that is injected by this
+    mixin.
+  
+    __The `DataAdapterMixin` will also invalidate the session whenever it
+    receives a 401 response for an API request.__
+  
+    ```js
+    // app/adapters/application.js
+    import JSONAPIAdapter from '@ember-data/adapter/json-api';
+    import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
+    import { computed } from '@ember/object';
+  
+    export default class ApplicationAdapter extends JSONAPIAdapter.extend(DataAdapterMixin) {
+      @computed('session.data.authenticated.token')
+      get headers() {
+        let headers = {};
+        if (this.session.isAuthenticated) {
+          headers['Authorization'] = `Bearer ${this.session.data.authenticated.token}`;
+        }
+  
+        return headers;
+      }
+    }
+    ```
+  
+    __The `DataAdapterMixin` requires Ember Data 1.13 or later.__
+  
+    @class DataAdapterMixin
+    @deprecated Call the session service's invalidate method in the adapter's handleResponse method instead in case of a 401 response
+    @module ember-simple-auth/mixins/data-adapter-mixin
+    @extends Ember.Mixin
+    @public
+  */
+
+  var _default = _mixin.default.create({
+    /**
+      The session service.
+       @property session
+      @readOnly
+      @type SessionService
+      @public
+    */
+    session: (0, _service.inject)('session'),
+
+    /**
+      This method is called for every response that the adapter receives from the
+      API. If the response has a 401 status code it invalidates the session (see
+      {{#crossLink "SessionService/invalidate:method"}}{{/crossLink}}).
+       @method handleResponse
+      @param {Number} status The response status as received from the API
+      @param  {Object} headers HTTP headers as received from the API
+      @param {Any} payload The response body as received from the API
+      @param {Object} requestData the original request information
+      @protected
+    */
+    handleResponse(status, headers, payload, requestData) {
+      this.ensureResponseAuthorized(status, headers, payload, requestData);
+      return this._super(...arguments);
+    },
+
+    /**
+     The default implementation for handleResponse.
+     If the response has a 401 status code it invalidates the session (see
+      {{#crossLink "SessionService/invalidate:method"}}{{/crossLink}}).
+      Override this method if you want custom invalidation logic for incoming responses.
+     @method ensureResponseAuthorized
+     @param {Number} status The response status as received from the API
+     @param  {Object} headers HTTP headers as received from the API
+     @param {Any} payload The response body as received from the API
+     @param {Object} requestData the original request information
+    */
+    ensureResponseAuthorized(status
+    /* ,headers, payload, requestData */
+    ) {
+      if (status === 401 && this.get('session.isAuthenticated')) {
+        this.get('session').invalidate();
+      }
+    }
+
+  });
+
+  _exports.default = _default;
+});
+;define("ember-simple-auth/mixins/oauth2-implicit-grant-callback-route-mixin", ["exports", "@ember/service", "@ember/object/mixin", "@ember/application", "@ember/debug", "ember-simple-auth/utils/location", "ember-simple-auth/utils/is-fastboot", "ember-simple-auth/authenticators/oauth2-implicit-grant"], function (_exports, _service, _mixin, _application, _debug, _location, _isFastboot, _oauth2ImplicitGrant) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  /* eslint-disable ember/no-new-mixins */
+  (true && !(false) && (0, _debug.deprecate)("Ember Simple Auth: The OAuth2ImplicitGrantCallbackRouteMixin is now deprecated; call the session service's authenticate method with the appropriate authenticator in the respective route's activate method instead.", false, {
+    id: 'ember-simple-auth.mixins.oauth2-implicit-grant-callback-route-mixin',
+    until: '4.0.0',
+    for: 'ember-simple-auth',
+    since: {
+      enabled: '3.1.0'
+    }
+  }));
+  /**
+    __This mixin is used in the callback route when using OAuth 2.0 Implicit
+    Grant authentication.__ It implements the
+    {{#crossLink "OAuth2ImplicitGrantCallbackRouteMixin/activate:method"}}{{/crossLink}}
+    method that retrieves and processes authentication parameters, such as
+    `access_token`, from the hash parameters provided in the callback URL by
+    the authentication server. The parameters are then passed to the
+    {{#crossLink "OAuth2ImplicitGrantAuthenticator"}}{{/crossLink}}
+  
+    @class OAuth2ImplicitGrantCallbackRouteMixin
+    @deprecated Call the session service's authenticate method with the appropriate authenticator in the respective route's activate method instead
+    @module ember-simple-auth/mixins/oauth2-implicit-grant-callback-route-mixin
+    @extends Ember.Mixin
+    @public
+  */
+
+  var _default = _mixin.default.create({
+    /**
+     The session service.
+      @property session
+     @readOnly
+     @type SessionService
+     @public
+     */
+    session: (0, _service.inject)('session'),
+
+    /**
+      The authenticator that should be used to authenticate the callback. This
+      must be a subclass of the
+      {{#crossLink "OAuth2ImplicitGrantAuthenticator"}}{{/crossLink}}
+      authenticator.
+       @property authenticator
+      @type String
+      @default null
+      @public
+    */
+    authenticator: null,
+
+    /**
+      Any error that potentially occurs during authentication will be stored in
+      this property.
+       @property error
+      @type String
+      @default null
+      @public
+    */
+    error: null,
+
+    /**
+      Passes the hash received with the redirection from the authentication
+      server to the
+      {{#crossLink "OAuth2ImplicitGrantAuthenticator"}}{{/crossLink}} and
+      authenticates the session with the authenticator.
+       @method activate
+      @public
+    */
+    activate() {
+      let _isFastBoot = this.hasOwnProperty('_isFastBoot') ? this._isFastBoot : (0, _isFastboot.default)((0, _application.getOwner)(this));
+
+      if (_isFastBoot) {
+        return;
+      }
+
+      let authenticator = this.get('authenticator');
+      let hash = (0, _oauth2ImplicitGrant.parseResponse)((0, _location.default)().hash);
+      this.get('session').authenticate(authenticator, hash).catch(err => {
+        this.set('error', err);
+      });
+    }
+
+  });
+
+  _exports.default = _default;
+});
+;define("ember-simple-auth/mixins/unauthenticated-route-mixin", ["exports", "@ember/service", "@ember/object/mixin", "@ember/debug", "@ember/application", "ember-simple-auth/-internals/routing"], function (_exports, _service, _mixin, _debug, _application, _routing) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  /* eslint-disable ember/no-new-mixins */
+  (true && !(false) && (0, _debug.deprecate)("Ember Simple Auth: The UnauthenticatedRouteMixin is now deprecated; call the session service's prohibitAuthentication method in the respective route's beforeModel method instead.", false, {
+    id: 'ember-simple-auth.mixins.unauthenticated-route-mixin',
+    until: '4.0.0',
+    for: 'ember-simple-auth',
+    since: {
+      enabled: '3.1.0'
+    }
+  }));
+  /**
+    __This mixin is used to make routes accessible only if the session is
+    not authenticated__ (e.g., login and registration routes). It defines a
+    `beforeModel` method that aborts the current transition and instead
+    transitions to the
+    {{#crossLink "UnauthenticatedRouteMixin/routeIfAlreadyAuthenticated:property"}}{{/crossLink}}
+    if the session is authenticated.
+  
+    ```js
+    // app/routes/login.js
+    import Route from '@ember/routing/route';
+    import UnauthenticatedRouteMixin from 'ember-simple-auth/mixins/unauthenticated-route-mixin';
+  
+    export default class LoginRoute extends Route.extend(UnauthenticatedRouteMixin) {}
+    ```
+  
+    @class UnauthenticatedRouteMixin
+    @deprecated Call the session service's prohibitAuthentication method in the respective route's beforeModel method instead
+    @module ember-simple-auth/mixins/unauthenticated-route-mixin
+    @extends Ember.Mixin
+    @public
+  */
+
+  var _default = _mixin.default.create({
+    /**
+      The session service.
+       @property session
+      @readOnly
+      @type SessionService
+      @public
+    */
+    session: (0, _service.inject)('session'),
+
+    /**
+      The route to transition to if a route that implements the
+      {{#crossLink "UnauthenticatedRouteMixin"}}{{/crossLink}} is accessed when
+      the session is authenticated.
+       @property routeIfAlreadyAuthenticated
+      @type String
+      @default 'index'
+      @public
+    */
+    routeIfAlreadyAuthenticated: 'index',
+
+    /**
+      Checks whether the session is authenticated and if it is aborts the current
+      transition and instead transitions to the
+      {{#crossLink "UnauthenticatedRouteMixin/routeIfAlreadyAuthenticated:property"}}{{/crossLink}}.
+       __If `beforeModel` is overridden in a route that uses this mixin, the route's
+     implementation must call `this._super(...arguments)`__ so that the mixin's
+     `beforeModel` method is actually executed.
+       @method beforeModel
+      @public
+    */
+    beforeModel() {
+      let routeIfAlreadyAuthenticated = this.get('routeIfAlreadyAuthenticated');
+      (true && !(this.get('routeName') !== routeIfAlreadyAuthenticated) && (0, _debug.assert)('The route configured as UnauthenticatedRouteMixin.routeIfAlreadyAuthenticated cannot implement the UnauthenticatedRouteMixin mixin as that leads to an infinite transitioning loop!', this.get('routeName') !== routeIfAlreadyAuthenticated));
+      let owner = (0, _application.getOwner)(this);
+      let sessionService = owner.lookup('service:session');
+
+      if (sessionService.get('isAuthenticated')) {
+        (0, _routing.prohibitAuthentication)(owner, routeIfAlreadyAuthenticated);
+      } else {
+        return this._super(...arguments);
+      }
+    }
+
+  });
+
+  _exports.default = _default;
+});
+;define("ember-simple-auth/services/session", ["exports", "@ember/object/computed", "@ember/array", "@ember/service", "@ember/object/evented", "@ember/application", "@ember/debug", "ember-simple-auth/configuration", "ember-simple-auth/-internals/routing"], function (_exports, _computed, _array, _service, _evented, _application, _debug, _configuration, _routing) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+  const SESSION_DATA_KEY_PREFIX = /^data\./;
+  let enableEventsDeprecation = true;
+
+  function deprecateSessionEvents() {
+    if (enableEventsDeprecation) {
+      (true && !(false) && (0, _debug.deprecate)("Ember Simple Auth: The session service's events API is deprecated; to add custom behavior to the authentication or invalidation handling, override the handleAuthentication or handleInvalidation methods.", false, {
+        id: 'ember-simple-auth.events.session-service',
+        until: '4.0.0',
+        for: 'ember-simple-auth',
+        since: {
+          enabled: '3.1.0'
+        }
+      }));
+    }
+  }
+
+  function assertSetupHasBeenCalled(isSetupCalled) {
+    if (!isSetupCalled && _configuration.default.useSessionSetupMethod) {
+      (true && !(false) && (0, _debug.assert)("Ember Simple Auth: session#setup wasn't called. Make sure to call session#setup in your application route's beforeModel hook.", false));
+    }
+  }
+  /**
+    __The session service provides access to the current session as well as
+    methods to authenticate it, invalidate it, etc.__ It is the main interface for
+    the application to Ember Simple Auth's functionality. It can be injected via
+  
+    ```js
+    // app/components/login-form.js
+    import Component from '@ember/component';
+    import { inject as service } from '@ember/service';
+  
+    export default class LoginFormComponent extends Component {
+      @service session;
+    }
+    ```
+  
+    @class SessionService
+    @module ember-simple-auth/services/session
+    @extends Ember.Service
+    @uses Ember.Evented
+    @public
+  */
+
+
+  var _default = _service.default.extend(_evented.default, {
+    /**
+      Triggered whenever the session is successfully authenticated. This happens
+      when the session gets authenticated via
+      {{#crossLink "SessionService/authenticate:method"}}{{/crossLink}} but also
+      when the session is authenticated in another tab or window of the same
+      application and the session state gets synchronized across tabs or windows
+      via the store (see
+      {{#crossLink "BaseStore/sessionDataUpdated:event"}}{{/crossLink}}).
+       When using the {{#crossLink "ApplicationRouteMixin"}}{{/crossLink}} this
+      event will automatically get handled (see
+      {{#crossLink "ApplicationRouteMixin/sessionAuthenticated:method"}}{{/crossLink}}).
+       @event authenticationSucceeded
+      @public
+    */
+
+    /**
+      Triggered whenever the session is successfully invalidated. This happens
+      when the session gets invalidated via
+      {{#crossLink "SessionService/invalidate:method"}}{{/crossLink}} but also
+      when the session is invalidated in another tab or window of the same
+      application and the session state gets synchronized across tabs or windows
+      via the store (see
+      {{#crossLink "BaseStore/sessionDataUpdated:event"}}{{/crossLink}}).
+       When using the {{#crossLink "ApplicationRouteMixin"}}{{/crossLink}} this
+      event will automatically get handled (see
+      {{#crossLink "ApplicationRouteMixin/sessionInvalidated:method"}}{{/crossLink}}).
+       @event invalidationSucceeded
+      @public
+    */
+
+    /**
+      Returns whether the session is currently authenticated.
+       @property isAuthenticated
+      @type Boolean
+      @readOnly
+      @default false
+      @public
+    */
+    isAuthenticated: (0, _computed.readOnly)('session.isAuthenticated'),
+
+    /**
+      The current session data as a plain object. The
+      `authenticated` key holds the session data that the authenticator resolved
+      with when the session was authenticated (see
+      {{#crossLink "BaseAuthenticator/authenticate:method"}}{{/crossLink}}) and
+      that will be cleared when the session is invalidated. This data cannot be
+      written. All other session data is writable and will not be cleared when
+      the session is invalidated.
+       @property data
+      @type Object
+      @readOnly
+      @default { authenticated: {} }
+      @public
+    */
+    data: (0, _computed.readOnly)('session.content'),
+
+    /**
+      The session store.
+       @property store
+      @type BaseStore
+      @readOnly
+      @default null
+      @public
+    */
+    store: (0, _computed.readOnly)('session.store'),
+
+    /**
+      A previously attempted but intercepted transition (e.g. by the
+      {{#crossLink "AuthenticatedRouteMixin"}}{{/crossLink}}). If an attempted
+      transition is present, the
+      {{#crossLink "ApplicationRouteMixin"}}{{/crossLink}} will retry it when the
+      session becomes authenticated (see
+      {{#crossLink "ApplicationRouteMixin/sessionAuthenticated:method"}}{{/crossLink}}).
+       @property attemptedTransition
+      @type Transition
+      @default null
+      @public
+    */
+    attemptedTransition: (0, _computed.alias)('session.attemptedTransition'),
+    session: null,
+
+    init() {
+      this._super(...arguments);
+
+      this.set('session', (0, _application.getOwner)(this).lookup('session:main'));
+
+      this._forwardSessionEvents();
+    },
+
+    set(key, value) {
+      const setsSessionData = SESSION_DATA_KEY_PREFIX.test(key);
+
+      if (setsSessionData) {
+        const sessionDataKey = `session.${key.replace(SESSION_DATA_KEY_PREFIX, '')}`;
+        return this._super(sessionDataKey, value);
+      } else {
+        return this._super(...arguments);
+      }
+    },
+
+    _forwardSessionEvents() {
+      (0, _array.A)(['authenticationSucceeded', 'invalidationSucceeded']).forEach(event => {
+        const session = this.get('session'); // the internal session won't be available in route unit tests
+
+        if (session) {
+          session.on(event, () => {
+            enableEventsDeprecation = false;
+            this.trigger(event, ...arguments);
+            enableEventsDeprecation = true;
+          });
+        }
+      });
+    },
+
+    on() {
+      deprecateSessionEvents();
+      return this._super(...arguments);
+    },
+
+    one() {
+      deprecateSessionEvents();
+      return this._super(...arguments);
+    },
+
+    off() {
+      deprecateSessionEvents();
+      return this._super(...arguments);
+    },
+
+    has() {
+      deprecateSessionEvents();
+      return this._super(...arguments);
+    },
+
+    trigger() {
+      deprecateSessionEvents();
+      return this._super(...arguments);
+    },
+
+    _setupHandlers() {
+      this.get('session').on('authenticationSucceeded', () => this.handleAuthentication(_configuration.default.routeAfterAuthentication));
+      this.get('session').on('invalidationSucceeded', () => this.handleInvalidation(_configuration.default.rootURL));
+    },
+
+    /**
+      __Authenticates the session with an `authenticator`__ and appropriate
+      arguments. The authenticator implements the actual steps necessary to
+      authenticate the session (see
+      {{#crossLink "BaseAuthenticator/authenticate:method"}}{{/crossLink}}) and
+      returns a promise after doing so. The session handles the returned promise
+      and when it resolves becomes authenticated, otherwise remains
+      unauthenticated. All data the authenticator resolves with will be
+      accessible via the
+      {{#crossLink "SessionService/data:property"}}session data's{{/crossLink}}
+      `authenticated` property.
+       __This method returns a promise. A resolving promise indicates that the
+      session was successfully authenticated__ while a rejecting promise
+      indicates that authentication failed and the session remains
+      unauthenticated. The promise does not resolve with a value; instead, the
+      data returned from the authenticator is available via the
+      {{#crossLink "SessionService/data:property"}}{{/crossLink}} property.
+       When authentication succeeds this will trigger the
+      {{#crossLink "SessionService/authenticationSucceeded:event"}}{{/crossLink}}
+      event.
+       @method authenticate
+      @param {String} authenticator The authenticator to use to authenticate the session
+      @param {Any} [...args] The arguments to pass to the authenticator; depending on the type of authenticator these might be a set of credentials, a Facebook OAuth Token, etc.
+      @return {Ember.RSVP.Promise} A promise that resolves when the session was authenticated successfully and rejects otherwise
+      @public
+    */
+    authenticate() {
+      const session = this.get('session');
+      return session.authenticate(...arguments);
+    },
+
+    /**
+      __Invalidates the session with the authenticator it is currently
+      authenticated with__ (see
+      {{#crossLink "SessionService/authenticate:method"}}{{/crossLink}}). This
+      invokes the authenticator's
+      {{#crossLink "BaseAuthenticator/invalidate:method"}}{{/crossLink}} method
+      and handles the returned promise accordingly.
+       This method returns a promise. A resolving promise indicates that the
+      session was successfully invalidated while a rejecting promise indicates
+      that invalidation failed and the session remains authenticated. Once the
+      session is successfully invalidated it clears all of its authenticated data
+      (see {{#crossLink "SessionService/data:property"}}{{/crossLink}}).
+       When invalidation succeeds this will trigger the
+      {{#crossLink "SessionService/invalidationSucceeded:event"}}{{/crossLink}}
+      event.
+       When calling the {{#crossLink "BaseAuthenticator/invalidate:method"}}{{/crossLink}}
+      on an already unauthenticated session, the method will return a resolved Promise
+      immediately.
+       @method invalidate
+      @param {Array} ...args arguments that will be passed to the authenticator
+      @return {Ember.RSVP.Promise} A promise that resolves when the session was invalidated successfully and rejects otherwise
+      @public
+    */
+    invalidate() {
+      const session = this.get('session');
+      return session.invalidate(...arguments);
+    },
+
+    /**
+      Checks whether the session is authenticated and if it is not, transitions
+      to the specified route or invokes the specified callback.
+       If a transition is in progress and is aborted, this method will save it in the
+      session service's
+      {{#crossLink "SessionService/attemptedTransition:property"}}{{/crossLink}}
+      property so that  it can be retried after the session is authenticated. If
+      the transition is aborted in Fastboot mode, the transition's target URL
+      will be saved in a `ember_simple_auth-redirectTarget` cookie for use by the
+      browser after authentication is complete.
+       @method requireAuthentication
+      @param {Transition} transition A transition that triggered the authentication requirement or null if the requirement originated independently of a transition
+      @param {String|Function} routeOrCallback The route to transition to in case that the session is not authenticated or a callback function to invoke in that case
+      @return {Boolean} true when the session is authenticated, false otherwise
+      @public
+    */
+    requireAuthentication(transition, routeOrCallback) {
+      assertSetupHasBeenCalled(this._setupIsCalled);
+      let isAuthenticated = (0, _routing.requireAuthentication)((0, _application.getOwner)(this), transition);
+
+      if (!isAuthenticated) {
+        let argType = typeof routeOrCallback;
+
+        if (argType === 'string') {
+          (0, _routing.triggerAuthentication)((0, _application.getOwner)(this), routeOrCallback);
+        } else if (argType === 'function') {
+          routeOrCallback();
+        } else {
+          (true && !(false) && (0, _debug.assert)(`The second argument to requireAuthentication must be a String or Function, got "${argType}"!`, false));
+        }
+      }
+
+      return isAuthenticated;
+    },
+
+    /**
+      Checks whether the session is authenticated and if it is, transitions
+      to the specified route or invokes the specified callback.
+       @method prohibitAuthentication
+      @param {String|Function} routeOrCallback The route to transition to in case that the session is authenticated or a callback function to invoke in that case
+      @return {Boolean} true when the session is not authenticated, false otherwise
+      @public
+    */
+    prohibitAuthentication(routeOrCallback) {
+      assertSetupHasBeenCalled(this._setupIsCalled);
+      let isAuthenticated = this.get('isAuthenticated');
+
+      if (isAuthenticated) {
+        let argType = typeof routeOrCallback;
+
+        if (argType === 'string') {
+          (0, _routing.prohibitAuthentication)((0, _application.getOwner)(this), routeOrCallback);
+        } else if (argType === 'function') {
+          routeOrCallback();
+        } else {
+          (true && !(false) && (0, _debug.assert)(`The first argument to prohibitAuthentication must be a String or Function, got "${argType}"!`, false));
+        }
+      }
+
+      return !isAuthenticated;
+    },
+
+    /**
+      This method is called whenever the session goes from being unauthenticated
+      to being authenticated. If there is a transition that was previously
+      intercepted by the
+      {{#crossLink "SessionService/requireAuthentication:method"}}{{/crossLink}},
+      it will retry it. If there is no such transition, the
+      `ember_simple_auth-redirectTarget` cookie will be checked for a url that
+      represents an attemptedTransition that was aborted in Fastboot mode,
+      otherwise this action transitions to the specified
+      routeAfterAuthentication.
+       @method handleAuthentication
+      @param {String} routeAfterAuthentication The route to transition to
+      @public
+    */
+    handleAuthentication(routeAfterAuthentication) {
+      (0, _routing.handleSessionAuthenticated)((0, _application.getOwner)(this), routeAfterAuthentication);
+    },
+
+    /**
+      This method is called whenever the session goes from being authenticated to
+      not being authenticated. __It reloads the Ember.js application__ by
+      redirecting the browser to the specified route so that all in-memory data
+      (such as Ember Data stores etc.) gets cleared.
+       If the Ember.js application will be used in an environment where the users
+      don't have direct access to any data stored on the client (e.g.
+      [cordova](http://cordova.apache.org)) this action can be overridden to e.g.
+      simply transition to the index route.
+       @method handleInvalidation
+      @param {String} routeAfterInvalidation The route to transition to
+      @public
+    */
+    handleInvalidation(routeAfterInvalidation) {
+      (0, _routing.handleSessionInvalidated)((0, _application.getOwner)(this), routeAfterInvalidation);
+    },
+
+    /**
+      Sets up the session service.
+       This method must be called when the application starts up,
+      usually as the first thing in the `application` route's `beforeModel`
+      method.
+       @method setup
+      @public
+    */
+    async setup() {
+      this._setupIsCalled = true;
+
+      try {
+        this._setupHandlers();
+
+        await this.session.restore();
+      } catch (error) {// If it raises an error then it means that restore didn't find any restorable state.
+      }
+    }
+
+  });
+
+  _exports.default = _default;
+});
+;define("ember-simple-auth/session-stores/adaptive", ["exports", "@ember/object", "@ember/service", "@ember/application", "ember-simple-auth/session-stores/base"], function (_exports, _object, _service, _application, _base) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+  const LOCAL_STORAGE_TEST_KEY = '_ember_simple_auth_test_key';
+
+  const proxyToInternalStore = function () {
+    return (0, _object.computed)({
+      get(key) {
+        return this.get(`_${key}`);
+      },
+
+      set(key, value) {
+        this.set(`_${key}`, value);
+
+        let _store = this.get('_store');
+
+        if (_store) {
+          _store.set(key, value);
+        }
+
+        return value;
+      }
+
+    });
+  };
+  /**
+    Session store that persists data in the browser's `localStorage` (see
+    {{#crossLink "LocalStorageStore"}}{{/crossLink}}) if that is available or in
+    a cookie (see {{#crossLink "CookieStore"}}{{/crossLink}}) if it is not.
+  
+    __This is the default store that Ember Simple Auth will use when the
+    application doesn't define a custom store.__
+  
+    __This session store does not work with FastBoot. In order to use Ember
+    Simple Auth with FastBoot, configure the
+    {{#crossLink "CookieStore"}}{{/crossLink}} as the application's session
+    store.__
+  
+    @class AdaptiveStore
+    @module ember-simple-auth/session-stores/adaptive
+    @extends BaseStore
+    @public
+  */
+
+
+  var _default = _base.default.extend({
+    /**
+      The `localStorage` key the store persists data in if `localStorage` is
+      available.
+       @property localStorageKey
+      @type String
+      @default 'ember_simple_auth-session'
+      @public
+    */
+    localStorageKey: 'ember_simple_auth-session',
+
+    /**
+      The domain to use for the cookie if `localStorage` is not available, e.g.,
+      "example.com", ".example.com" (which includes all subdomains) or
+      "subdomain.example.com". If not explicitly set, the cookie domain defaults
+      to the domain the session was authenticated on.
+       @property cookieDomain
+      @type String
+      @default null
+      @public
+    */
+    _cookieDomain: null,
+    cookieDomain: proxyToInternalStore(),
+
+    /**
+      The name of the cookie to use if `localStorage` is not available.
+       @property cookieName
+      @type String
+      @default ember_simple_auth-session
+      @public
+    */
+    _cookieName: 'ember_simple_auth-session',
+    cookieName: proxyToInternalStore(),
+
+    /**
+      The path to use for the cookie, e.g., "/", "/something".
+       @property cookiePath
+      @type String
+      @default '/'
+      @public
+    */
+    _cookiePath: '/',
+    cookiePath: proxyToInternalStore(),
+
+    /**
+      The expiration time for the cookie in seconds if `localStorage` is not
+      available. A value of `null` will make the cookie a session cookie that
+      expires and gets deleted when the browser is closed.
+       @property cookieExpirationTime
+      @default null
+      @type Integer
+      @public
+    */
+    _cookieExpirationTime: null,
+    cookieExpirationTime: proxyToInternalStore(),
+    _sameSite: null,
+    sameSite: proxyToInternalStore(),
+    _cookies: (0, _service.inject)('cookies'),
+    _isLocalStorageAvailable: (0, _object.computed)({
+      get() {
+        return testLocalStorageAvailable();
+      },
+
+      set(key, value) {
+        return value;
+      }
+
+    }),
+
+    init() {
+      this._super(...arguments);
+
+      let owner = (0, _application.getOwner)(this);
+
+      if (owner && !this.hasOwnProperty('_fastboot')) {
+        this._fastboot = owner.lookup('service:fastboot');
+      }
+
+      let store;
+
+      if (this.get('_isLocalStorageAvailable')) {
+        const localStorage = owner.lookup('session-store:local-storage');
+        const options = {
+          key: this.get('localStorageKey')
+        };
+        options._isFastBoot = false;
+        localStorage.setProperties(options);
+        store = localStorage;
+      } else {
+        const cookieStorage = owner.lookup('session-store:cookie');
+        const options = this.getProperties('sameSite', 'cookieDomain', 'cookieName', 'cookieExpirationTime', 'cookiePath');
+
+        cookieStorage._initialize(options);
+
+        this.set('cookieExpirationTime', cookieStorage.get('cookieExpirationTime'));
+        store = cookieStorage;
+      }
+
+      this.set('_store', store);
+
+      this._setupStoreEvents(store);
+    },
+
+    _setupStoreEvents(store) {
+      store.on('sessionDataUpdated', data => {
+        this.trigger('sessionDataUpdated', data);
+      });
+      return store;
+    },
+
+    /**
+      Persists the `data` in the `localStorage` if it is available or in a cookie
+      if it is not.
+       @method persist
+      @param {Object} data The data to persist
+      @return {Ember.RSVP.Promise} A promise that resolves when the data has successfully been persisted and rejects otherwise.
+      @public
+    */
+    persist() {
+      return this.get('_store').persist(...arguments);
+    },
+
+    /**
+      Returns all data currently stored in the `localStorage` if that is
+      available - or if it is not, in the cookie - as a plain object.
+       @method restore
+      @return {Ember.RSVP.Promise} A promise that resolves with the data currently persisted in the store when the data has been restored successfully and rejects otherwise.
+      @public
+    */
+    restore() {
+      return this.get('_store').restore();
+    },
+
+    /**
+      Clears the store by deleting the
+      {{#crossLink "LocalStorageStore/key:property"}}{{/crossLink}} from
+      `localStorage` if that is available or by deleting the cookie if it is not.
+       @method clear
+      @return {Ember.RSVP.Promise} A promise that resolves when the store has been cleared successfully and rejects otherwise.
+      @public
+    */
+    clear() {
+      return this.get('_store').clear();
+    }
+
+  });
+
+  _exports.default = _default;
+
+  function testLocalStorageAvailable() {
+    try {
+      localStorage.setItem(LOCAL_STORAGE_TEST_KEY, true);
+      localStorage.removeItem(LOCAL_STORAGE_TEST_KEY);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+});
+;define("ember-simple-auth/session-stores/base", ["exports", "rsvp", "@ember/object", "@ember/object/evented"], function (_exports, _rsvp, _object, _evented) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  /**
+    The base class for all session stores. __This serves as a starting point for
+    implementing custom session stores and must not be used directly.__
+  
+    Session Stores persist the session's state so that it survives a page reload
+    and is synchronized across multiple tabs or windows of the same application.
+  
+    @class BaseStore
+    @module ember-simple-auth/session-stores/base
+    @extends Ember.Object
+    @uses Ember.Evented
+    @public
+  */
+  var _default = _object.default.extend(_evented.default, {
+    /**
+      Triggered when the session store's data changes due to an external event,
+      e.g., from another tab or window of the same application. The session
+      handles that event, passes the updated data to its authenticator's
+      {{#crossLink "BaseAuthenticator/restore:method"}}{{/crossLink}} method and
+      handles the result of that invocation accordingly.
+       @event sessionDataUpdated
+      @param {Object} data The updated session data
+      @public
+    */
+
+    /**
+      Persists the `data`. This replaces all currently stored data.
+       `BaseStores`'s implementation always returns a rejecting promise. __This
+      method must be overridden in subclasses__.
+       @method persist
+      @param {Object} data The data to persist
+      @return {Ember.RSVP.Promise} A promise that resolves when the data has successfully been persisted and rejects otherwise.
+      @public
+    */
+    persist() {
+      return _rsvp.default.reject();
+    },
+
+    /**
+      Returns all data currently stored as a plain object.
+       `BaseStores`'s implementation always returns a rejecting promise. __This
+      method must be overridden in subclasses__.
+       @method restore
+      @return {Ember.RSVP.Promise} A promise that resolves with the data currently persisted in the store when the data has been restored successfully and rejects otherwise.
+      @public
+    */
+    restore() {
+      return _rsvp.default.reject();
+    },
+
+    /**
+      Clears the store.
+       `BaseStores`'s implementation always returns a rejecting promise. __This
+      method must be overridden in subclasses__.
+       @method clear
+      @return {Ember.RSVP.Promise} A promise that resolves when the store has been cleared successfully and rejects otherwise.
+      @public
+    */
+    clear() {
+      return _rsvp.default.reject();
+    }
+
+  });
+
+  _exports.default = _default;
+});
+;define("ember-simple-auth/session-stores/cookie", ["exports", "rsvp", "@ember/object", "@ember/service", "@ember/runloop", "@ember/utils", "@ember/array", "@ember/application", "@ember/debug", "ember", "ember-simple-auth/session-stores/base", "ember-simple-auth/utils/objects-are-equal"], function (_exports, _rsvp, _object, _service, _runloop, _utils, _array, _application, _debug, _ember, _base, _objectsAreEqual) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  const persistingProperty = function () {
+    let beforeSet = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {};
+    return (0, _object.computed)({
+      get(key) {
+        return this.get(`_${key}`);
+      },
+
+      set(key, value) {
+        beforeSet.apply(this, [key, value]);
+        this.set(`_${key}`, value);
+        (0, _runloop.scheduleOnce)('actions', this, this.rewriteCookie);
+        return value;
+      }
+
+    });
+  };
+  /**
+    Session store that persists data in a cookie.
+  
+    By default the cookie session store uses a session cookie that expires and is
+    deleted when the browser is closed. The cookie expiration period can be
+    configured by setting the
+    {{#crossLink "CookieStore/cookieExpirationTime:property"}}{{/crossLink}}
+    property. This can be used to implement "remember me" functionality that will
+    either store the session persistently or in a session cookie depending on
+    whether the user opted in or not:
+  
+    ```js
+    // app/controllers/login.js
+    import Controller from '@ember/controller';
+    import { inject as service } from '@ember/service';
+  
+    export default class LoginController extends Controller {
+      @service session;
+      _rememberMe = false;
+  
+      get rememberMe() {
+        return this._rememberMe;
+      }
+  
+      set rememberMe(value) {
+        let expirationTime = value ? (14 * 24 * 60 * 60) : null;
+        this.set('session.store.cookieExpirationTime', expirationTime);
+        this._rememberMe = value;
+      }
+    }
+    ```
+  
+    __Applications that use FastBoot must use this session store by defining the
+    application session store like this:__
+  
+    ```js
+    // app/session-stores/application.js
+    import CookieStore from 'ember-simple-auth/session-stores/cookie';
+  
+    export default class ApplicationSessionStore extends CookieStore {}
+    ```
+  
+    @class CookieStore
+    @module ember-simple-auth/session-stores/cookie
+    @extends BaseStore
+    @public
+  */
+
+
+  var _default = _base.default.extend({
+    _syncDataTimeout: null,
+    _renewExpirationTimeout: null,
+
+    /**
+      The domain to use for the cookie, e.g., "example.com", ".example.com"
+      (which includes all subdomains) or "subdomain.example.com". If not
+      explicitly set, the cookie domain defaults to the domain the session was
+      authenticated on.
+       @property cookieDomain
+      @type String
+      @default null
+      @public
+    */
+    _cookieDomain: null,
+    cookieDomain: persistingProperty(),
+
+    /**
+      Allows servers to assert that a cookie ought not to be sent along with cross-site requests,
+      which provides some protection against cross-site request forgery attacks (CSRF).
+      Available options:
+      - "Strict"
+      - "Lax"
+      @property sameSite
+      @type String
+      @default null
+      @public
+    */
+    _sameSite: null,
+    sameSite: persistingProperty(),
+
+    /**
+      The name of the cookie.
+       @property cookieName
+      @type String
+      @default ember_simple_auth-session
+      @public
+    */
+    _cookieName: 'ember_simple_auth-session',
+    cookieName: persistingProperty(function () {
+      this._oldCookieName = this._cookieName;
+    }),
+
+    /**
+      The path to use for the cookie, e.g., "/", "/something".
+       @property cookiePath
+      @type String
+      @default '/'
+      @public
+    */
+    _cookiePath: '/',
+    cookiePath: persistingProperty(),
+
+    /**
+      The expiration time for the cookie in seconds. A value of `null` will make
+      the cookie a session cookie that expires and gets deleted when the browser
+      is closed.
+       The recommended minimum value is 90 seconds. If your value is less than
+      that, the cookie may expire before its expiration time is extended
+      (expiration time is extended every 60 seconds).
+       @property cookieExpirationTime
+      @default null
+      @type Integer
+      @public
+    */
+    _cookieExpirationTime: null,
+    cookieExpirationTime: persistingProperty(function (key, value) {
+      // When nulling expiry time on purpose, we need to clear the cached value.
+      // Otherwise, `_calculateExpirationTime` will reuse it.
+      if ((0, _utils.isNone)(value)) {
+        this.get('_cookies').clear(`${this.get('cookieName')}-expiration_time`);
+      } else if (value < 90) {
+        (true && (0, _debug.warn)('The recommended minimum value for `cookieExpirationTime` is 90 seconds. If your value is less than that, the cookie may expire before its expiration time is extended (expiration time is extended every 60 seconds).', false, {
+          id: 'ember-simple-auth.cookieExpirationTime'
+        }));
+      }
+    }),
+    _cookies: (0, _service.inject)('cookies'),
+
+    _secureCookies() {
+      if (this.get('_fastboot.isFastBoot')) {
+        return this.get('_fastboot.request.protocol') === 'https';
+      }
+
+      return window.location.protocol === 'https:';
+    },
+
+    _isPageVisible() {
+      if (this.get('_fastboot.isFastBoot')) {
+        return false;
+      } else {
+        const visibilityState = typeof document !== 'undefined' ? document.visibilityState || 'visible' : false;
+        return visibilityState === 'visible';
+      }
+    },
+
+    init() {
+      this._super(...arguments);
+
+      let owner = (0, _application.getOwner)(this);
+
+      if (owner && !this.hasOwnProperty('_fastboot')) {
+        this._fastboot = owner.lookup('service:fastboot');
+      }
+    },
+
+    _initialize(options) {
+      const clonedOptions = Object.assign({}, options);
+
+      if (clonedOptions.cookieName) {
+        this.set('_cookieName', clonedOptions.cookieName);
+      }
+
+      delete clonedOptions.cookieName;
+      this.setProperties(clonedOptions);
+
+      let cachedExpirationTime = this._read(`${this.get('cookieName')}-expiration_time`);
+
+      if (cachedExpirationTime) {
+        this.set('cookieExpirationTime', parseInt(cachedExpirationTime, 10));
+      }
+
+      if (!this.get('_fastboot.isFastBoot')) {
+        (0, _runloop.next)(() => {
+          this._syncData().then(() => {
+            this._renewExpiration();
+          });
+        });
+      } else {
+        this._renew();
+      }
+    },
+
+    /**
+      Persists the `data` in the cookie.
+       @method persist
+      @param {Object} data The data to persist
+      @return {Ember.RSVP.Promise} A promise that resolves when the data has successfully been persisted and rejects otherwise.
+      @public
+    */
+    persist(data) {
+      this._lastData = data;
+      data = JSON.stringify(data || {});
+
+      let expiration = this._calculateExpirationTime();
+
+      this._write(data, expiration);
+
+      return _rsvp.default.resolve();
+    },
+
+    /**
+      Returns all data currently stored in the cookie as a plain object.
+       @method restore
+      @return {Ember.RSVP.Promise} A promise that resolves with the data currently persisted in the store when the data has been restored successfully and rejects otherwise.
+      @public
+    */
+    restore() {
+      let data = this._read(this.get('cookieName'));
+
+      if ((0, _utils.isEmpty)(data)) {
+        return _rsvp.default.resolve({});
+      } else {
+        return _rsvp.default.resolve(JSON.parse(data));
+      }
+    },
+
+    /**
+      Clears the store by deleting the cookie.
+       @method clear
+      @return {Ember.RSVP.Promise} A promise that resolves when the store has been cleared successfully and rejects otherwise.
+      @public
+    */
+    clear() {
+      this._write('', 0);
+
+      this._lastData = {};
+      return _rsvp.default.resolve();
+    },
+
+    _read(name) {
+      return this.get('_cookies').read(name) || '';
+    },
+
+    _calculateExpirationTime() {
+      let cachedExpirationTime = this._read(`${this.get('cookieName')}-expiration_time`);
+
+      cachedExpirationTime = cachedExpirationTime ? new Date().getTime() + cachedExpirationTime * 1000 : null;
+      return this.get('cookieExpirationTime') ? new Date().getTime() + this.get('cookieExpirationTime') * 1000 : cachedExpirationTime;
+    },
+
+    _write(value, expiration) {
+      let cookieOptions = {
+        domain: this.get('cookieDomain'),
+        expires: (0, _utils.isEmpty)(expiration) ? null : new Date(expiration),
+        path: this.get('cookiePath'),
+        secure: this._secureCookies(),
+        sameSite: this.get('sameSite')
+      };
+
+      if (this._oldCookieName) {
+        (0, _array.A)([this._oldCookieName, `${this._oldCookieName}-expiration_time`]).forEach(oldCookie => {
+          this.get('_cookies').clear(oldCookie);
+        });
+        delete this._oldCookieName;
+      }
+
+      this.get('_cookies').write(this.get('cookieName'), value, cookieOptions);
+
+      if (!(0, _utils.isEmpty)(expiration)) {
+        let expirationCookieName = `${this.get('cookieName')}-expiration_time`;
+        let cachedExpirationTime = this.get('_cookies').read(expirationCookieName);
+        this.get('_cookies').write(expirationCookieName, this.get('cookieExpirationTime') || cachedExpirationTime, cookieOptions);
+      }
+    },
+
+    _syncData() {
+      return this.restore().then(data => {
+        if (!(0, _objectsAreEqual.default)(data, this._lastData)) {
+          this._lastData = data;
+          this.trigger('sessionDataUpdated', data);
+        }
+
+        if (!_ember.default.testing) {
+          (0, _runloop.cancel)(this._syncDataTimeout);
+          this._syncDataTimeout = (0, _runloop.later)(this, this._syncData, 500);
+        }
+      });
+    },
+
+    _renew() {
+      return this.restore().then(data => {
+        if (!(0, _utils.isEmpty)(data) && !(data.constructor === Object && Object.keys(data).length === 0)) {
+          data = (0, _utils.typeOf)(data) === 'string' ? data : JSON.stringify(data || {});
+
+          let expiration = this._calculateExpirationTime();
+
+          this._write(data, expiration);
+        }
+      });
+    },
+
+    _renewExpiration() {
+      if (!_ember.default.testing) {
+        (0, _runloop.cancel)(this._renewExpirationTimeout);
+        this._renewExpirationTimeout = (0, _runloop.later)(this, this._renewExpiration, 60000);
+      }
+
+      if (this._isPageVisible()) {
+        return this._renew();
+      } else {
+        return _rsvp.default.resolve();
+      }
+    },
+
+    rewriteCookie() {
+      // if `cookieName` has not been renamed, `oldCookieName` will be nil
+      const cookieName = this._oldCookieName || this._cookieName;
+
+      const data = this._read(cookieName);
+
+      if ((0, _utils.isPresent)(data)) {
+        const expiration = this._calculateExpirationTime();
+
+        this._write(data, expiration);
+      }
+    }
+
+  });
+
+  _exports.default = _default;
+});
+;define("ember-simple-auth/session-stores/ephemeral", ["exports", "rsvp", "ember-simple-auth/session-stores/base"], function (_exports, _rsvp, _base) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  /**
+    Session store that __persists data in memory and thus is not actually
+    persistent__. It does also not synchronize the session's state across
+    multiple tabs or windows as those cannot share memory. __This store is mainly
+    useful for testing and will automatically be used when running tests.__
+  
+    @class EphemeralStore
+    @module ember-simple-auth/session-stores/ephemeral
+    @extends BaseStore
+    @public
+  */
+  var _default = _base.default.extend({
+    init() {
+      this._super(...arguments);
+
+      this.clear();
+    },
+
+    /**
+      Persists `data`. This replaces all currently stored data.
+       @method persist
+      @param {Object} data The data to persist
+      @return {Ember.RSVP.Promise} A promise that resolves when the data has successfully been persisted and rejects otherwise.
+      @public
+    */
+    persist(data) {
+      this._data = JSON.stringify(data || {});
+      return _rsvp.default.resolve();
+    },
+
+    /**
+      Returns all data currently stored as a plain object.
+       @method restore
+      @return {Ember.RSVP.Promise} A promise that resolves with the data currently persisted in the store when the data has been restored successfully and rejects otherwise.
+      @public
+    */
+    restore() {
+      const data = JSON.parse(this._data) || {};
+      return _rsvp.default.resolve(data);
+    },
+
+    /**
+      Clears the store.
+       @method clear
+      @return {Ember.RSVP.Promise} A promise that resolves when the store has been cleared successfully and rejects otherwise.
+      @public
+    */
+    clear() {
+      delete this._data;
+      this._data = '{}';
+      return _rsvp.default.resolve();
+    }
+
+  });
+
+  _exports.default = _default;
+});
+;define("ember-simple-auth/session-stores/local-storage", ["exports", "rsvp", "@ember/runloop", "@ember/application", "ember-simple-auth/session-stores/base", "ember-simple-auth/utils/objects-are-equal", "ember-simple-auth/utils/is-fastboot"], function (_exports, _rsvp, _runloop, _application, _base, _objectsAreEqual, _isFastboot) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  /**
+    Session store that persists data in the browser's `localStorage`.
+  
+    __`localStorage` is not available in Safari when running in private mode. In
+    general it is better to use the
+    {{#crossLink "AdaptiveStore"}}{{/crossLink}} that automatically falls back to
+    the {{#crossLink "CookieStore"}}{{/crossLink}} when `localStorage` is not
+    available.__
+  
+    __This session store does not work with FastBoot. In order to use Ember
+    Simple Auth with FastBoot, configure the
+    {{#crossLink "CookieStore"}}{{/crossLink}} as the application's session
+    store.__
+  
+    @class LocalStorageStore
+    @module ember-simple-auth/session-stores/local-storage
+    @extends BaseStore
+    @public
+  */
+  var _default = _base.default.extend({
+    /**
+      The `localStorage` key the store persists data in.
+       @property key
+      @type String
+      @default 'ember_simple_auth-session'
+      @public
+    */
+    key: 'ember_simple_auth-session',
+
+    init() {
+      this._super(...arguments);
+
+      this._isFastBoot = this.hasOwnProperty('_isFastBoot') ? this._isFastBoot : (0, _isFastboot.default)((0, _application.getOwner)(this));
+      this._boundHandler = (0, _runloop.bind)(this, this._handleStorageEvent);
+
+      if (!this.get('_isFastBoot')) {
+        window.addEventListener('storage', this._boundHandler);
+      }
+    },
+
+    willDestroy() {
+      if (!this.get('_isFastBoot')) {
+        window.removeEventListener('storage', this._boundHandler);
+      }
+    },
+
+    /**
+      Persists the `data` in the `localStorage`.
+       @method persist
+      @param {Object} data The data to persist
+      @return {Ember.RSVP.Promise} A promise that resolves when the data has successfully been persisted and rejects otherwise.
+      @public
+    */
+    persist(data) {
+      this._lastData = data;
+      data = JSON.stringify(data || {});
+      localStorage.setItem(this.key, data);
+      return _rsvp.default.resolve();
+    },
+
+    /**
+      Returns all data currently stored in the `localStorage` as a plain object.
+       @method restore
+      @return {Ember.RSVP.Promise} A promise that resolves with the data currently persisted in the store when the data has been restored successfully and rejects otherwise.
+      @public
+    */
+    restore() {
+      let data = localStorage.getItem(this.key);
+      return _rsvp.default.resolve(JSON.parse(data) || {});
+    },
+
+    /**
+      Clears the store by deleting the
+      {{#crossLink "LocalStorageStore/key:property"}}{{/crossLink}} from
+      `localStorage`.
+       @method clear
+      @return {Ember.RSVP.Promise} A promise that resolves when the store has been cleared successfully and rejects otherwise.
+      @public
+    */
+    clear() {
+      localStorage.removeItem(this.key);
+      this._lastData = {};
+      return _rsvp.default.resolve();
+    },
+
+    _handleStorageEvent(e) {
+      if (e.key === this.get('key')) {
+        this.restore().then(data => {
+          if (!(0, _objectsAreEqual.default)(data, this._lastData)) {
+            this._lastData = data;
+            this.trigger('sessionDataUpdated', data);
+          }
+        });
+      }
+    }
+
+  });
+
+  _exports.default = _default;
+});
+;define("ember-simple-auth/session-stores/session-storage", ["exports", "rsvp", "@ember/runloop", "@ember/application", "ember-simple-auth/session-stores/base", "ember-simple-auth/utils/objects-are-equal", "ember-simple-auth/utils/is-fastboot"], function (_exports, _rsvp, _runloop, _application, _base, _objectsAreEqual, _isFastboot) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  /**
+    Session store that persists data in the browser's `sessionStorage`.
+  
+    __`sessionStorage` is not available in Safari when running in private mode.__
+  
+    __This session store does not work with FastBoot. In order to use Ember
+    Simple Auth with FastBoot, configure the
+    {{#crossLink "CookieStore"}}{{/crossLink}} as the application's session
+    store.__
+  
+    @class SessionStorageStore
+    @module ember-simple-auth/session-stores/session-storage
+    @extends BaseStore
+    @public
+  */
+  var _default = _base.default.extend({
+    /**
+      The `sessionStorage` key the store persists data in.
+       @property key
+      @type String
+      @default 'ember_simple_auth-session'
+      @public
+    */
+    key: 'ember_simple_auth-session',
+
+    init() {
+      this._super(...arguments);
+
+      this._isFastBoot = this.hasOwnProperty('_isFastBoot') ? this._isFastBoot : (0, _isFastboot.default)((0, _application.getOwner)(this));
+
+      if (!this.get('_isFastBoot')) {
+        window.addEventListener('storage', (0, _runloop.bind)(this, this._handleStorageEvent));
+      }
+    },
+
+    willDestroy() {
+      if (!this.get('_isFastBoot')) {
+        window.removeEventListener('storage', (0, _runloop.bind)(this, this._handleStorageEvent));
+      }
+    },
+
+    /**
+      Persists the `data` in the `sessionStorage`.
+       @method persist
+      @param {Object} data The data to persist
+      @return {Ember.RSVP.Promise} A promise that resolves when the data has successfully been persisted and rejects otherwise.
+      @public
+    */
+    persist(data) {
+      this._lastData = data;
+      data = JSON.stringify(data || {});
+      sessionStorage.setItem(this.key, data);
+      return _rsvp.default.resolve();
+    },
+
+    /**
+      Returns all data currently stored in the `sessionStorage` as a plain object.
+       @method restore
+      @return {Ember.RSVP.Promise} A promise that resolves with the data currently persisted in the store when the data has been restored successfully and rejects otherwise.
+      @public
+    */
+    restore() {
+      let data = sessionStorage.getItem(this.key);
+      return _rsvp.default.resolve(JSON.parse(data) || {});
+    },
+
+    /**
+      Clears the store by deleting the
+      {{#crossLink "sessionStorageStore/key:property"}}{{/crossLink}} from
+      `sessionStorage`.
+       @method clear
+      @return {Ember.RSVP.Promise} A promise that resolves when the store has been cleared successfully and rejects otherwise.
+      @public
+    */
+    clear() {
+      sessionStorage.removeItem(this.key);
+      this._lastData = {};
+      return _rsvp.default.resolve();
+    },
+
+    _handleStorageEvent(e) {
+      if (e.key === this.get('key')) {
+        this.restore().then(data => {
+          if (!(0, _objectsAreEqual.default)(data, this._lastData)) {
+            this._lastData = data;
+            this.trigger('sessionDataUpdated', data);
+          }
+        });
+      }
+    }
+
+  });
+
+  _exports.default = _default;
+});
+;define("ember-simple-auth/use-session-setup-method", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+  var _default = false;
+  _exports.default = _default;
+});
+;define("ember-simple-auth/utils/inject", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = _default;
+
+  function _default(registry, factoryNameOrType, property, injectionName) {
+    const inject = registry.inject || registry.injection;
+    inject.call(registry, factoryNameOrType, property, injectionName);
+  }
+});
+;define("ember-simple-auth/utils/is-fastboot", ["exports", "@ember/debug", "@ember/application/instance"], function (_exports, _debug, _instance) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = isFastBoot;
+
+  /* eslint-disable no-unused-vars */
+  // @ts-check
+  function isFastBoot(owner) {
+    (true && !(owner && typeof owner.lookup === 'function') && (0, _debug.assert)('You must pass in an owner to isFastBoot!', owner && typeof owner.lookup === 'function'));
+    const fastboot = owner.lookup('service:fastboot');
+    return fastboot ? fastboot.get('isFastBoot') : false;
+  }
+});
+;define("ember-simple-auth/utils/location", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _default = () => window.location;
+
+  _exports.default = _default;
+});
+;define("ember-simple-auth/utils/objects-are-equal", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = objectsAreEqual;
+
+  function objectsAreEqual(a, b) {
+    function compare(x, y) {
+      let property;
+
+      if (isNaN(x) && isNaN(y) && typeof x === 'number' && typeof y === 'number') {
+        return true;
+      }
+
+      if (x === y) {
+        return true;
+      }
+
+      if (!(x instanceof Object && y instanceof Object)) {
+        return false;
+      }
+
+      for (property in y) {
+        if (y.hasOwnProperty(property) !== x.hasOwnProperty(property)) {
+          return false;
+        } else if (typeof y[property] !== typeof x[property]) {
+          return false;
+        }
+      }
+
+      for (property in x) {
+        if (y.hasOwnProperty(property) !== x.hasOwnProperty(property)) {
+          return false;
+        } else if (typeof y[property] !== typeof x[property]) {
+          return false;
+        }
+
+        switch (typeof x[property]) {
+          case 'object':
+            if (!compare(x[property], y[property])) {
+              return false;
+            }
+
+            break;
+
+          default:
+            if (x[property] !== y[property]) {
+              return false;
+            }
+
+            break;
+        }
+      }
+
+      return true;
+    }
+
+    return compare(a, b);
   }
 });
 ;define("ember-spectrum-color-picker/components/spectrum-color-picker", ["exports", "@ember/component", "@ember/object", "jquery"], function (_exports, _component, _object, _jquery) {
