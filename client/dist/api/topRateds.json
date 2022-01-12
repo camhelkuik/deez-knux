@@ -1,0 +1,13 @@
+{
+    "topRateds":[{ 
+        "id": 1,
+        "knux": "punk bats", 
+        "votes": 123
+        }, 
+        { 
+            "id": 2,
+            "knux": "funk cats", 
+            "votes": 13
+        }
+    ]
+}

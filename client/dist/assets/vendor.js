@@ -103667,7 +103667,7 @@ require('@ember/-internals/bootstrap')
     /**
      `keyForLink` can be used to define a custom key when deserializing link
      properties. The `ActiveModelSerializer` camelizes link keys by default.
-     */
+      */
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 
@@ -103707,8 +103707,8 @@ require('@ember/-internals/bootstrap')
     }
     /**
       Add extra step to `DS.RESTSerializer.normalize` so links are normalized.
-       If your payload looks like:
-       ```json
+        If your payload looks like:
+        ```json
       {
         "post": {
           "id": 1,
@@ -103717,8 +103717,8 @@ require('@ember/-internals/bootstrap')
         }
       }
       ```
-       The normalized version would look like this
-       ```json
+        The normalized version would look like this
+        ```json
       {
         "post": {
           "id": 1,

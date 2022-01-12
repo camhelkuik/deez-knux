@@ -1028,7 +1028,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("deez-knux/app")["default"].create({"name":"deez-knux","version":"0.0.0+29f92464"});
+            require("deez-knux/app")["default"].create({"name":"deez-knux","version":"0.0.0+1a2aa2bb"});
           }
         
 //# sourceMappingURL=deez-knux.map
