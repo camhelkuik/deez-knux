@@ -6,21 +6,6 @@ module.exports = function (environment) {
     environment,
     rootURL: '/',
     locationType: 'auto',
-    firebase: {
-      apiKey: 'AIzaSyAslz8t6Fh8TiIDlupsytiD4Hn0_LSvhkM',
-      authDomain: 'deez-knux.firebaseapp.com',
-      databaseURL: 'https://deez-knux-default-rtdb.firebaseio.com/',
-      projectId: 'deez-knux',
-      storageBucket: 'deez-knux.appspot.com',
-      messagingSenderId: '765544089265',
-      appId: '1:765544089265:web:0195c81d8f62f972eac490',
-      measurementId: 'G-S0BZXK1HG6',
-    },
-    contentSecurityPolicy: {
-      'script-src': "'self' 'unsafe-eval' apis.google.com",
-      'frame-src': "'self' https://*.firebaseapp.com",
-      'connect-src': "'self' wss://*.firebaseio.com https://*.googleapis.com",
-    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -44,6 +29,7 @@ module.exports = function (environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.apiHost = 'http://localhost:3000';
   }
 
   if (environment === 'test') {
