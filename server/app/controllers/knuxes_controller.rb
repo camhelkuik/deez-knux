@@ -1,0 +1,2 @@
+class KnuxesController < ApplicationController
+end
