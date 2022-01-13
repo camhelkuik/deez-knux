@@ -1,0 +1,2 @@
+class Knux < ApplicationRecord
+end
