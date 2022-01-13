@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  jsonapi_resources :users
+  jsonapi_resources :users, only: %w[create]
+  # jsonapi_resources :users
   jsonapi_resources :knuxes
 end

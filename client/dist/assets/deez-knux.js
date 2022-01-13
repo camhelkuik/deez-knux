@@ -418,8 +418,8 @@
 
       try {
         await this.session.authenticate('authenticator:oauth', this.email, this.password);
-      } catch (error) {
-        this.error = error;
+      } catch (e) {
+        this.error = e.error || e;
       }
     }
 

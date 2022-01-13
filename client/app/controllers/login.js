@@ -19,8 +19,8 @@ export default class LoginController extends Controller {
         this.email,
         this.password
       );
-    } catch (error) {
-      this.error = error;
+    } catch (e) {
+      this.error = e.error || e;
     }
   }
 
