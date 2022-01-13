@@ -1,0 +1,14 @@
+{{page-title "Signup"}}
+
+<h1>Sign Up</h1>
+<form {{on "submit" this.signup}}>
+    <label for="email">Username</label>
+    <input type="text" name="email" {{on "change" (fn this.update "email")}}>
+    <label for="password">Password</label>
+    <input type="password" name="password" {{on "change" (fn this.update 'password')}}>
+    <input type="submit" value="Signup">
+</form>
+
+{{#if this.error}}
+    <p><strong>{{this.error}}</strong></p>
+{{/if}}

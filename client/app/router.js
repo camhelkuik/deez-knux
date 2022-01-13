@@ -11,4 +11,5 @@ Router.map(function () {
   this.route('account');
   this.route('saved-knux');
   this.route('login');
+  this.route('signup');
 });
