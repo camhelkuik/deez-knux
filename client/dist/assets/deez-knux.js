@@ -16,7 +16,7 @@
   });
   0; //eaimeta@70e063a35619d71f0,"@ember-data/adapter/json-api"eaimeta@70e063a35619d71f
 });
-;define("deez-knux/adapters/application", ["exports", "@ember-data/adapter/json-api", "ember-simple-auth/mixins/data-adapter-mixin", "deez-knux/config/environment", "ember/service"], function (_exports, _jsonApi, _dataAdapterMixin, _environment, _service) {
+;define("deez-knux/adapters/application", ["exports", "@ember-data/adapter/json-api", "@ember/object", "@ember/service"], function (_exports, _jsonApi, _object, _service) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -24,9 +24,9 @@
   });
   _exports.default = void 0;
 
-  var _class, _descriptor;
+  var _dec, _class, _descriptor;
 
-  0; //eaimeta@70e063a35619d71f0,"@ember-data/adapter/json-api",0,"ember-simple-auth/mixins/data-adapter-mixin",0,"deez-knux/config/environment",0,"ember/service"eaimeta@70e063a35619d71f
+  0; //eaimeta@70e063a35619d71f0,"@ember-data/adapter/json-api",0,"@ember/object",0,"@ember/service"eaimeta@70e063a35619d71f
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -36,21 +36,19 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let ApplicationAdapter = (_class = class ApplicationAdapter extends _jsonApi.default.extend(_dataAdapterMixin.default) {
+  let ApplicationAdapter = (_dec = (0, _object.computed)('session.{data.authenticated.access_token,isAuthenticated}'), (_class = class ApplicationAdapter extends _jsonApi.default {
     constructor() {
       super(...arguments);
 
       _initializerDefineProperty(this, "session", _descriptor, this);
-
-      _defineProperty(this, "host", _environment.default.apiHost);
     }
 
     get headers() {
       let headers = {};
 
       if (this.session.isAuthenticated) {
-        const authHeader = `Bearer ${this.session.data.authenticated.access_token}`;
-        headers['Authorization'] = authHeader;
+        // OAuth 2
+        headers['Authorization'] = `Bearer ${this.session.data.authenticated.access_token}`;
       }
 
       return headers;
@@ -61,7 +59,7 @@
     enumerable: true,
     writable: true,
     initializer: null
-  })), _class);
+  }), _applyDecoratedDescriptor(_class.prototype, "headers", [_dec], Object.getOwnPropertyDescriptor(_class.prototype, "headers"), _class.prototype)), _class));
   _exports.default = ApplicationAdapter;
 });
 ;define("deez-knux/app", ["exports", "@ember/application", "ember-resolver", "ember-load-initializers", "deez-knux/config/environment"], function (_exports, _application, _emberResolver, _emberLoadInitializers, _environment) {
@@ -1410,7 +1408,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("deez-knux/app")["default"].create({"name":"deez-knux","version":"0.0.0+cfce053e"});
+            require("deez-knux/app")["default"].create({"name":"deez-knux","version":"0.0.0+d21cbd62"});
           }
         
 //# sourceMappingURL=deez-knux.map
