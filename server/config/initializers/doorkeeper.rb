@@ -4,15 +4,27 @@ Doorkeeper.configure do
   
     grant_flows %w[password]
   
-    resource_owner_from_credentials do
-      user = User.find_by(email: params[:username])
-      if user&.authenticate(params[:password])
-        user
-      else
-        raise Doorkeeper::Errors::DoorkeeperError.new('invalid_user_or_password')
-      end
-    end
+    # resource_owner_from_credentials do
+    #   user = User.find_by(email: params[:username])
+    #   if user&.authenticate(params[:password])
+    #     user
+    #   else
+    #     raise Doorkeeper::Errors::DoorkeeperError.new('invalid_user_or_password')
+    #   end
+    # end
   
+    resource_owner_from_credentials do |_routes|
+      User.authenticate(params[:email], params[:password])
+    end
+
+    allow_blank_redirect_uri true
+
+    skip_authorization do
+      true
+    end
+
+    use_refresh_token
+
     # This block will be called to check whether the resource owner is authenticated or not.
     resource_owner_authenticator do
       fail "Please configure doorkeeper resource_owner_authenticator block located in #{__FILE__}"
