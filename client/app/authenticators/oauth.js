@@ -1,6 +1,6 @@
 // app/authenticators/oauth2.js
 import OAuth2PasswordGrantAuthenticator from 'ember-simple-auth/authenticators/oauth2-password-grant';
-import ENV from '../congig/environment';
+import ENV from '../config/environment';
 
 const serverTokenPath = '/oauth/token';
 
