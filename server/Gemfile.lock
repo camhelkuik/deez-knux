@@ -176,7 +176,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap
   debug
-  doorkeeper
+  doorkeeper (~> 5.5)
   jsonapi-resources
   puma (~> 5.0)
   rack-cors
