@@ -3,10 +3,10 @@ import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 
 export default class ApplicationController extends Controller {
-    @service session;
+  @service session;
 
-    @action
-    logout(){
-        this.session.invalidate();
-    }
+  @action
+  logout() {
+    this.session.invalidate();
+  }
 }

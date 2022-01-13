@@ -16,7 +16,7 @@
   });
   0; //eaimeta@70e063a35619d71f0,"@ember-data/adapter/json-api"eaimeta@70e063a35619d71f
 });
-;define("deez-knux/adapters/application", ["exports", "@ember-data/adapter/json-api", "@ember/object", "@ember/service"], function (_exports, _jsonApi, _object, _service) {
+;define("deez-knux/adapters/application", ["exports", "@ember-data/adapter/json-api", "@ember/object", "@ember/service", "deez-knux/config/environment", "ember-simple-auth/mixins/data-adapter-mixin"], function (_exports, _jsonApi, _object, _service, _environment, _dataAdapterMixin) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -26,7 +26,7 @@
 
   var _dec, _class, _descriptor;
 
-  0; //eaimeta@70e063a35619d71f0,"@ember-data/adapter/json-api",0,"@ember/object",0,"@ember/service"eaimeta@70e063a35619d71f
+  0; //eaimeta@70e063a35619d71f0,"@ember-data/adapter/json-api",0,"@ember/object",0,"@ember/service",0,"deez-knux/config/environment",0,"ember-simple-auth/mixins/data-adapter-mixin"eaimeta@70e063a35619d71f
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -36,11 +36,13 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let ApplicationAdapter = (_dec = (0, _object.computed)('session.{data.authenticated.access_token,isAuthenticated}'), (_class = class ApplicationAdapter extends _jsonApi.default {
+  let ApplicationAdapter = (_dec = (0, _object.computed)('session.{data.authenticated.access_token,isAuthenticated}'), (_class = class ApplicationAdapter extends _jsonApi.default.extend(_dataAdapterMixin.default) {
     constructor() {
       super(...arguments);
 
       _initializerDefineProperty(this, "session", _descriptor, this);
+
+      _defineProperty(this, "host", _environment.default.apiHost);
     }
 
     get headers() {
@@ -98,20 +100,15 @@
   _exports.default = void 0;
   0; //eaimeta@70e063a35619d71f0,"ember-simple-auth/authenticators/oauth2-password-grant",0,"deez-knux/config/environment"eaimeta@70e063a35619d71f
 
-  function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+  //doorkeeper on server
   const serverTokenPath = '/oauth/token';
+  const serverTokenEndpoint = _environment.default.apiHost ? _environment.default.apiHost + serverTokenPath : _environment.default.apiHost;
 
-  class OAuth2Authenticator extends _oauth2PasswordGrant.default {
-    constructor() {
-      super(...arguments);
+  var _default = _oauth2PasswordGrant.default.extend({
+    serverTokenEndpoint
+  });
 
-      _defineProperty(this, "serverTokenendpoint", _environment.default.apihost ? _environment.default.apiHost + serverTokenPath : _environment.default.apiHost);
-    }
-
-  }
-
-  _exports.default = OAuth2Authenticator;
+  _exports.default = _default;
 });
 ;define("deez-knux/component-managers/glimmer", ["exports", "@glimmer/component/-private/ember-component-manager"], function (_exports, _emberComponentManager) {
   "use strict";
@@ -1142,6 +1139,19 @@
   });
   0; //eaimeta@70e063a35619d71f0,"@ember-data/serializer/rest"eaimeta@70e063a35619d71f
 });
+;define("deez-knux/serializers/application", ["exports", "@ember-data/serializer/json-api"], function (_exports, _jsonApi) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+  0; //eaimeta@70e063a35619d71f0,"@ember-data/serializer/json-api"eaimeta@70e063a35619d71f
+
+  class ApplicationSerializer extends _jsonApi.default {}
+
+  _exports.default = ApplicationSerializer;
+});
 ;define("deez-knux/services/cookies", ["exports", "ember-cookies/services/cookies"], function (_exports, _cookies) {
   "use strict";
 
@@ -1408,7 +1418,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("deez-knux/app")["default"].create({"name":"deez-knux","version":"0.0.0+d21cbd62"});
+            require("deez-knux/app")["default"].create({"name":"deez-knux","version":"0.0.0+d5fb7fe7"});
           }
         
 //# sourceMappingURL=deez-knux.map
