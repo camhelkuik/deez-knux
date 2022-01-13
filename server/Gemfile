@@ -48,5 +48,3 @@ end
 
 gem 'devise'
 gem 'jsonapi-resources'
-
-gem "doorkeeper", "~> 5.5"
