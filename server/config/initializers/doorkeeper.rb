@@ -5,6 +5,8 @@ Doorkeeper.configure do
   # Check the list of supported ORMs here: https://github.com/doorkeeper-gem/doorkeeper#orms
   orm :active_record
 
+  skip_client_authentication_for_password_grant true
+
   grant_flows %w[password]
 
   # resource_owner_from_credentials do
