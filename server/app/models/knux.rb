@@ -1,2 +1,2 @@
-class Knux <ActiveRecord::Base
+class Knux < ApplicationRecord
 end

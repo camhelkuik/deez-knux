@@ -16,17 +16,52 @@
   });
   0; //eaimeta@70e063a35619d71f0,"@ember-data/adapter/json-api"eaimeta@70e063a35619d71f
 });
-;define("deez-knux/adapters/application", ["exports", "active-model-adapter"], function (_exports, _activeModelAdapter) {
+;define("deez-knux/adapters/application", ["exports", "@ember-data/adapter/json-api", "@ember/object", "@ember/service", "deez-knux/config/environment", "ember-simple-auth/mixins/data-adapter-mixin"], function (_exports, _jsonApi, _object, _service, _environment, _dataAdapterMixin) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
     value: true
   });
   _exports.default = void 0;
-  0; //eaimeta@70e063a35619d71f0,"active-model-adapter"eaimeta@70e063a35619d71f
 
-  class ApplicationAdapter extends _activeModelAdapter.default {}
+  var _dec, _class, _descriptor;
 
+  0; //eaimeta@70e063a35619d71f0,"@ember-data/adapter/json-api",0,"@ember/object",0,"@ember/service",0,"deez-knux/config/environment",0,"ember-simple-auth/mixins/data-adapter-mixin"eaimeta@70e063a35619d71f
+
+  function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
+
+  function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+  function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object.keys(descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object.defineProperty(target, property, desc); desc = null; } return desc; }
+
+  function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
+
+  let ApplicationAdapter = (_dec = (0, _object.computed)('session.{data.authenticated.access_token,isAuthenticated}'), (_class = class ApplicationAdapter extends _jsonApi.default.extend(_dataAdapterMixin.default) {
+    constructor() {
+      super(...arguments);
+
+      _initializerDefineProperty(this, "session", _descriptor, this);
+
+      _defineProperty(this, "host", _environment.default.apiHost);
+    }
+
+    get headers() {
+      let headers = {};
+
+      if (this.session.isAuthenticated) {
+        // OAuth 2
+        headers['Authorization'] = `Bearer ${this.session.data.authenticated.access_token}`;
+      }
+
+      return headers;
+    }
+
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "session", [_service.inject], {
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    initializer: null
+  }), _applyDecoratedDescriptor(_class.prototype, "headers", [_dec], Object.getOwnPropertyDescriptor(_class.prototype, "headers"), _class.prototype)), _class));
   _exports.default = ApplicationAdapter;
 });
 ;define("deez-knux/app", ["exports", "@ember/application", "ember-resolver", "ember-load-initializers", "deez-knux/config/environment"], function (_exports, _application, _emberResolver, _emberLoadInitializers, _environment) {
@@ -55,6 +90,25 @@
 
   _exports.default = App;
   (0, _emberLoadInitializers.default)(App, _environment.default.modulePrefix);
+});
+;define("deez-knux/authenticators/oauth", ["exports", "ember-simple-auth/authenticators/oauth2-password-grant", "deez-knux/config/environment"], function (_exports, _oauth2PasswordGrant, _environment) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+  0; //eaimeta@70e063a35619d71f0,"ember-simple-auth/authenticators/oauth2-password-grant",0,"deez-knux/config/environment"eaimeta@70e063a35619d71f
+
+  //doorkeeper on server
+  const serverTokenPath = '/oauth/token';
+  const serverTokenEndpoint = _environment.default.apiHost ? _environment.default.apiHost + serverTokenPath : _environment.default.apiHost;
+
+  var _default = _oauth2PasswordGrant.default.extend({
+    serverTokenEndpoint
+  });
+
+  _exports.default = _default;
 });
 ;define("deez-knux/component-managers/glimmer", ["exports", "@glimmer/component/-private/ember-component-manager"], function (_exports, _emberComponentManager) {
   "use strict";
@@ -148,6 +202,45 @@
     }
   });
   0; //eaimeta@70e063a35619d71f0,"ember-welcome-page/components/welcome-page.js"eaimeta@70e063a35619d71f
+});
+;define("deez-knux/controllers/application", ["exports", "@ember/controller", "@ember/object", "@ember/service"], function (_exports, _controller, _object, _service) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _class, _descriptor;
+
+  0; //eaimeta@70e063a35619d71f0,"@ember/controller",0,"@ember/object",0,"@ember/service"eaimeta@70e063a35619d71f
+
+  function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
+
+  function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+  function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object.keys(descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object.defineProperty(target, property, desc); desc = null; } return desc; }
+
+  function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
+
+  let ApplicationController = (_class = class ApplicationController extends _controller.default {
+    constructor() {
+      super(...arguments);
+
+      _initializerDefineProperty(this, "session", _descriptor, this);
+    }
+
+    logout() {
+      this.session.invalidate();
+    }
+
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "session", [_service.inject], {
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    initializer: null
+  }), _applyDecoratedDescriptor(_class.prototype, "logout", [_object.action], Object.getOwnPropertyDescriptor(_class.prototype, "logout"), _class.prototype)), _class);
+  _exports.default = ApplicationController;
 });
 ;define("deez-knux/controllers/index", ["exports", "@ember/controller", "@glimmer/tracking", "@ember/object", "deez-knux/data/words", "@ember/service"], function (_exports, _controller, _tracking, _object, _words, _service) {
   "use strict";
@@ -286,6 +379,158 @@
     }
   }), _applyDecoratedDescriptor(_class.prototype, "toggleCaps", [_object.action], Object.getOwnPropertyDescriptor(_class.prototype, "toggleCaps"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "knuxColorChanged", [_object.action], Object.getOwnPropertyDescriptor(_class.prototype, "knuxColorChanged"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "fontColorChanged", [_object.action], Object.getOwnPropertyDescriptor(_class.prototype, "fontColorChanged"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "changeFont", [_object.action], Object.getOwnPropertyDescriptor(_class.prototype, "changeFont"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "generateKnux", [_object.action], Object.getOwnPropertyDescriptor(_class.prototype, "generateKnux"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "addToTopRated", [_object.action], Object.getOwnPropertyDescriptor(_class.prototype, "addToTopRated"), _class.prototype)), _class);
   _exports.default = IndexController;
+});
+;define("deez-knux/controllers/login", ["exports", "@ember/controller", "@ember/object", "@glimmer/tracking", "@ember/service"], function (_exports, _controller, _object, _tracking, _service) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _class, _descriptor, _descriptor2, _descriptor3, _descriptor4;
+
+  0; //eaimeta@70e063a35619d71f0,"@ember/controller",0,"@ember/object",0,"@glimmer/tracking",0,"@ember/service"eaimeta@70e063a35619d71f
+
+  function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
+
+  function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+  function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object.keys(descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object.defineProperty(target, property, desc); desc = null; } return desc; }
+
+  function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
+
+  let LoginController = (_class = class LoginController extends _controller.default {
+    constructor() {
+      super(...arguments);
+
+      _initializerDefineProperty(this, "session", _descriptor, this);
+
+      _initializerDefineProperty(this, "error", _descriptor2, this);
+
+      _initializerDefineProperty(this, "email", _descriptor3, this);
+
+      _initializerDefineProperty(this, "password", _descriptor4, this);
+    }
+
+    async login(event) {
+      event.preventDefault();
+
+      try {
+        await this.session.authenticate('authenticator:oauth', this.email, this.password);
+      } catch (e) {
+        this.error = e.error || e;
+      }
+    }
+
+    update(attr, event) {
+      this[attr] = event.target.value;
+    }
+
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "session", [_service.inject], {
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    initializer: null
+  }), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "error", [_tracking.tracked], {
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    initializer: null
+  }), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "email", [_tracking.tracked], {
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    initializer: null
+  }), _descriptor4 = _applyDecoratedDescriptor(_class.prototype, "password", [_tracking.tracked], {
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    initializer: null
+  }), _applyDecoratedDescriptor(_class.prototype, "login", [_object.action], Object.getOwnPropertyDescriptor(_class.prototype, "login"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "update", [_object.action], Object.getOwnPropertyDescriptor(_class.prototype, "update"), _class.prototype)), _class);
+  _exports.default = LoginController;
+});
+;define("deez-knux/controllers/signup", ["exports", "@ember/controller", "@ember/object", "@glimmer/tracking", "@ember/service"], function (_exports, _controller, _object, _tracking, _service) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5;
+
+  0; //eaimeta@70e063a35619d71f0,"@ember/controller",0,"@ember/object",0,"@glimmer/tracking",0,"@ember/service"eaimeta@70e063a35619d71f
+
+  function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
+
+  function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+  function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object.keys(descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object.defineProperty(target, property, desc); desc = null; } return desc; }
+
+  function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
+
+  let SignupController = (_class = class SignupController extends _controller.default {
+    constructor() {
+      super(...arguments);
+
+      _initializerDefineProperty(this, "session", _descriptor, this);
+
+      _initializerDefineProperty(this, "store", _descriptor2, this);
+
+      _initializerDefineProperty(this, "error", _descriptor3, this);
+
+      _initializerDefineProperty(this, "email", _descriptor4, this);
+
+      _initializerDefineProperty(this, "password", _descriptor5, this);
+    }
+
+    async signup(event) {
+      event.preventDefault();
+      let user = this.store.createRecord('user', {
+        email: this.email,
+        password: this.password
+      });
+      await user.save();
+
+      try {
+        await this.session.authenticate('authenticator:oauth', this.email, this.password);
+      } catch (e) {
+        this.error = e.error || e;
+      }
+    }
+
+    update(attr, event) {
+      this[attr] = event.target.value;
+    }
+
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "session", [_service.inject], {
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    initializer: null
+  }), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "store", [_service.inject], {
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    initializer: null
+  }), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "error", [_tracking.tracked], {
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    initializer: null
+  }), _descriptor4 = _applyDecoratedDescriptor(_class.prototype, "email", [_tracking.tracked], {
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    initializer: null
+  }), _descriptor5 = _applyDecoratedDescriptor(_class.prototype, "password", [_tracking.tracked], {
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    initializer: null
+  }), _applyDecoratedDescriptor(_class.prototype, "signup", [_object.action], Object.getOwnPropertyDescriptor(_class.prototype, "signup"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "update", [_object.action], Object.getOwnPropertyDescriptor(_class.prototype, "update"), _class.prototype)), _class);
+  _exports.default = SignupController;
 });
 ;define("deez-knux/controllers/top-rated", ["exports", "@ember/controller"], function (_exports, _controller) {
   "use strict";
@@ -509,6 +754,34 @@
   };
   _exports.default = _default;
 });
+;define("deez-knux/initializers/ember-simple-auth", ["exports", "deez-knux/config/environment", "ember-simple-auth/configuration", "ember-simple-auth/initializers/setup-session", "ember-simple-auth/initializers/setup-session-restoration", "ember-simple-auth/session-stores/adaptive", "ember-simple-auth/session-stores/local-storage", "ember-simple-auth/session-stores/cookie"], function (_exports, _environment, _configuration, _setupSession, _setupSessionRestoration, _adaptive, _localStorage, _cookie) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+  0; //eaimeta@70e063a35619d71f0,"deez-knux/config/environment",0,"ember-simple-auth/configuration",0,"ember-simple-auth/initializers/setup-session",0,"ember-simple-auth/initializers/setup-session-restoration",0,"ember-simple-auth/session-stores/adaptive",0,"ember-simple-auth/session-stores/local-storage",0,"ember-simple-auth/session-stores/cookie"eaimeta@70e063a35619d71f
+
+  var _default = {
+    name: 'ember-simple-auth',
+
+    initialize(registry) {
+      const config = _environment.default['ember-simple-auth'] || {};
+      config.rootURL = _environment.default.rootURL || _environment.default.baseURL;
+
+      _configuration.default.load(config);
+
+      registry.register('session-store:adaptive', _adaptive.default);
+      registry.register('session-store:cookie', _cookie.default);
+      registry.register('session-store:local-storage', _localStorage.default);
+      (0, _setupSession.default)(registry);
+      (0, _setupSessionRestoration.default)(registry);
+    }
+
+  };
+  _exports.default = _default;
+});
 ;define("deez-knux/initializers/export-application-global", ["exports", "ember", "deez-knux/config/environment"], function (_exports, _ember, _environment) {
   "use strict";
 
@@ -582,6 +855,26 @@
   };
   _exports.default = _default;
 });
+;define("deez-knux/instance-initializers/ember-simple-auth", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+  0; //eaimeta@70e063a35619d71feaimeta@70e063a35619d71f
+
+  // This is only needed for backwards compatibility and will be removed in the
+  // next major release of ember-simple-auth. Unfortunately, there is no way to
+  // deprecate this without hooking into Ember's internals…
+  var _default = {
+    name: 'ember-simple-auth',
+
+    initialize() {}
+
+  };
+  _exports.default = _default;
+});
 ;define("deez-knux/models/knux", ["exports", "@ember-data/model"], function (_exports, _model) {
   "use strict";
 
@@ -590,7 +883,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _class, _descriptor;
+  var _dec, _dec2, _class, _descriptor, _descriptor2;
 
   0; //eaimeta@70e063a35619d71f0,"@ember-data/model"eaimeta@70e063a35619d71f
 
@@ -602,16 +895,21 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let KnuxModel = (_dec = (0, _model.attr)('string'), (_class = class KnuxModel extends _model.default {
+  let KnuxModel = (_dec = (0, _model.attr)('string'), _dec2 = (0, _model.hasMany)('user'), (_class = class KnuxModel extends _model.default {
     constructor() {
       super(...arguments);
 
       _initializerDefineProperty(this, "knux", _descriptor, this);
-    } // @hasMany('user', { inverse: null }) upvoted;
-    // @hasMany('user') favorited;
 
+      _initializerDefineProperty(this, "favorited", _descriptor2, this);
+    }
 
   }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "knux", [_dec], {
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    initializer: null
+  }), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "favorited", [_dec2], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -643,14 +941,14 @@
     constructor() {
       super(...arguments);
 
-      _initializerDefineProperty(this, "username", _descriptor, this);
+      _initializerDefineProperty(this, "email", _descriptor, this);
 
       _initializerDefineProperty(this, "password", _descriptor2, this);
 
       _initializerDefineProperty(this, "favorited", _descriptor3, this);
     }
 
-  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "username", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "email", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -695,9 +993,50 @@
     this.route('top-rated');
     this.route('account');
     this.route('saved-knux');
+    this.route('login');
+    this.route('signup');
   });
 });
-;define("deez-knux/routes/account", ["exports", "@ember/routing/route"], function (_exports, _route) {
+;define("deez-knux/routes/account", ["exports", "@ember/routing/route", "@ember/service"], function (_exports, _route, _service) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _class, _descriptor;
+
+  0; //eaimeta@70e063a35619d71f0,"@ember/routing/route",0,"@ember/service"eaimeta@70e063a35619d71f
+
+  function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
+
+  function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+  function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object.keys(descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object.defineProperty(target, property, desc); desc = null; } return desc; }
+
+  function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
+
+  let AccountRoute = (_class = class AccountRoute extends _route.default {
+    constructor() {
+      super(...arguments);
+
+      _initializerDefineProperty(this, "session", _descriptor, this);
+    }
+
+    beforeModel(transition) {
+      this.session.requireAuthentication(transition, 'login');
+    }
+
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "session", [_service.inject], {
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    initializer: null
+  })), _class);
+  _exports.default = AccountRoute;
+});
+;define("deez-knux/routes/application", ["exports", "@ember/routing/route"], function (_exports, _route) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -706,9 +1045,10 @@
   _exports.default = void 0;
   0; //eaimeta@70e063a35619d71f0,"@ember/routing/route"eaimeta@70e063a35619d71f
 
-  class AccountRoute extends _route.default {}
+  // Ensure the application route exists for ember-simple-auth's `setup-session-restoration` initializer
+  var _default = _route.default.extend();
 
-  _exports.default = AccountRoute;
+  _exports.default = _default;
 });
 ;define("deez-knux/routes/index", ["exports", "@ember/routing/route"], function (_exports, _route) {
   "use strict";
@@ -723,18 +1063,122 @@
 
   _exports.default = IndexRoute;
 });
-;define("deez-knux/routes/saved-knux", ["exports", "@ember/routing/route"], function (_exports, _route) {
+;define("deez-knux/routes/login", ["exports", "@ember/routing/route", "@ember/service"], function (_exports, _route, _service) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
     value: true
   });
   _exports.default = void 0;
-  0; //eaimeta@70e063a35619d71f0,"@ember/routing/route"eaimeta@70e063a35619d71f
 
-  class SavedKnuxRoute extends _route.default {}
+  var _class, _descriptor;
 
+  0; //eaimeta@70e063a35619d71f0,"@ember/routing/route",0,"@ember/service"eaimeta@70e063a35619d71f
+
+  function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
+
+  function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+  function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object.keys(descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object.defineProperty(target, property, desc); desc = null; } return desc; }
+
+  function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
+
+  let LoginRoute = (_class = class LoginRoute extends _route.default {
+    constructor() {
+      super(...arguments);
+
+      _initializerDefineProperty(this, "session", _descriptor, this);
+    }
+
+    beforeModel() {
+      this.session.prohibitAuthentication('index');
+    }
+
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "session", [_service.inject], {
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    initializer: null
+  })), _class);
+  _exports.default = LoginRoute;
+});
+;define("deez-knux/routes/saved-knux", ["exports", "@ember/routing/route", "@ember/service"], function (_exports, _route, _service) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _class, _descriptor;
+
+  0; //eaimeta@70e063a35619d71f0,"@ember/routing/route",0,"@ember/service"eaimeta@70e063a35619d71f
+
+  function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
+
+  function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+  function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object.keys(descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object.defineProperty(target, property, desc); desc = null; } return desc; }
+
+  function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
+
+  let SavedKnuxRoute = (_class = class SavedKnuxRoute extends _route.default {
+    constructor() {
+      super(...arguments);
+
+      _initializerDefineProperty(this, "session", _descriptor, this);
+    }
+
+    beforeModel(transition) {
+      this.session.requireAuthentication(transition, 'login');
+    }
+
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "session", [_service.inject], {
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    initializer: null
+  })), _class);
   _exports.default = SavedKnuxRoute;
+});
+;define("deez-knux/routes/signup", ["exports", "@ember/routing/route", "@ember/service"], function (_exports, _route, _service) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _class, _descriptor;
+
+  0; //eaimeta@70e063a35619d71f0,"@ember/routing/route",0,"@ember/service"eaimeta@70e063a35619d71f
+
+  function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
+
+  function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+  function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object.keys(descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object.defineProperty(target, property, desc); desc = null; } return desc; }
+
+  function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
+
+  let SignupRoute = (_class = class SignupRoute extends _route.default {
+    constructor() {
+      super(...arguments);
+
+      _initializerDefineProperty(this, "session", _descriptor, this);
+    }
+
+    beforeModel() {
+      this.session.prohibitAuthentication('index');
+    }
+
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "session", [_service.inject], {
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    initializer: null
+  })), _class);
+  _exports.default = SignupRoute;
 });
 ;define("deez-knux/routes/top-rated", ["exports", "@ember/routing/route", "@ember/service"], function (_exports, _route, _service) {
   "use strict";
@@ -817,6 +1261,31 @@
   });
   0; //eaimeta@70e063a35619d71f0,"@ember-data/serializer/rest"eaimeta@70e063a35619d71f
 });
+;define("deez-knux/serializers/application", ["exports", "@ember-data/serializer/json-api"], function (_exports, _jsonApi) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+  0; //eaimeta@70e063a35619d71f0,"@ember-data/serializer/json-api"eaimeta@70e063a35619d71f
+
+  class ApplicationSerializer extends _jsonApi.default {}
+
+  _exports.default = ApplicationSerializer;
+});
+;define("deez-knux/services/cookies", ["exports", "ember-cookies/services/cookies"], function (_exports, _cookies) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+  0; //eaimeta@70e063a35619d71f0,"ember-cookies/services/cookies"eaimeta@70e063a35619d71f
+
+  var _default = _cookies.default;
+  _exports.default = _default;
+});
 ;define("deez-knux/services/page-title-list", ["exports", "ember-page-title/services/page-title-list"], function (_exports, _pageTitleList) {
   "use strict";
 
@@ -845,6 +1314,18 @@
   });
   0; //eaimeta@70e063a35619d71f0,"ember-page-title/services/page-title"eaimeta@70e063a35619d71f
 });
+;define("deez-knux/services/session", ["exports", "ember-simple-auth/services/session"], function (_exports, _session) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+  0; //eaimeta@70e063a35619d71f0,"ember-simple-auth/services/session"eaimeta@70e063a35619d71f
+
+  var _default = _session.default;
+  _exports.default = _default;
+});
 ;define("deez-knux/services/store", ["exports", "ember-data/store"], function (_exports, _store) {
   "use strict";
 
@@ -858,6 +1339,19 @@
     }
   });
   0; //eaimeta@70e063a35619d71f0,"ember-data/store"eaimeta@70e063a35619d71f
+});
+;define("deez-knux/session-stores/application", ["exports", "ember-simple-auth/session-stores/adaptive"], function (_exports, _adaptive) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+  0; //eaimeta@70e063a35619d71f0,"ember-simple-auth/session-stores/adaptive"eaimeta@70e063a35619d71f
+
+  var _default = _adaptive.default.extend();
+
+  _exports.default = _default;
 });
 ;define("deez-knux/templates/account", ["exports", "@ember/template-factory"], function (_exports, _templateFactory) {
   "use strict";
@@ -887,8 +1381,8 @@
   0; //eaimeta@70e063a35619d71f0,"@ember/template-factory"eaimeta@70e063a35619d71f
 
   var _default = (0, _templateFactory.createTemplateFactory)({
-    "id": "FCzQ8OrW",
-    "block": "[[[1,[28,[35,0],[\"DeezKnux\"],null]],[1,\"\\n\"],[10,\"nav\"],[14,0,\"navbar navbar-expand-lg navbar-dark nav-colors\"],[12],[1,\"\\n    \"],[10,0],[14,0,\"container-md\"],[12],[1,\"\\n        \"],[10,3],[14,0,\"navbar-brand\"],[14,6,\"#\"],[12],[1,\"Deez Knux\"],[13],[1,\"\\n        \"],[10,\"button\"],[14,0,\"navbar-toggler\"],[14,\"data-bs-toggle\",\"collapse\"],[14,\"data-bs-target\",\"#navbarNavAltMarkup\"],[14,\"aria-controls\",\"navbarNavAltMarkup\"],[14,\"aria-expanded\",\"false\"],[14,\"aria-label\",\"Toggle navigation\"],[14,4,\"button\"],[12],[1,\"\\n            \"],[10,1],[14,0,\"navbar-toggler-icon\"],[12],[13],[1,\"\\n        \"],[13],[1,\"\\n        \"],[10,0],[14,0,\"collapse navbar-collapse\"],[14,1,\"navbarNavAltMarkup\"],[12],[1,\"\\n            \"],[10,\"ul\"],[14,0,\"navbar-nav\"],[12],[1,\"\\n                \"],[8,[39,1],[[24,0,\"nav-link\"]],[[\"@route\"],[\"index\"]],[[\"default\"],[[[[1,\"Home\"]],[]]]]],[1,\"\\n                \"],[8,[39,1],[[24,0,\"nav-link\"]],[[\"@route\"],[\"top-rated\"]],[[\"default\"],[[[[1,\"Top Rated\"]],[]]]]],[1,\"\\n                \"],[10,\"li\"],[14,0,\"nav-item dropdown\"],[12],[1,\"\\n                    \"],[10,3],[14,0,\"nav-link dropdown-toggle\"],[14,1,\"navbarDropdownMenuLink\"],[14,\"role\",\"button\"],[14,\"data-bs-toggle\",\"dropdown\"],[14,\"aria-expanded\",\"false\"],[12],[1,\"\\n                        Account\\n                    \"],[13],[1,\"\\n                    \"],[10,\"ul\"],[14,0,\"dropdown-menu\"],[14,\"aria-labelledby\",\"navbarDropdownMenuLink\"],[12],[1,\"\\n                        \"],[8,[39,1],[[24,0,\"dropdown-item\"]],[[\"@route\"],[\"account\"]],[[\"default\"],[[[[1,\"Account Info\"]],[]]]]],[1,\"\\n                        \"],[8,[39,1],[[24,0,\"dropdown-item\"]],[[\"@route\"],[\"saved-knux\"]],[[\"default\"],[[[[1,\"Saved Knux\"]],[]]]]],[1,\"\\n                    \"],[13],[1,\"\\n                \"],[13],[1,\"\\n            \"],[13],[1,\"\\n        \"],[13],[1,\"\\n    \"],[13],[1,\"\\n\"],[13],[1,\"\\n\\n\"],[10,0],[14,0,\"container\"],[12],[1,\"\\n    \"],[10,0],[14,0,\"p-5 bg-light\"],[12],[1,\"\\n        \"],[46,[28,[37,3],null,null],null,null,null],[1,\"\\n    \"],[13],[1,\"\\n\"],[13],[1,\"\\n\\n\"]],[],false,[\"page-title\",\"link-to\",\"component\",\"-outlet\"]]",
+    "id": "zlNwse9w",
+    "block": "[[[1,[28,[35,0],[\"DeezKnux\"],null]],[1,\"\\n\"],[10,\"nav\"],[14,0,\"navbar navbar-expand-lg navbar-dark nav-colors\"],[12],[1,\"\\n    \"],[10,0],[14,0,\"container-md\"],[12],[1,\"\\n        \"],[10,3],[14,0,\"navbar-brand\"],[14,6,\"#\"],[12],[1,\"Deez Knux\"],[13],[1,\"\\n        \"],[10,\"button\"],[14,0,\"navbar-toggler\"],[14,\"data-bs-toggle\",\"collapse\"],[14,\"data-bs-target\",\"#navbarNavAltMarkup\"],[14,\"aria-controls\",\"navbarNavAltMarkup\"],[14,\"aria-expanded\",\"false\"],[14,\"aria-label\",\"Toggle navigation\"],[14,4,\"button\"],[12],[1,\"\\n            \"],[10,1],[14,0,\"navbar-toggler-icon\"],[12],[13],[1,\"\\n        \"],[13],[1,\"\\n        \"],[10,0],[14,0,\"collapse navbar-collapse\"],[14,1,\"navbarNavAltMarkup\"],[12],[1,\"\\n            \"],[10,\"ul\"],[14,0,\"navbar-nav\"],[12],[1,\"\\n                \"],[8,[39,1],[[24,0,\"nav-link\"]],[[\"@route\"],[\"index\"]],[[\"default\"],[[[[1,\"Home\"]],[]]]]],[1,\"\\n                \"],[8,[39,1],[[24,0,\"nav-link\"]],[[\"@route\"],[\"top-rated\"]],[[\"default\"],[[[[1,\"Top Rated\"]],[]]]]],[1,\"\\n                \"],[10,\"li\"],[14,0,\"nav-item dropdown\"],[12],[1,\"\\n                    \"],[10,3],[14,0,\"nav-link dropdown-toggle\"],[14,1,\"navbarDropdownMenuLink\"],[14,\"role\",\"button\"],[14,\"data-bs-toggle\",\"dropdown\"],[14,\"aria-expanded\",\"false\"],[12],[1,\"\\n                        Account\\n                    \"],[13],[1,\"\\n                    \"],[10,\"ul\"],[14,0,\"dropdown-menu\"],[14,\"aria-labelledby\",\"navbarDropdownMenuLink\"],[12],[1,\"\\n                        \"],[8,[39,1],[[24,0,\"dropdown-item\"]],[[\"@route\"],[\"account\"]],[[\"default\"],[[[[1,\"Account Info\"]],[]]]]],[1,\"\\n                        \"],[8,[39,1],[[24,0,\"dropdown-item\"]],[[\"@route\"],[\"saved-knux\"]],[[\"default\"],[[[[1,\"Saved Knux\"]],[]]]]],[1,\"\\n\"],[41,[30,0,[\"session\",\"isAuthenticated\"]],[[[1,\"                            \"],[8,[39,1],[[24,0,\"dropdown-item\"],[4,[38,3],[\"click\",[30,0,[\"logout\"]]],null]],null,[[\"default\"],[[[[1,\"Logout\"]],[]]]]],[1,\"\\n\"]],[]],null],[1,\"                    \"],[13],[1,\"\\n                \"],[13],[1,\"\\n            \"],[13],[1,\"\\n        \"],[13],[1,\"\\n    \"],[13],[1,\"\\n\"],[13],[1,\"\\n\\n\"],[10,0],[14,0,\"container\"],[12],[1,\"\\n    \"],[10,0],[14,0,\"p-5 bg-light\"],[12],[1,\"\\n        \"],[46,[28,[37,5],null,null],null,null,null],[1,\"\\n    \"],[13],[1,\"\\n\"],[13],[1,\"\\n\\n\"]],[],false,[\"page-title\",\"link-to\",\"if\",\"on\",\"component\",\"-outlet\"]]",
     "moduleName": "deez-knux/templates/application.hbs",
     "isStrictMode": false
   });
@@ -913,6 +1407,24 @@
 
   _exports.default = _default;
 });
+;define("deez-knux/templates/login", ["exports", "@ember/template-factory"], function (_exports, _templateFactory) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+  0; //eaimeta@70e063a35619d71f0,"@ember/template-factory"eaimeta@70e063a35619d71f
+
+  var _default = (0, _templateFactory.createTemplateFactory)({
+    "id": "s8cXqNQ2",
+    "block": "[[[1,[28,[35,0],[\"Login\"],null]],[1,\"\\n\\n\"],[10,\"h1\"],[12],[1,\"Login\"],[13],[1,\"\\n\"],[11,\"form\"],[4,[38,1],[\"submit\",[30,0,[\"login\"]]],null],[12],[1,\"\\n    \"],[10,\"label\"],[14,\"for\",\"email\"],[12],[1,\"Username\"],[13],[1,\"\\n    \"],[11,\"input\"],[24,3,\"email\"],[24,4,\"text\"],[4,[38,1],[\"change\",[28,[37,2],[[30,0,[\"update\"]],\"email\"],null]],null],[12],[13],[1,\"\\n    \"],[10,\"label\"],[14,\"for\",\"password\"],[12],[1,\"Password\"],[13],[1,\"\\n    \"],[11,\"input\"],[24,3,\"password\"],[24,4,\"password\"],[4,[38,1],[\"change\",[28,[37,2],[[30,0,[\"update\"]],\"password\"],null]],null],[12],[13],[1,\"\\n    \"],[10,\"input\"],[14,2,\"Login\"],[14,4,\"submit\"],[12],[13],[1,\"\\n\"],[13],[1,\"\\n\\n\"],[41,[30,0,[\"error\"]],[[[1,\"    \"],[10,2],[12],[10,\"strong\"],[12],[1,[30,0,[\"error\"]]],[13],[13],[1,\"\\n\"]],[]],null]],[],false,[\"page-title\",\"on\",\"fn\",\"if\"]]",
+    "moduleName": "deez-knux/templates/login.hbs",
+    "isStrictMode": false
+  });
+
+  _exports.default = _default;
+});
 ;define("deez-knux/templates/saved-knux", ["exports", "@ember/template-factory"], function (_exports, _templateFactory) {
   "use strict";
 
@@ -926,6 +1438,24 @@
     "id": "M9xW3Vm8",
     "block": "[[[1,[28,[35,0],[\"SavedKnux\"],null]],[1,\"\\n\\n\"],[10,\"h1\"],[12],[1,\"My Knux\"],[13],[1,\"\\n\"],[10,0],[14,0,\"table-responsive\"],[12],[1,\"\\n    \"],[10,\"table\"],[14,0,\"table table-dark table-striped\"],[12],[1,\"\\n        \"],[10,\"thead\"],[12],[1,\"\\n            \"],[10,\"tr\"],[12],[1,\"\\n                \"],[10,\"th\"],[14,\"scope\",\"col\"],[12],[1,\"Date Saved\"],[13],[1,\"\\n                \"],[10,\"th\"],[14,\"scope\",\"col\"],[12],[1,\"Knux\"],[13],[1,\"\\n                \"],[10,\"th\"],[14,\"scope\",\"col\"],[12],[13],[1,\"\\n            \"],[13],[1,\"\\n        \"],[13],[1,\"\\n        \"],[10,\"tbody\"],[12],[1,\"\\n            \"],[10,\"tr\"],[12],[1,\"\\n                \"],[10,\"th\"],[14,\"scope\",\"row\"],[12],[1,\"12/12/2021\"],[13],[1,\"\\n                \"],[10,\"td\"],[12],[1,\"Punk Bats\"],[13],[1,\"\\n                \"],[10,\"td\"],[12],[1,\"Delete\"],[13],[1,\"\\n            \"],[13],[1,\"\\n            \"],[10,\"tr\"],[12],[1,\"\\n                \"],[10,\"th\"],[14,\"scope\",\"row\"],[12],[1,\"10/23/2021\"],[13],[1,\"\\n                \"],[10,\"td\"],[12],[1,\"Funk Cats\"],[13],[1,\"\\n                \"],[10,\"td\"],[12],[1,\"Delete\"],[13],[1,\"\\n            \"],[13],[1,\"\\n            \"],[10,\"tr\"],[12],[1,\"\\n                \"],[10,\"th\"],[14,\"scope\",\"row\"],[12],[1,\"3/12/2021\"],[13],[1,\"\\n                \"],[10,\"td\"],[12],[1,\"Cool Rats\"],[13],[1,\"\\n                \"],[10,\"td\"],[12],[1,\"Delete\"],[13],[1,\"\\n            \"],[13],[1,\"\\n        \"],[13],[1,\"\\n    \"],[13],[1,\"\\n\"],[13]],[],false,[\"page-title\"]]",
     "moduleName": "deez-knux/templates/saved-knux.hbs",
+    "isStrictMode": false
+  });
+
+  _exports.default = _default;
+});
+;define("deez-knux/templates/signup", ["exports", "@ember/template-factory"], function (_exports, _templateFactory) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+  0; //eaimeta@70e063a35619d71f0,"@ember/template-factory"eaimeta@70e063a35619d71f
+
+  var _default = (0, _templateFactory.createTemplateFactory)({
+    "id": "3sgYy30y",
+    "block": "[[[1,[28,[35,0],[\"Signup\"],null]],[1,\"\\n\\n\"],[10,\"h1\"],[12],[1,\"Sign Up\"],[13],[1,\"\\n\"],[11,\"form\"],[4,[38,1],[\"submit\",[30,0,[\"signup\"]]],null],[12],[1,\"\\n    \"],[10,\"label\"],[14,\"for\",\"email\"],[12],[1,\"Username\"],[13],[1,\"\\n    \"],[11,\"input\"],[24,3,\"email\"],[24,4,\"text\"],[4,[38,1],[\"change\",[28,[37,2],[[30,0,[\"update\"]],\"email\"],null]],null],[12],[13],[1,\"\\n    \"],[10,\"label\"],[14,\"for\",\"password\"],[12],[1,\"Password\"],[13],[1,\"\\n    \"],[11,\"input\"],[24,3,\"password\"],[24,4,\"password\"],[4,[38,1],[\"change\",[28,[37,2],[[30,0,[\"update\"]],\"password\"],null]],null],[12],[13],[1,\"\\n    \"],[10,\"input\"],[14,2,\"Signup\"],[14,4,\"submit\"],[12],[13],[1,\"\\n\"],[13],[1,\"\\n\\n\"],[41,[30,0,[\"error\"]],[[[1,\"    \"],[10,2],[12],[10,\"strong\"],[12],[1,[30,0,[\"error\"]]],[13],[13],[1,\"\\n\"]],[]],null]],[],false,[\"page-title\",\"on\",\"fn\",\"if\"]]",
+    "moduleName": "deez-knux/templates/signup.hbs",
     "isStrictMode": false
   });
 
@@ -1028,7 +1558,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("deez-knux/app")["default"].create({"name":"deez-knux","version":"0.0.0+1a2aa2bb"});
+            require("deez-knux/app")["default"].create({"name":"deez-knux","version":"0.0.0+b302097b"});
           }
         
 //# sourceMappingURL=deez-knux.map

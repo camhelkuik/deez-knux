@@ -10,4 +10,6 @@ Router.map(function () {
   this.route('top-rated');
   this.route('account');
   this.route('saved-knux');
+  this.route('login');
+  this.route('signup');
 });

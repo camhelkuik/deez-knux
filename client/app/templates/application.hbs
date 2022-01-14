@@ -18,6 +18,9 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <LinkTo class="dropdown-item" @route="account">Account Info</LinkTo>
                         <LinkTo class="dropdown-item" @route="saved-knux">Saved Knux</LinkTo>
+                        {{#if this.session.isAuthenticated}}
+                            <LinkTo class="dropdown-item" {{on "click" this.logout}}>Logout</LinkTo>
+                        {{/if}}
                     </ul>
                 </li>
             </ul>
