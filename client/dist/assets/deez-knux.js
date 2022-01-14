@@ -925,7 +925,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _dec3, _class, _descriptor, _descriptor2, _descriptor3;
+  var _dec, _dec2, _dec3, _dec4, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4;
 
   0; //eaimeta@70e063a35619d71f0,"@ember-data/model"eaimeta@70e063a35619d71f
 
@@ -937,7 +937,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let UserModel = (_dec = (0, _model.attr)('string'), _dec2 = (0, _model.attr)('string'), _dec3 = (0, _model.hasMany)('knux'), (_class = class UserModel extends _model.default {
+  let UserModel = (_dec = (0, _model.attr)('string'), _dec2 = (0, _model.attr)('string'), _dec3 = (0, _model.attr)('string'), _dec4 = (0, _model.hasMany)('knux'), (_class = class UserModel extends _model.default {
     constructor() {
       super(...arguments);
 
@@ -945,7 +945,9 @@
 
       _initializerDefineProperty(this, "password", _descriptor2, this);
 
-      _initializerDefineProperty(this, "favorited", _descriptor3, this);
+      _initializerDefineProperty(this, "password_digest", _descriptor3, this);
+
+      _initializerDefineProperty(this, "favorited", _descriptor4, this);
     }
 
   }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "email", [_dec], {
@@ -958,7 +960,12 @@
     enumerable: true,
     writable: true,
     initializer: null
-  }), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "favorited", [_dec3], {
+  }), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "password_digest", [_dec3], {
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    initializer: null
+  }), _descriptor4 = _applyDecoratedDescriptor(_class.prototype, "favorited", [_dec4], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -1558,7 +1565,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("deez-knux/app")["default"].create({"name":"deez-knux","version":"0.0.0+b302097b"});
+            require("deez-knux/app")["default"].create({"name":"deez-knux","version":"0.0.0+965f2af6"});
           }
         
 //# sourceMappingURL=deez-knux.map
