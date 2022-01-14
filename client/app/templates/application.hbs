@@ -18,9 +18,11 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <LinkTo class="dropdown-item" @route="account">Account Info</LinkTo>
                         <LinkTo class="dropdown-item" @route="saved-knux">Saved Knux</LinkTo>
-                        {{!-- {{#if this.session.isAuthenticated}}
-                            <LinkTo class="dropdown-item" {{on "click" this.logout}}>Logout</LinkTo>
-                        {{/if}} --}}
+                        {{#if this.session.isAuthenticated}}
+                            <li type="button" class="dropdown-item" {{on "click" this.logout}}>Logout</li>
+                        {{else}}
+                            <LinkTo class="dropdown-item" @route="signup">Sign Up</LinkTo>
+                        {{/if}}
                     </ul>
                 </li>
             </ul>
@@ -33,5 +35,3 @@
         {{outlet}}
     </div>
 </div>
-
-{{!-- need a logout button and then a signin/signup page --}}
