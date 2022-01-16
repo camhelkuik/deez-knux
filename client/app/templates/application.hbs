@@ -21,6 +21,7 @@
                         {{#if this.session.isAuthenticated}}
                             <li type="button" class="dropdown-item" {{on "click" this.logout}}>Logout</li>
                         {{else}}
+                            <LinkTo class="dropdown-item" @route="login">Login</LinkTo>
                             <LinkTo class="dropdown-item" @route="signup">Sign Up</LinkTo>
                         {{/if}}
                     </ul>
