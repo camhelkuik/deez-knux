@@ -925,7 +925,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _dec3, _dec4, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4;
+  var _dec, _dec2, _dec3, _class, _descriptor, _descriptor2, _descriptor3;
 
   0; //eaimeta@70e063a35619d71f0,"@ember-data/model"eaimeta@70e063a35619d71f
 
@@ -937,7 +937,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let UserModel = (_dec = (0, _model.attr)('string'), _dec2 = (0, _model.attr)('string'), _dec3 = (0, _model.attr)('string'), _dec4 = (0, _model.hasMany)('knux'), (_class = class UserModel extends _model.default {
+  let UserModel = (_dec = (0, _model.attr)('string'), _dec2 = (0, _model.attr)('string'), _dec3 = (0, _model.hasMany)('knux'), (_class = class UserModel extends _model.default {
     constructor() {
       super(...arguments);
 
@@ -945,9 +945,7 @@
 
       _initializerDefineProperty(this, "password", _descriptor2, this);
 
-      _initializerDefineProperty(this, "password_digest", _descriptor3, this);
-
-      _initializerDefineProperty(this, "favorited", _descriptor4, this);
+      _initializerDefineProperty(this, "favorited", _descriptor3, this);
     }
 
   }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "email", [_dec], {
@@ -960,12 +958,7 @@
     enumerable: true,
     writable: true,
     initializer: null
-  }), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "password_digest", [_dec3], {
-    configurable: true,
-    enumerable: true,
-    writable: true,
-    initializer: null
-  }), _descriptor4 = _applyDecoratedDescriptor(_class.prototype, "favorited", [_dec4], {
+  }), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "favorited", [_dec3], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -1388,8 +1381,8 @@
   0; //eaimeta@70e063a35619d71f0,"@ember/template-factory"eaimeta@70e063a35619d71f
 
   var _default = (0, _templateFactory.createTemplateFactory)({
-    "id": "mT0aqpV4",
-    "block": "[[[1,[28,[35,0],[\"DeezKnux\"],null]],[1,\"\\n\"],[10,\"nav\"],[14,0,\"navbar navbar-expand-lg navbar-dark nav-colors\"],[12],[1,\"\\n    \"],[10,0],[14,0,\"container-md\"],[12],[1,\"\\n        \"],[10,3],[14,0,\"navbar-brand\"],[14,6,\"#\"],[12],[1,\"Deez Knux\"],[13],[1,\"\\n        \"],[10,\"button\"],[14,0,\"navbar-toggler\"],[14,\"data-bs-toggle\",\"collapse\"],[14,\"data-bs-target\",\"#navbarNavAltMarkup\"],[14,\"aria-controls\",\"navbarNavAltMarkup\"],[14,\"aria-expanded\",\"false\"],[14,\"aria-label\",\"Toggle navigation\"],[14,4,\"button\"],[12],[1,\"\\n            \"],[10,1],[14,0,\"navbar-toggler-icon\"],[12],[13],[1,\"\\n        \"],[13],[1,\"\\n        \"],[10,0],[14,0,\"collapse navbar-collapse\"],[14,1,\"navbarNavAltMarkup\"],[12],[1,\"\\n            \"],[10,\"ul\"],[14,0,\"navbar-nav\"],[12],[1,\"\\n                \"],[8,[39,1],[[24,0,\"nav-link\"]],[[\"@route\"],[\"index\"]],[[\"default\"],[[[[1,\"Home\"]],[]]]]],[1,\"\\n                \"],[8,[39,1],[[24,0,\"nav-link\"]],[[\"@route\"],[\"top-rated\"]],[[\"default\"],[[[[1,\"Top Rated\"]],[]]]]],[1,\"\\n                \"],[10,\"li\"],[14,0,\"nav-item dropdown\"],[12],[1,\"\\n                    \"],[10,3],[14,0,\"nav-link dropdown-toggle\"],[14,1,\"navbarDropdownMenuLink\"],[14,\"role\",\"button\"],[14,\"data-bs-toggle\",\"dropdown\"],[14,\"aria-expanded\",\"false\"],[12],[1,\"\\n                        Account\\n                    \"],[13],[1,\"\\n                    \"],[10,\"ul\"],[14,0,\"dropdown-menu\"],[14,\"aria-labelledby\",\"navbarDropdownMenuLink\"],[12],[1,\"\\n                        \"],[8,[39,1],[[24,0,\"dropdown-item\"]],[[\"@route\"],[\"account\"]],[[\"default\"],[[[[1,\"Account Info\"]],[]]]]],[1,\"\\n                        \"],[8,[39,1],[[24,0,\"dropdown-item\"]],[[\"@route\"],[\"saved-knux\"]],[[\"default\"],[[[[1,\"Saved Knux\"]],[]]]]],[1,\"\\n\"],[41,[30,0,[\"session\",\"isAuthenticated\"]],[[[1,\"                            \"],[11,\"li\"],[24,0,\"dropdown-item\"],[24,4,\"button\"],[4,[38,3],[\"click\",[30,0,[\"logout\"]]],null],[12],[1,\"Logout\"],[13],[1,\"\\n\"]],[]],[[[1,\"                            \"],[8,[39,1],[[24,0,\"dropdown-item\"]],[[\"@route\"],[\"signup\"]],[[\"default\"],[[[[1,\"Sign Up\"]],[]]]]],[1,\"\\n\"]],[]]],[1,\"                    \"],[13],[1,\"\\n                \"],[13],[1,\"\\n            \"],[13],[1,\"\\n        \"],[13],[1,\"\\n    \"],[13],[1,\"\\n\"],[13],[1,\"\\n\\n\"],[10,0],[14,0,\"container\"],[12],[1,\"\\n    \"],[10,0],[14,0,\"p-5 bg-light\"],[12],[1,\"\\n        \"],[46,[28,[37,5],null,null],null,null,null],[1,\"\\n    \"],[13],[1,\"\\n\"],[13],[1,\"\\n\"]],[],false,[\"page-title\",\"link-to\",\"if\",\"on\",\"component\",\"-outlet\"]]",
+    "id": "IhD8FSir",
+    "block": "[[[1,[28,[35,0],[\"DeezKnux\"],null]],[1,\"\\n\"],[10,\"nav\"],[14,0,\"navbar navbar-expand-lg navbar-dark nav-colors\"],[12],[1,\"\\n    \"],[10,0],[14,0,\"container-md\"],[12],[1,\"\\n        \"],[10,3],[14,0,\"navbar-brand\"],[14,6,\"#\"],[12],[1,\"Deez Knux\"],[13],[1,\"\\n        \"],[10,\"button\"],[14,0,\"navbar-toggler\"],[14,\"data-bs-toggle\",\"collapse\"],[14,\"data-bs-target\",\"#navbarNavAltMarkup\"],[14,\"aria-controls\",\"navbarNavAltMarkup\"],[14,\"aria-expanded\",\"false\"],[14,\"aria-label\",\"Toggle navigation\"],[14,4,\"button\"],[12],[1,\"\\n            \"],[10,1],[14,0,\"navbar-toggler-icon\"],[12],[13],[1,\"\\n        \"],[13],[1,\"\\n        \"],[10,0],[14,0,\"collapse navbar-collapse\"],[14,1,\"navbarNavAltMarkup\"],[12],[1,\"\\n            \"],[10,\"ul\"],[14,0,\"navbar-nav\"],[12],[1,\"\\n                \"],[8,[39,1],[[24,0,\"nav-link\"]],[[\"@route\"],[\"index\"]],[[\"default\"],[[[[1,\"Home\"]],[]]]]],[1,\"\\n                \"],[8,[39,1],[[24,0,\"nav-link\"]],[[\"@route\"],[\"top-rated\"]],[[\"default\"],[[[[1,\"Top Rated\"]],[]]]]],[1,\"\\n                \"],[10,\"li\"],[14,0,\"nav-item dropdown\"],[12],[1,\"\\n                    \"],[10,3],[14,0,\"nav-link dropdown-toggle\"],[14,1,\"navbarDropdownMenuLink\"],[14,\"role\",\"button\"],[14,\"data-bs-toggle\",\"dropdown\"],[14,\"aria-expanded\",\"false\"],[12],[1,\"\\n                        Account\\n                    \"],[13],[1,\"\\n                    \"],[10,\"ul\"],[14,0,\"dropdown-menu\"],[14,\"aria-labelledby\",\"navbarDropdownMenuLink\"],[12],[1,\"\\n                        \"],[8,[39,1],[[24,0,\"dropdown-item\"]],[[\"@route\"],[\"account\"]],[[\"default\"],[[[[1,\"Account Info\"]],[]]]]],[1,\"\\n                        \"],[8,[39,1],[[24,0,\"dropdown-item\"]],[[\"@route\"],[\"saved-knux\"]],[[\"default\"],[[[[1,\"Saved Knux\"]],[]]]]],[1,\"\\n\"],[41,[30,0,[\"session\",\"isAuthenticated\"]],[[[1,\"                            \"],[11,\"li\"],[24,0,\"dropdown-item\"],[24,4,\"button\"],[4,[38,3],[\"click\",[30,0,[\"logout\"]]],null],[12],[1,\"Logout\"],[13],[1,\"\\n\"]],[]],[[[1,\"                            \"],[8,[39,1],[[24,0,\"dropdown-item\"]],[[\"@route\"],[\"login\"]],[[\"default\"],[[[[1,\"Login\"]],[]]]]],[1,\"\\n                            \"],[8,[39,1],[[24,0,\"dropdown-item\"]],[[\"@route\"],[\"signup\"]],[[\"default\"],[[[[1,\"Sign Up\"]],[]]]]],[1,\"\\n\"]],[]]],[1,\"                    \"],[13],[1,\"\\n                \"],[13],[1,\"\\n            \"],[13],[1,\"\\n        \"],[13],[1,\"\\n    \"],[13],[1,\"\\n\"],[13],[1,\"\\n\\n\"],[10,0],[14,0,\"container\"],[12],[1,\"\\n    \"],[10,0],[14,0,\"p-5 bg-light\"],[12],[1,\"\\n        \"],[46,[28,[37,5],null,null],null,null,null],[1,\"\\n    \"],[13],[1,\"\\n\"],[13],[1,\"\\n\"]],[],false,[\"page-title\",\"link-to\",\"if\",\"on\",\"component\",\"-outlet\"]]",
     "moduleName": "deez-knux/templates/application.hbs",
     "isStrictMode": false
   });
@@ -1565,7 +1558,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("deez-knux/app")["default"].create({"name":"deez-knux","version":"0.0.0+a174318b"});
+            require("deez-knux/app")["default"].create({"name":"deez-knux","version":"0.0.0+3350071e"});
           }
         
 //# sourceMappingURL=deez-knux.map
