@@ -10,6 +10,9 @@ export default class LoginController extends Controller {
   @tracked email;
   @tracked password;
 
+  title = "Login";
+  valueType = "Login";
+
   @action
   async login(event) {
     event.preventDefault();

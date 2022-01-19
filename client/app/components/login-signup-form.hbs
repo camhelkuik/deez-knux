@@ -1,0 +1,12 @@
+<h1>{{@formTitle}}</h1>
+<form {{on "submit" @formAction}}>
+    <label for="email">Username</label>
+    <input type="text" name="email" {{on "change" (fn @updateAction "email")}}>
+    <label for="password">Password</label>
+    <input type="password" name="password" {{on "change" (fn @updateAction "password")}}>
+    <input type="submit" value="{{@valueType}}">
+</form>
+
+{{#if @error}}
+    <p><strong>{{@error}}</strong></p>
+{{/if}}

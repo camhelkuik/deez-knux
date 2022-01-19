@@ -11,10 +11,16 @@ export default class SignupController extends Controller {
   @tracked email;
   @tracked password;
 
+  title = "Sign Up";
+  valueType = "Signup";
+
   @action
   async signup(event) {
     event.preventDefault();
-    let user = this.store.createRecord('user', { email: this.email, password: this.password});
+    let user = this.store.createRecord('user', {
+      email: this.email,
+      password: this.password,
+    });
     await user.save();
 
     try {
