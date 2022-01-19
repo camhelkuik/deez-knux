@@ -80,6 +80,46 @@ define("deez-knux/tests/integration/components/knux-table-test", ["@ember/templa
     });
   });
 });
+define("deez-knux/tests/integration/components/login-signup-form-test", ["@ember/template-factory", "qunit", "ember-qunit", "@ember/test-helpers"], function (_templateFactory, _qunit, _emberQunit, _testHelpers) {
+  "use strict";
+
+  0; //eaimeta@70e063a35619d71f0,"qunit",0,"ember-qunit",0,"@ember/test-helpers",0,"ember-cli-htmlbars"eaimeta@70e063a35619d71f
+
+  (0, _qunit.module)('Integration | Component | login-signup-form', function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+    (0, _qunit.test)('it renders', async function (assert) {
+      // Set any properties with this.set('myProperty', 'value');
+      // Handle any actions with this.set('myAction', function(val) { ... });
+      await (0, _testHelpers.render)((0, _templateFactory.createTemplateFactory)(
+      /*
+        <LoginSignupForm />
+      */
+      {
+        "id": "xTh4Yzdd",
+        "block": "[[[8,[39,0],null,null,null]],[],false,[\"login-signup-form\"]]",
+        "moduleName": "(unknown template module)",
+        "isStrictMode": false
+      }));
+      assert.dom(this.element).hasText(''); // Template block usage:
+
+      await (0, _testHelpers.render)((0, _templateFactory.createTemplateFactory)(
+      /*
+        
+            <LoginSignupForm>
+              template block text
+            </LoginSignupForm>
+          
+      */
+      {
+        "id": "Wxe5Ewi4",
+        "block": "[[[1,\"\\n      \"],[8,[39,0],null,null,[[\"default\"],[[[[1,\"\\n        template block text\\n      \"]],[]]]]],[1,\"\\n    \"]],[],false,[\"login-signup-form\"]]",
+        "moduleName": "(unknown template module)",
+        "isStrictMode": false
+      }));
+      assert.dom(this.element).hasText('template block text');
+    });
+  });
+});
 define("deez-knux/tests/test-helper", ["deez-knux/app", "deez-knux/config/environment", "qunit", "@ember/test-helpers", "qunit-dom", "ember-qunit"], function (_app, _environment, QUnit, _testHelpers, _qunitDom, _emberQunit) {
   "use strict";
 

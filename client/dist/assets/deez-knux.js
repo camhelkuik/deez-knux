@@ -177,6 +177,41 @@
 
   _exports.default = _default;
 });
+;define("deez-knux/components/login-signup-form", ["exports", "@ember/component", "@ember/template-factory", "@ember/component/template-only"], function (_exports, _component, _templateFactory, _templateOnly) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+  0; //eaimeta@70e063a35619d71f0,"ember-cli-htmlbars",0,"@ember/component/template-only"eaimeta@70e063a35619d71f
+
+  const __COLOCATED_TEMPLATE__ = (0, _templateFactory.createTemplateFactory)(
+  /*
+    <h1>{{@formTitle}}</h1>
+  <form {{on "submit" @formAction}}>
+      <label for="email">Username</label>
+      <input type="text" name="email" {{on "change" (fn @updateAction "email")}}>
+      <label for="password">Password</label>
+      <input type="password" name="password" {{on "change" (fn @updateAction "password")}}>
+      <input type="submit" value="{{@valueType}}">
+  </form>
+  
+  {{#if @error}}
+      <p><strong>{{@error}}</strong></p>
+  {{/if}}
+  */
+  {
+    "id": "tn/EmiYH",
+    "block": "[[[10,\"h1\"],[12],[1,[30,1]],[13],[1,\"\\n\"],[11,\"form\"],[4,[38,0],[\"submit\",[30,2]],null],[12],[1,\"\\n    \"],[10,\"label\"],[14,\"for\",\"email\"],[12],[1,\"Username\"],[13],[1,\"\\n    \"],[11,\"input\"],[24,3,\"email\"],[24,4,\"text\"],[4,[38,0],[\"change\",[28,[37,1],[[30,3],\"email\"],null]],null],[12],[13],[1,\"\\n    \"],[10,\"label\"],[14,\"for\",\"password\"],[12],[1,\"Password\"],[13],[1,\"\\n    \"],[11,\"input\"],[24,3,\"password\"],[24,4,\"password\"],[4,[38,0],[\"change\",[28,[37,1],[[30,3],\"password\"],null]],null],[12],[13],[1,\"\\n    \"],[10,\"input\"],[15,2,[29,[[30,4]]]],[14,4,\"submit\"],[12],[13],[1,\"\\n\"],[13],[1,\"\\n\\n\"],[41,[30,5],[[[1,\"    \"],[10,2],[12],[10,\"strong\"],[12],[1,[30,5]],[13],[13],[1,\"\\n\"]],[]],null]],[\"@formTitle\",\"@formAction\",\"@updateAction\",\"@valueType\",\"@error\"],false,[\"on\",\"fn\",\"if\"]]",
+    "moduleName": "deez-knux/components/login-signup-form.hbs",
+    "isStrictMode": false
+  });
+
+  var _default = (0, _component.setComponentTemplate)(__COLOCATED_TEMPLATE__, (0, _templateOnly.default)());
+
+  _exports.default = _default;
+});
 ;define("deez-knux/components/spectrum-color-picker", ["exports", "ember-spectrum-color-picker/components/spectrum-color-picker"], function (_exports, _spectrumColorPicker) {
   "use strict";
 
@@ -411,6 +446,10 @@
       _initializerDefineProperty(this, "email", _descriptor3, this);
 
       _initializerDefineProperty(this, "password", _descriptor4, this);
+
+      _defineProperty(this, "title", "Login");
+
+      _defineProperty(this, "valueType", "Login");
     }
 
     async login(event) {
@@ -483,6 +522,10 @@
       _initializerDefineProperty(this, "email", _descriptor4, this);
 
       _initializerDefineProperty(this, "password", _descriptor5, this);
+
+      _defineProperty(this, "title", "Sign Up");
+
+      _defineProperty(this, "valueType", "Signup");
     }
 
     async signup(event) {
@@ -1417,8 +1460,8 @@
   0; //eaimeta@70e063a35619d71f0,"@ember/template-factory"eaimeta@70e063a35619d71f
 
   var _default = (0, _templateFactory.createTemplateFactory)({
-    "id": "s8cXqNQ2",
-    "block": "[[[1,[28,[35,0],[\"Login\"],null]],[1,\"\\n\\n\"],[10,\"h1\"],[12],[1,\"Login\"],[13],[1,\"\\n\"],[11,\"form\"],[4,[38,1],[\"submit\",[30,0,[\"login\"]]],null],[12],[1,\"\\n    \"],[10,\"label\"],[14,\"for\",\"email\"],[12],[1,\"Username\"],[13],[1,\"\\n    \"],[11,\"input\"],[24,3,\"email\"],[24,4,\"text\"],[4,[38,1],[\"change\",[28,[37,2],[[30,0,[\"update\"]],\"email\"],null]],null],[12],[13],[1,\"\\n    \"],[10,\"label\"],[14,\"for\",\"password\"],[12],[1,\"Password\"],[13],[1,\"\\n    \"],[11,\"input\"],[24,3,\"password\"],[24,4,\"password\"],[4,[38,1],[\"change\",[28,[37,2],[[30,0,[\"update\"]],\"password\"],null]],null],[12],[13],[1,\"\\n    \"],[10,\"input\"],[14,2,\"Login\"],[14,4,\"submit\"],[12],[13],[1,\"\\n\"],[13],[1,\"\\n\\n\"],[41,[30,0,[\"error\"]],[[[1,\"    \"],[10,2],[12],[10,\"strong\"],[12],[1,[30,0,[\"error\"]]],[13],[13],[1,\"\\n\"]],[]],null]],[],false,[\"page-title\",\"on\",\"fn\",\"if\"]]",
+    "id": "piG5pJqg",
+    "block": "[[[1,[28,[35,0],[\"Login\"],null]],[1,\"\\n\\n\"],[8,[39,1],null,[[\"@formTitle\",\"@formAction\",\"@updateAction\",\"@valueType\",\"@error\"],[[30,0,[\"title\"]],[30,0,[\"login\"]],[30,0,[\"update\"]],[30,0,[\"valueType\"]],[30,0,[\"error\"]]]],null]],[],false,[\"page-title\",\"login-signup-form\"]]",
     "moduleName": "deez-knux/templates/login.hbs",
     "isStrictMode": false
   });
@@ -1453,8 +1496,8 @@
   0; //eaimeta@70e063a35619d71f0,"@ember/template-factory"eaimeta@70e063a35619d71f
 
   var _default = (0, _templateFactory.createTemplateFactory)({
-    "id": "3sgYy30y",
-    "block": "[[[1,[28,[35,0],[\"Signup\"],null]],[1,\"\\n\\n\"],[10,\"h1\"],[12],[1,\"Sign Up\"],[13],[1,\"\\n\"],[11,\"form\"],[4,[38,1],[\"submit\",[30,0,[\"signup\"]]],null],[12],[1,\"\\n    \"],[10,\"label\"],[14,\"for\",\"email\"],[12],[1,\"Username\"],[13],[1,\"\\n    \"],[11,\"input\"],[24,3,\"email\"],[24,4,\"text\"],[4,[38,1],[\"change\",[28,[37,2],[[30,0,[\"update\"]],\"email\"],null]],null],[12],[13],[1,\"\\n    \"],[10,\"label\"],[14,\"for\",\"password\"],[12],[1,\"Password\"],[13],[1,\"\\n    \"],[11,\"input\"],[24,3,\"password\"],[24,4,\"password\"],[4,[38,1],[\"change\",[28,[37,2],[[30,0,[\"update\"]],\"password\"],null]],null],[12],[13],[1,\"\\n    \"],[10,\"input\"],[14,2,\"Signup\"],[14,4,\"submit\"],[12],[13],[1,\"\\n\"],[13],[1,\"\\n\\n\"],[41,[30,0,[\"error\"]],[[[1,\"    \"],[10,2],[12],[10,\"strong\"],[12],[1,[30,0,[\"error\"]]],[13],[13],[1,\"\\n\"]],[]],null]],[],false,[\"page-title\",\"on\",\"fn\",\"if\"]]",
+    "id": "QXdVo44Z",
+    "block": "[[[1,[28,[35,0],[\"Signup\"],null]],[1,\"\\n\\n\"],[8,[39,1],null,[[\"@formTitle\",\"@formAction\",\"@updateAction\",\"@valueType\",\"@error\"],[[30,0,[\"title\"]],[30,0,[\"signup\"]],[30,0,[\"update\"]],[30,0,[\"valueType\"]],[30,0,[\"error\"]]]],null]],[],false,[\"page-title\",\"login-signup-form\"]]",
     "moduleName": "deez-knux/templates/signup.hbs",
     "isStrictMode": false
   });
@@ -1558,7 +1601,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("deez-knux/app")["default"].create({"name":"deez-knux","version":"0.0.0+3350071e"});
+            require("deez-knux/app")["default"].create({"name":"deez-knux","version":"0.0.0+ddce5f76"});
           }
         
 //# sourceMappingURL=deez-knux.map
